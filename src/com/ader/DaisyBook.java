@@ -20,18 +20,14 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 	private String path = "";
 	private int currentnccIndex = 0;
 
-	public String Open(String nccPath) {
+	public void Open(String nccPath) {
 		clear();
 		this.path = nccPath;
-		
 
 		SAXReader reader = new SAXReader();
 
 		try {
-			String temp;
-
 			Document document = reader.read(new File(path, "ncc.html"));
-
 			List<Element> list = (List<Element>) document.getRootElement()
 					.elements("body");
 			list = (List<Element>) list.get(0).elements();
@@ -42,16 +38,12 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 
 					add(new NCCEntry(element));
 				}
-
 			}
-			temp = "";
 
-			return temp;
+			
 
 		} catch (DocumentException e) {
-			return "Failed!";
 		}
-
 	}
 
 	NCCEntry current() {
@@ -95,8 +87,7 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 		if (currentnccIndex != bookmark.getNccIndex()) {
 			smilFile.Open(new File(path, current().GetSmil()));
 			bookmark.setPosition(0);
-			bookmark.setFilename(path   
-					+ smilFile.get(0).getSrc());
+			bookmark.setFilename(path + smilFile.get(0).getSrc());
 			currentnccIndex = bookmark.getNccIndex();
 
 		}
