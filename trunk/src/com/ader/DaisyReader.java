@@ -3,7 +3,6 @@ package com.ader;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.widget.ArrayAdapter;
 
 public class DaisyReader extends ListActivity {
