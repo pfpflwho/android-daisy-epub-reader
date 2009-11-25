@@ -1,0 +1,18 @@
+#summary an introduction to DAISY files.
+#labels Phase-Requirements,Phase-QA,Phase-Support
+
+= Introduction =
+
+If you're like me, you're relatively new to DAISY. Here are some links and references that might be useful.
+
+= Details =
+
+2 useful articles which provide a useful introduction to the topic
+http://www.digitaltalkingbook.com/publications/docs/20070315155100/intro-article1.html
+http://www.digitaltalkingbook.com/publications/docs/20070315155100/intro-article2.html
+
+Sample DAISY 202 books in various forms are available from http://www.daisy.org/z3986/samples/
+
+Sample DAISY 3 books are available from
+http://www.gh-accessibility.com/store/download.php Search for Chimpanzees to find the first of several links to sample books. The first link is reproduced here to save time
+http://www.gh-accessibility.com/store/files/Chimpanzees_DAISY_3.0.zip
