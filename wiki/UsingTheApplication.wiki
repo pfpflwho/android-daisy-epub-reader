@@ -1,0 +1,48 @@
+#summary Here's an overview of the current functionality of the DAISY Reader.
+
+= Introduction =
+
+Here are some rough notes on the current functionality of the application. The software is still unfinished and the UI is extremely rough, however it does support the basic DAISY 202 format for audio books, so some of you may already find it useful.
+
+The content of the DAISY books will need to be installed in folders (directories) on the SD Card in the Android device.
+
+We have provided a sample book in the Resources folder of the source code. The book is called light-man and is available here http://code.google.com/p/android-daisy-epub-reader/source/browse/#svn/trunk/Resources/light-man - Download all the files onto your computer, preferably into a separate folder, and then copy the folder to the SD card using a USB connection. We will try to find ways to distribute some sample books more easily in future.
+
+= Details =
+
+Start the DAISY reader and browse to the folder containing a DAISY book e.g. light-man.
+
+The application will detect that the folder contains a DAISY book and
+when you press select on the folder name, the book will open.
+
+You can then use the trackball/DPad to select the required chapter
+from the book and press select to toggle Play/Stop.
+
+When you press stop and exit the application, it remembers where
+you last were in the book so you can resume reading at a later time.
+
+When you open a DAISY book the default heading level is 1. Some simple
+books may only need 1 level such as the sample book provided, other
+longer books such as long novels or manuals etc may be split into
+parts and chapters, in which case you would typically find Parts at
+heading level 1 and chapters at heading level 2.
+
+At present, a long press of the trackball will enable you to choose
+the level you require. In the example above, choosing level 1 enables
+you to navigate quickly between just the parts of the book, choosing
+level 2, would include the chapter headings as well.
+
+The application has not yet implemented several features of the
+standard such as phrase navigation, Page navigation, sidebars etc,
+however it can now be used at a basic level to read many DAISY books
+such as the thousands of DAISY books available from The Royal National
+Institute of the Blind and other DAISY book libraries around the
+world.
+
+= Notes =
+The contents of a DAISY book may have multiple heading levels similar
+to an HTML page and this is now supported by the application.
+
+I will be uploading a sample book with multiple headings later on to
+try if you don't already have one and I'll mail the details to the
+list when done.
