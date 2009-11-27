@@ -1,4 +1,5 @@
 #summary Here's an overview of the current functionality of the DAISY Reader.
+#labels Featured,Phase-Deploy
 
 = Introduction =
 
