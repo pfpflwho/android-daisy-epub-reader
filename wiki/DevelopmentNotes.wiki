@@ -1,0 +1,12 @@
+#summary Some tips and notes for developers and maintainers of this project.
+#labels Phase-Implementation
+
+= Introduction =
+
+Here are some tips that may help us to maintain the project effectively and efficiently.
+
+= Tips =
+   * We can generate QR codes for downloads using the zxing online web tool here
+http://zxing.appspot.com/generator/
+   * Please update the releasenotes.txt with siginficant changes. Note some revisions don't need comments, and those made through the web UI will not be recorded in the document anyway.
+
