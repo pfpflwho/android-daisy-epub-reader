@@ -1,4 +1,4 @@
-#summary OVarious references and notes on SMIL to help us implement support correctly.
+#summary Various references and notes on SMIL to help us implement support correctly.
 #labels Phase-Design,Phase-Implementation
 
 = Introduction =
