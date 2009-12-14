@@ -25,3 +25,6 @@ Sample DAISY 3 books are available from
 
 http://www.gh-accessibility.com/store/download.php Search for Chimpanzees to find the first of several links to sample books. The first link is reproduced here to save time
 http://www.gh-accessibility.com/store/files/Chimpanzees_DAISY_3.0.zip
+
+= Related work =
+NIMAS (National Instructional Materials Accessibility Standard) seems to be a superset of DAISY 3 more details are available from http://nimas.cast.org/
