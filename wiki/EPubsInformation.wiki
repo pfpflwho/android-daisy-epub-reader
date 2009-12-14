@@ -12,3 +12,4 @@ Within the contents of the epubs zip file, {{{Content.opf}}} is the master file.
 ||URL||Comment||
 ||http://www.jedisaber.com/eBooks/tutorial.asp||A useful introduction to epubs||
 ||http://en.wikipedia.org/wiki/EPUB||Wikipedia's notes, including details of the file format||
+||http://www.adobe.com/products/digitaleditions/library/||Some interesting sample books, and some software to read them on desktop computers||
