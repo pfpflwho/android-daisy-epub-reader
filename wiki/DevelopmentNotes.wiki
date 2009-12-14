@@ -8,5 +8,4 @@ Here are some tips that may help us to maintain the project effectively and effi
 = Tips =
    * We can generate QR codes for downloads using the zxing online web tool here
 http://zxing.appspot.com/generator/
-   * Please update the releasenotes.txt with siginficant changes. Note some revisions don't need comments, and those made through the web UI will not be recorded in the document anyway.
-
+   * Please update the [http://android-daisy-epub-reader.googlecode.com/svn/trunk/releasenotes.txt releasenotes.txt] with siginficant changes. Note some revisions don't need comments, and those made through the web UI will not be recorded in the document anyway.
