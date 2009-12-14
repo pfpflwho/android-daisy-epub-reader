@@ -1,0 +1,14 @@
+#summary Information about epubs books, including references.
+#labels Phase-Design,Phase-Requirements
+
+= Introduction =
+
+The epubs format is popular, with a range of books packaged in this format. The format is a strict subset of DAISY 3 packaged as a zip file. We would like to support the epubs format.
+
+= Details =
+Within the contents of the epubs zip file, {{{Content.opf}}} is the master file.
+
+= External links =
+||URL||Comment||
+||http://www.jedisaber.com/eBooks/tutorial.asp||A useful introduction to epubs||
+||http://en.wikipedia.org/wiki/EPUB||Wikipedia's notes, including details of the file format||
