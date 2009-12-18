@@ -18,3 +18,4 @@ A SMIL element in java should know how to 'read' itself. The read action may dep
 ||http://www.w3.org/AudioVideo/#Specificat||w3c specifications for SMIL 1.0, 2.1, 2.0, and 3.0||
 ||http://www.w3.org/TR/REC-smil/||Detailed specification of SMIL 1.0||
 ||http://www.w3.org/TR/smil-boston-dom/java-binding.html||Java language bindings for SMIL 1.0 from the w3c||
+||http://www.x-smiles.org/xsmiles_smil.html||SMIL 2.0 implementation in Java with source code and sample applications||
