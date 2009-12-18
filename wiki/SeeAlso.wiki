@@ -1,0 +1,11 @@
+#summary Other stuff that might be of interest e.g. similar projects.
+#labels Phase-Design,Phase-Requirements,Phase-QA
+
+= Introduction =
+
+This page helps collect ideas, links, and miscellaneous references that may be of interest.
+
+
+= Details =
+||URL||Comments||
+||http://www.daisynow.net/blog/?p=10||Mobile Digital Talking Book for the Microsoft eBox. Includes a navigation design using a numeric keypad.||
