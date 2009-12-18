@@ -9,3 +9,4 @@ This page helps collect ideas, links, and miscellaneous references that may be o
 = Details =
 ||URL||Comments||
 ||http://www.daisynow.net/blog/?p=10||Mobile Digital Talking Book for the Microsoft eBox. Includes a navigation design using a numeric keypad.||
+||http://daisy.trac.cvsdude.com/tobi/||To quote from the project's homepage: "Tobi is a next-generation production tool for accessible multimedia formats such as DAISY-3 digital talking books". Implementation based on C# and Microsoft .NET framework.||
