@@ -10,3 +10,6 @@ This page helps collect ideas, links, and miscellaneous references that may be o
 ||URL||Comments||
 ||http://www.daisynow.net/blog/?p=10||Mobile Digital Talking Book for the Microsoft eBox. Includes a navigation design using a numeric keypad.||
 ||http://daisy.trac.cvsdude.com/tobi/||To quote from the project's homepage: "Tobi is a next-generation production tool for accessible multimedia formats such as DAISY-3 digital talking books". Implementation based on C# and Microsoft .NET framework.||
+||http://www.saxproject.org/quickstart.html||Useful introduction to the SAX parser from the project's web site.||
+||http://www.ibm.com/developerworks/xml/library/x-tiphndl3.html||One of a series of articles which explain various facets of using the SAX parser in Java.||
+||http://www.ibm.com/developerworks/xml/library/x-tipsaxval.html||Another IBM developerWorks article, this one's on customized validation.||
