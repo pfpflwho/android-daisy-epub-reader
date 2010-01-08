@@ -12,3 +12,11 @@ We added JUnit tests in r50, and have been slowly refactoring the code and addin
    * We can generate QR codes for downloads using the zxing online web tool here
 http://zxing.appspot.com/generator/
    * Please update the [http://android-daisy-epub-reader.googlecode.com/svn/trunk/releasenotes.txt releasenotes.txt] with siginficant changes. Note some revisions don't need comments, and those made through the web UI will not be recorded in the document anyway.
+
+= Links to information on Android testing =
+Here are a collection of links that may be useful as we add more automated tests, and as we re-engineer the application into distinct components.
+||URL||Comments||
+||http://developer.android.com/guide/samples/ApiDemos/tests/src/com/example/android/apis/app/LocalServiceTest.html||How to create automated tests for an Android Service, useful if and when we make the player a Service.||
+||http://dtmilano.blogspot.com/||Lots of useful blog posts, with examples, on automated testing for Android||
+||http://www.slideshare.net/marc_chung/testing-android||A short presentation on Automating Android Testing||
+   *
