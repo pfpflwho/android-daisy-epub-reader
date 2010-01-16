@@ -27,6 +27,9 @@ Search was considered for near future, where the Daisy Reader can consume data f
 = Android Buttons =
 
 == Back ==
+
+Android Back button will work consistently with the Android platform. If the users in reading the book, the back button will take users back to Content, back to File List or Search Results, back to screen from where application was launched (say you opened book from Email or Browser), or to Android Home screen if no previous action was logged.  
+
 == Menu ==
 
 The menu will have 6 buttons.
