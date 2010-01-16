@@ -1,9 +1,9 @@
-#summary Notes from the Daisy UI review meeting.
+#summary Notes from the Daisy UX review meeting.
 #labels Phase-Design,Phase-Requirements
 
 = Introduction =
 
-The team met on January 8th 2010 to review current UI (Daisy Reader release 82) and discussed next steps in user experience and user interaction to get the best results for users to easy find, access, navigate and read audio books.
+The team met on January 8th 2010 to review current UI (Daisy Reader release 82) and discussed next steps in user experience and user interaction to get the best results for users to easy find, access, navigate and read audio books. This UX Proposal based on the meeting minutes and discussions.
 
 
 = First Time Installation =
@@ -28,16 +28,16 @@ Search was considered for near future, where the Daisy Reader can consume data f
 
 == Back ==
 == Menu ==
+
+The menu will have 6 buttons.
 == Search ==
 
 
 = Application Menu =
 
 
-= Finding / Searching book =
-
-
 = Reading book =
 
+== Navigating Content ==
 
-= Navigating Content =
+== Navigating chapters ==
