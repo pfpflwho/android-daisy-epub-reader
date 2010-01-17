@@ -5,15 +5,15 @@
 
 The team met on January 8th 2010 to review current UI (Daisy Reader release 82) and discussed next steps in user experience and user interaction to get the best results for users to easy find, access, navigate and read audio books. This UX Proposal based on the meeting minutes and discussions.
 
-
 = First Time Installation =
 
 When users launch the application for the first time, a welcome splash page will display in dialog, offering welcoming words and top quick tips to explain how the application works. Checkbox control will be offered for users to turn off this dialog when application starts next time. This dialog can be accessed again via the Help button from the application menu.
 
-Closing this dialog, a simple menu will be offered on the screen:
+Closing this dialog, a simple Home menu will be offered on the screen:
 
-  * Open book
+  * Open new book
   * Search for books
+  * Open last book
 
 == Open book ==
 
@@ -21,8 +21,11 @@ Open book link will show the SD card file manager for user to navigate to the fo
 
 == Search ==
 
-Search was considered for near future, where the Daisy Reader can consume data from public APIs offering daisy books for free download, or offering bookmark list of sites listing free books. Lists will natively be rendered in the Daisy UI, so users can easily pick the book of interest.
+Search was considered for near future, where the Daisy Reader can consume data from public APIs offering daisy books for free download, or offering bookmark list of sites listing free books. Lists will natively be rendered in the Daisy UI, so users can easily pick the book of interest.was left.
 
+== Open last book ==
+
+Open last book should offer option the reader to remember the last book the user was reading and open the book on the place where it 
 
 = Android Buttons =
 
@@ -32,15 +35,47 @@ Android Back button will work consistently with the Android platform. If the use
 
 == Menu ==
 
-The menu will have 6 buttons.
+== When on home page ==
+
+  * Open book
+  * Search for books
+  * Open last book
+  * Settings
+  * Help
+
+== When Reading Book ==
+  
+  * Open book
+  * Contents
+  * Add Bookmark
+  * Bookmarks
+  * Search (text search)
+  * Help
+
 == Search ==
 
+  * Android Search Button will trigger the web or file search UI also accessible from the home page. 
+  * In reading mode should bring up the search book option.
 
-= Application Menu =
+= Reading a book =
 
+Once book is downloaded or copied on the SD Card, and users open the book from the home menu as new, the Reader will show the content and read the book credits - "About the book".
 
-= Reading book =
+If the user is returning to the book, Reader stars reading from the last "page" user left.
 
-== Navigating Content ==
+Team discussed should the navigation mimic the traditional Daisy players, something current users are used to, or adopt fresh approach for the touchscreen device. Based on the idea that the Android Daisy Reader should be universally designed for all users, the team decided on the later. 
 
-== Navigating chapters ==
+== Navigating Contents ==
+
+Daisy books are XML files, so the team was exploring best logical way to navigate the tree.
+
+=== Gestures ===
+
+  * Swipe up (previous sibling)
+  * Swipe Down (next sibling)
+  * Swipe Right (first child)
+  * Swipe Left (parent)
+
+(Team, please review this if a captured the discussion about navigation correctly. )
+
+Same navigation logic will apply when users are reading at any level of the book.
