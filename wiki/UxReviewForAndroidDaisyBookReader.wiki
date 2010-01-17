@@ -35,7 +35,7 @@ Android Back button will work consistently with the Android platform. If the use
 
 == Menu ==
 
-== When on home page ==
+=== When on home page ===
 
   * Open book
   * Search for books
@@ -43,9 +43,9 @@ Android Back button will work consistently with the Android platform. If the use
   * Settings
   * Help
 
-== When Reading Book ==
+=== When Reading Book ===
   
-  * Open book
+  * Home
   * Contents
   * Add Bookmark
   * Bookmarks
@@ -76,6 +76,6 @@ Daisy books are XML files, so the team was exploring best logical way to navigat
   * Swipe Right (first child)
   * Swipe Left (parent)
 
-(Team, please review this if a captured the discussion about navigation correctly. )
+(Team, please review this if I captured the discussion about navigation correctly)
 
 Same navigation logic will apply when users are reading at any level of the book.
