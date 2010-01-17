@@ -25,7 +25,7 @@ Search was considered for near future, where the Daisy Reader can consume data f
 
 == Open last book ==
 
-Open last book should offer option the reader to remember the last book the user was reading and open the book on the place where it 
+Open last book should offer option the reader to remember the last book the user was reading and open the book on the place where last left.
 
 = Android Buttons =
 
