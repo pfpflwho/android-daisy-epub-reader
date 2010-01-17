@@ -3,7 +3,7 @@
 
 = Introduction =
 
-The team met on January 8th 2010 to review current UI (Daisy Reader release 82) and discussed next steps in user experience and user interaction to get the best results for users to easy find, access, navigate and read audio books. This UX Proposal based on the meeting minutes and discussions.
+The team met on January 8th 2010 to review current UI (Daisy Reader release 82) and discussed next steps in user experience and user interaction to get the best results for users to easy find, access, navigate and read audio books. This is UX Proposal based on the meeting minutes and discussions.
 
 = First Time Installation =
 
@@ -21,7 +21,7 @@ Open book link will show the SD card file manager for user to navigate to the fo
 
 == Search ==
 
-Search was considered for near future, where the Daisy Reader can consume data from public APIs offering daisy books for free download, or offering bookmark list of sites listing free books. Lists will natively be rendered in the Daisy UI, so users can easily pick the book of interest.was left.
+Search was considered for near future, where the Daisy Reader can consume data from public APIs offering daisy books for free download, or offering bookmark list of sites listing free books. Lists will natively be rendered in the Daisy UI, so users can easily pick the book of interest.
 
 == Open last book ==
 
