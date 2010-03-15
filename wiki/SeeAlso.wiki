@@ -1,4 +1,4 @@
-#summary Other stuff that might be of interest e.g. similar projects.
+﻿#summary Other stuff that might be of interest e.g. similar projects.
 #labels Phase-Design,Phase-Requirements,Phase-QA
 
 = Introduction =
@@ -13,3 +13,4 @@ This page helps collect ideas, links, and miscellaneous references that may be o
 ||http://www.saxproject.org/quickstart.html||Useful introduction to the SAX parser from the project's web site.||
 ||http://www.ibm.com/developerworks/xml/library/x-tiphndl3.html||One of a series of articles which explain various facets of using the SAX parser in Java.||
 ||http://www.ibm.com/developerworks/xml/library/x-tipsaxval.html||Another IBM developerWorks article, this one's on customized validation.||
+||http://www.eff.org/related/8107/blog||Some background articles on Accessible content for the blind by the EFF.||
