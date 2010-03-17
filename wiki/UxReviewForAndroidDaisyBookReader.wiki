@@ -3,11 +3,11 @@
 
 = Introduction =
 
-The team met on January 8th 2010 to review current UI (Daisy Reader release 82) and discussed next steps in user experience and user interaction to get the best results for users to easy find, access, navigate and read audio books. This is UX Proposal based on the meeting minutes and discussions.
+The team met on January 8th 2010 to review the current UI (Daisy Reader release 82). We discussed the next steps for the user experience and user interaction to get better results for users to easily: find, access, navigate, and read audio books. This is our UX Proposal, based on the meeting minutes and discussions.
 
 = First Time Installation =
 
-When users launch the application for the first time, a welcome splash page will display in dialog, offering welcoming words and top quick tips to explain how the application works. Checkbox control will be offered for users to turn off this dialog when application starts next time. This dialog can be accessed again via the Help button from the application menu.
+When users launches the application for the first time, a welcome splash page will display a dialog, offering welcoming words and top quick tips to explain how the application works. A Checkbox control will be offered for users to turn off this dialog when application starts next time. This dialog can be accessed again via the Help button from the application menu.
 
 Closing this dialog, a simple Home menu will be offered on the screen:
 
@@ -17,11 +17,11 @@ Closing this dialog, a simple Home menu will be offered on the screen:
 
 == Open book ==
 
-Open book link will show the SD card file manager for user to navigate to the folder containing books. Near future, the file manager can search and give list of books available on the storage automatically.
+Open book link will show the SD card file manager to enable the user to navigate to the folder containing books. Soon, we would like the file manager to search and give list of books available on the storage automatically.
 
 == Search ==
 
-Search was considered for near future, where the Daisy Reader can consume data from public APIs offering daisy books for free download, or offering bookmark list of sites listing free books. Lists will natively be rendered in the Daisy UI, so users can easily pick the book of interest.
+Search was considered for near future, where the Daisy Reader can consume data from public APIs offering daisy books for free download, or offering bookmark list of sites listing free books. Lists will natively be rendered in the Daisy UI, so users can easily pick, and download, the book of interest.
 
 == Open last book ==
 
@@ -43,14 +43,16 @@ Android Back button will work consistently with the Android platform. If the use
   * Settings
   * Help
 
-=== When Reading Book ===
+=== When reading a book ===
   
   * Home
   * Contents
   * Add Bookmark
-  * Bookmarks
-  * Search (text search)
+  * View bookmarks
+  * Search (text search, provided the text is included in the 'talking book')
   * Help
+  * (Note we need to include a way to remove obsolete bookmarks)
+  * The user should also be able to navigate up and down the hierarchy of a DAISY book (assuming the book includes one or more levels in the hierarchy as some books don't have a hierarchy in the contents)
 
 == Search ==
 
