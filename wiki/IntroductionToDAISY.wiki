@@ -33,3 +33,6 @@ http://odt2daisy.sourceforge.net/
 
 = Related work =
 NIMAS (National Instructional Materials Accessibility Standard) seems to be a superset of DAISY 3 more details are available from http://nimas.cast.org/
+
+= Out of scope =
+http://www.daisy.org/projects/daisy-online-delivery/drafts/20100218/do-spec-20100218.html contains the specifications for Daisy Online Delivery Protocol. We don't expect to support this protocol yet, until after we have all the basics for the core product working, however at some point it'd be good to add support for online delivery of DAISY content.
