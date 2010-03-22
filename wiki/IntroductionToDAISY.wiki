@@ -17,6 +17,12 @@ And:
 
 http://barrierbreak.com/blog/?p=104
 
+= References =
+DAISY 202 specification: http://www.daisy.org/z3986/specifications/daisy_202.html
+
+DAISY 3 specification: available in several forms from http://www.daisy.org/daisy-standard and online at http://www.daisy.org/z3986/2005/Z3986-2005.html
+
+= Samples =
 Sample DAISY 202 books in various forms are available from 
 
 http://www.daisy.org/sample-content/
