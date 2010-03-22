@@ -1,0 +1,16 @@
+#summary Some ad-hoc notes that compare DAISY 202, DAISY 3 and epub publishing formats.
+#labels Phase-Requirements,Phase-Implementation
+
+= Introduction =
+
+Since we need to write code that will correctly detect and process several ebook specifications this wiki page will be where we record our understanding of the key attributes and differences of the various formats of ebook publishing formats. Please don't expect this material to be definitive or necessarily accurate, we're learning as we go!
+
+= Details =
+
+||Attribute||DAISY 202||DAISY 3||epub||
+||Packaging (1)||folder of files||folder of files||a single zip file with a filename suffix of .epub||
+||Start with ||ncc.html||_an opf file_ (I don't know if there is a specific filename.) ||content.opf||
+||mimetype file || || ||Required at a specific offset in the zip file||
+|| || || || ||
+
+(1) perhaps we could add the ability to process a book compressed in a zip file for DAISY 202 and DAISY 3? since we will do something similar for epub...
