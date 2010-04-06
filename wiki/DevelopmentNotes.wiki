@@ -1,4 +1,4 @@
-#summary Some tips and notes for developers and maintainers of this project.
+﻿#summary Some tips and notes for developers and maintainers of this project.
 #labels Phase-Implementation
 
 = Introduction =
@@ -7,6 +7,19 @@ Here are some tips that may help us to maintain the project effectively and effi
 
 = Running the tests =
 We added JUnit tests in r50, and have been slowly refactoring the code and adding tests to support the refactoring. In the process we're removing unnecessary dependencies on Android libraries, etc. By removing these dependencies the tests can currently (r67) be run using the standard JUnit 3 test runner. Conversely the tests that rely on content in the /Resources project folder currently fail when run using the Android JUnit test runner as the contents of this folder is not pushed to the emulator or devices. We're aware of this limitation, see http://code.google.com/p/android-daisy-epub-reader/issues/detail?id=10 For now please use the standard JUnit test runner from eclipse; and see http://dtmilano.blogspot.com/2009/12/android-testing-external-libraries.html for some tips on configuring the test runner correctly.
+
+
+== Getting the JUnit tests to run in Eclipse ==
+When Eclipse has both the Android SDK and the standard Java tools installed there are 2 possible test runners for JUnit tests. For some reason, the classpath for the Eclipse JUnit Test Runner has the Android library on the classpath, instead of the standard JUnit 3 library. We can fix this by editing the Bootstrap Entries on the Classpath tab for the relevant "run configuration". 
+
+I assume there are more elegant and reliable ways than using Eclipse's GUI, however that's the way I know, so here are the hacky instructions :)
+   1. Select the Android entry e.g. Android 1.5 on my machine in the Classpath tab. This will cause the various buttons on the right of the dialog to be enabled. We want the 'Advanced...' button.
+   1. Select the Advanced... button, and in the small popup dialog select 'Add Library' in the radio buttons before selecting the OK button. We'll follow this process twice, once for the JRE System Library, and again for the JUnit library.
+   1. Select the JRE System Library and the Next button. Accept the "Workspace default JRE". This should work fine, mine's set to jre6.
+   1. Click the Finish button.
+   1. As mentioned earlier, repeat the steps to add JUnit 3.
+   1. You should now have 3 items under Bootstrap Entries. Now Remove the Android library e.g. Android 1.5 for me.
+   1. Select the Apply button. Now you should be able to use the Run button to run the JUnit tests with the standard JUnit test runner.
 
 = Tips =
    * We can generate QR codes for downloads using the zxing online web tool here
