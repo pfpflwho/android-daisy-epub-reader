@@ -14,3 +14,9 @@ This page helps collect ideas, links, and miscellaneous references that may be o
 ||http://www.ibm.com/developerworks/xml/library/x-tiphndl3.html||One of a series of articles which explain various facets of using the SAX parser in Java.||
 ||http://www.ibm.com/developerworks/xml/library/x-tipsaxval.html||Another IBM developerWorks article, this one's on customized validation.||
 ||http://www.eff.org/related/8107/blog||Some background articles on Accessible content for the blind by the EFF.||
+||http://www.codefactory.es/en/products.asp?id=314||Commercial DAISY reader for Nokia's Series 60 phones. The page includes links to various sources of DAISY books.||
+
+= Links related to eBooks =
+||URL||Comments||
+||http://www.mobileread.com/||A somewhat cluttered web site that discusses mobile readers, books, devices, etc.||
+||http://luke.simplicissimus.it/writer2epub/||A program that runs in Open Office which generates ePub format books, a similar idea to the "save as DAISY" extension.||
