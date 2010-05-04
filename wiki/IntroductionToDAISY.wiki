@@ -32,6 +32,7 @@ Sample DAISY 3 books are available from
 http://www.gh-accessibility.com/store/download.php Search for Chimpanzees to find the first of several links to sample books. The first link is reproduced here to save time
 http://www.gh-accessibility.com/store/files/Chimpanzees_DAISY_3.0.zip
 
+http://www.munseys.com seems to have about 30,000 free books in DAISY format.
 = Creating DAISY content =
 http://people.bu.edu/access/Introduction.htm
 
