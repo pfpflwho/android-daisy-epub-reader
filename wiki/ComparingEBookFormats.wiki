@@ -11,6 +11,41 @@ Since we need to write code that will correctly detect and process several ebook
 ||Packaging (1)||folder of files||folder of files||a single zip file with a filename suffix of .epub||
 ||Start with ||ncc.html||_an opf file_ (I don't know if there is a specific filename.) ||content.opf||
 ||mimetype file || || ||Required at a specific offset in the zip file||
+||xmlns (XML namespace)||html xmlns="http://www.w3.org/1999/xhtml"||package xmlns="http://openbook.org/namespaces/oeb-package/1.0/" A DOCTYPE of type package is included in the opf file. (There is no DOCTYPE in the content.opf in an epub book AFAIK.)||package xmlns="http://www.idpf.org/2007/opf" version="2.0"||
+||information about the book ||Stored in the <head> and includes <title> and various <meta name=...> tags.||Stored in the <matadata> element which may contain subsidary <...-metadata> elements to group further tags of the form <...:.....> elements e.g. <dc:Creator>, <dc:Description>, etc. (Note: in the examples from gh-accessiiblity.com the first letter after : is Capitalized, while epub content.opf seems to use lower-case tags.)||Seems similar to DAISY 3, the differences I've observed include: 1) no grouping tags e.g. no <dc-metadata> or <x-metadata> tags. 2) tag names are in lowercase.||
 || || || || ||
 
 (1) perhaps we could add the ability to process a book compressed in a zip file for DAISY 202 and DAISY 3? since we will do something similar for epub...
+
+== DAISY 2.02 ==
+Daisy 2.02 essentially uses html markup with a few tweaks. meta data about the book is contained in the <head> tag. The book's structure is contained in the <body> where each item has a 'level' represented in a <h> tag e.g. the first level is in a <h1> tag, the second level in a <h2> tag, etc. <span> elements contain information about pages of the book.
+
+== DAISY 3 ==
+DAISY 3 has a structure that aims to represent a digital book more faithfully than DAISY 2.02 did. Everything starts from a single file with an extension of .opf This opf file contains a number of elements including:
+   * <metadata> (stored in the <head> tag of DAISY 2.02).
+   * <x-metadata> which seems to be optional, and contains extra meta data of which dtb:totalTime seems of interest to users.
+   * <manifest> which lists the rest of the files that comprise the book e.g. the ncx 
+   * <spine> 
+   * <guide> also seems to be optional.
+
+== epub ==
+Very similar to DAISY 3, with some slight differences - possibly intended to simplify the processing, or to tighten-up possible ambiguities?
+
+The epub content is contained in a single 'container' file, with a file extension of {{{.epub}}} The container stores the remaining files using the zip file format.
+
+Within the container are various files, including 2 manadatory files. These mandatory files are:
+   1. The mimetype file, at offset 14 in the container file
+   1. The 'container' file which points to another content file {{{META-INF/content.xml}}} This contains a reference to the location of content.opf which is stored in another folder within the 'zip' file.
+
+Essentially the epub file also always contains another couple of files, including:
+   * content.opf
+   * An .ncx file (the filename is specified in {{{content.opf}}} in {{{<manifest><item id="ncx" href="_filename_.ncx">}}} (Here _filename_ represents the filename for the ncx file.)
+
+= Implementation ideas =
+Here are some rough notes on how we might handle the various forms of digital book in the program. They're intended for the programmers; we're likely to make numerous changes as we implement the design in the actual code - particularly as we learn more about how books are actually structured by various publishers and software tools.
+
+== Thoughts ==
+   * Should we add strict pre-conditions in the code to assert our understanding? The main advantage would be to find differences, anomalies and quirks quickly and force us to address them soon(er). The disadvantage would be that the software might refuse to read books that it could cope with.
+   * Should we change the Java class structure to have an object that represents a generic {{{DigitalBook}}} where we then sub-class this object for each type of digital book? (In practice we may use a Java Interface and classes that implement it, rather than sub-classes).
+   * How should we cope with zip compression e.g. should it be explicitly represented in the {{{DigitalBook}}} object? Do we wrap all File IO calls to seamlessly cope with content in a zip file? Does the Java.util.zip cope with uncompressed files? By analogy, Windows XP etc treats zip files as folders in Windows Explorer...
+
