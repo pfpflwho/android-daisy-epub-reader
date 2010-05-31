@@ -7,11 +7,12 @@ If you're like me, you're relatively new to DAISY. Here are some links and refer
 
 = Details =
 
-2 useful articles which provide a useful introduction to the topic
+Here are some useful articles which provide a useful introduction to the topic:
 
-http://www.digitaltalkingbook.com/publications/docs/20070315155100/intro-article1.html
-
-http://www.digitaltalkingbook.com/publications/docs/20070315155100/intro-article2.html
+   * http://www.digitaltalkingbook.com/publications/docs/20070315155100/intro-article1.html
+   * http://www.digitaltalkingbook.com/publications/docs/20070315155100/intro-article2.html
+   * http://data.daisy.org/publications/docs/theory_dtbook/theory_dtbook.html?q=publications/docs/theory_dtbook/theory_dtbook.html
+   * http://www.digitaltalkingbook.com/publications/docs/20040705174736/Player_or_Intelligent_Reading_System_v4.html?q=publications/docs/20040705174736/Player_or_Intelligent_Reading_System_v4.html
 
 And:
 
