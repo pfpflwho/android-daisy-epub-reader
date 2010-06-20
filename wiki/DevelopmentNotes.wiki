@@ -21,6 +21,26 @@ I assume there are more elegant and reliable ways than using Eclipse's GUI, howe
    1. You should now have 3 items under Bootstrap Entries. Now Remove the Android library e.g. Android 1.5 for me.
    1. Select the Apply button. Now you should be able to use the Run button to run the JUnit tests with the standard JUnit test runner.
 
+= Importing the project into Eclipse =
+Here are a couple of gotchas that have tripped us up in the past which may be worth documenting to help you fix them if they happen to you too.
+
+== Setting Java Compilation to 5.0 ==
+If you decide to import this project into Eclipse, which has the Android Development Tool plugin installed and configured, then you might get the following error message: {{{[2010-06-20 12:57:58 - DaisyReader] Android requires .class compatibility set to 5.0. Please fix project properties.}}}
+
+To fix this problem, select the Project Properties, expand the Java Compiler option, and:
+   * Enable Project Specific Settings
+   * Set the Compiler Compliance Level to 1.5
+   * Select the OK button to save the changes.
+
+Depending on how your Eclipse IDE is configured the project may rebuild automatically. If it doesn't then you can probably force a rebuild by using the Project > Clean... menu.
+
+== Don't share folders ==
+Don't use a common folder for your source and your eclipse project as it prevents you from importing the project into your current workspace. I've learnt to create parallel folders or directories e.g. in linux I have:
+   * {{{/home/me/workspace/opensourceprojects}}} for my Eclipse workspace
+   * {{{/home/me/code/opensourceprojects}}} where I then create a folder called DaisyReader when I use subversion to obtain the source code of this project.
+
+Once I have both the workspace and the code, I use File > Import... > General > Existing Project into Workspace
+
 = Tips =
    * We can generate QR codes for downloads using the zxing online web tool here
 http://zxing.appspot.com/generator/
