@@ -21,6 +21,17 @@ I assume there are more elegant and reliable ways than using Eclipse's GUI, howe
    1. You should now have 3 items under Bootstrap Entries. Now Remove the Android library e.g. Android 1.5 for me.
    1. Select the Apply button. Now you should be able to use the Run button to run the JUnit tests with the standard JUnit test runner.
 
+
+== Running all the tests together in Eclipse ==
+In Eclipse, we can create a 'Run Configuration' to run all the tests for a project.
+
+One way to do so, is to create a new Run Configuration e.g. from the Run menu. Select JUnit, then the 'new' icon. 
+   * In the Test tab: Pick the radio button next to the text 'Run all the tests in the selected project, package or source folder. Make sure the Test runner: is JUnit 3.
+   * In the Arguments tab: nothing needs to be set
+   * In the Classpath tab: The bootstrap entries should be set to JRE System Library [J2SE-1.5] and JUnit 3, remove any other entries e.g. remove Android if it's listed. (see the top elsewhere in this wiki page for details of how to configure the classpath).
+
+I've not needed to change any of the other options or settings. So try to Run the tests once you've got this far :)
+
 = Importing the project into Eclipse =
 Here are a couple of gotchas that have tripped us up in the past which may be worth documenting to help you fix them if they happen to you too.
 
