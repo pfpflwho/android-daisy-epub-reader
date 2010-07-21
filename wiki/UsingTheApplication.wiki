@@ -13,7 +13,7 @@ We have provided a sample book in the Resources folder of the source code. The b
 
 Start the DAISY reader and browse to the folder containing a DAISY book e.g. light-man.
 
-The application will detect that the folder contains a DAISY book and
+The application will detect that the folder contains a DAISY 2.02 book and
 when you press select on the folder name, the book will open.
 
 You can then use the trackball/DPad to select the required chapter
