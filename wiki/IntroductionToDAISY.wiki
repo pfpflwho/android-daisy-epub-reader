@@ -19,15 +19,22 @@ And:
 http://barrierbreak.com/blog/?p=104
 
 = References =
+== DAISY 2.02 Specifications and References ==
+There's a very helpful overview of the files and their relationships for DAISY 2.02 books at: http://www.daisy.org/daisypedia/introduction-daisy-2.02-dtb-fileset-logic
+
+ 
 DAISY 202 specification: http://www.daisy.org/z3986/specifications/daisy_202.html
 
+== DAISY 3 Specifications ==
 DAISY 3 specification: available in several forms from http://www.daisy.org/daisy-standard and online at http://www.daisy.org/z3986/2005/Z3986-2005.html
 
 = Samples =
+== Sample DAISY 202 books ==
 Sample DAISY 202 books in various forms are available from 
 
 http://www.daisy.org/sample-content/
 
+== Sample DAISY 3 books ==
 Sample DAISY 3 books are available from
 
 http://www.gh-accessibility.com/store/download.php Search for Chimpanzees to find the first of several links to sample books. The first link is reproduced here to save time
