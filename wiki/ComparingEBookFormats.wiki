@@ -13,8 +13,8 @@ Since we need to write code that will correctly detect and process several ebook
 ||mimetype file || || ||Required at a specific offset in the zip file||
 ||xmlns (XML namespace)||html xmlns="http://www.w3.org/1999/xhtml"||package xmlns="http://openbook.org/namespaces/oeb-package/1.0/" A DOCTYPE of type package is included in the opf file. (There is no DOCTYPE in the content.opf in an epub book AFAIK.)||package xmlns="http://www.idpf.org/2007/opf" version="2.0"||
 ||information about the book ||Stored in the <head> and includes <title> and various <meta name=...> tags.||Stored in the <metadata> element which may contain subsidiary <...-metadata> elements to group further tags of the form <...:.....> elements e.g. <dc:Creator>, <dc:Description>, etc. (Note: in the examples from gh-accessibility.com the first letter after : is Capitalized, while epub content.opf seems to use lower-case tags.)||Seems similar to DAISY 3, the differences I've observed include: 1) no grouping tags e.g. no <dc-metadata> or <x-metadata> tags. 2) tag names are in lowercase.||
+||SMIL files ||Essential, contain details of the book's content. ||Essential, contain details of the book's content. ||Not generally used. There are works in progress to include SMIL files in EPUB format e.g. as part of EPUB version 3. See http://code.google.com/p/epub-revision/wiki/MediaOverlaySpec for more details. ||
 || || || || ||
-
 (1) perhaps we could add the ability to process a book compressed in a zip file for DAISY 202 and DAISY 3? since we will do something similar for epub...
 
 == DAISY 2.02 ==
