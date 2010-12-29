@@ -28,8 +28,6 @@ DAISY 202 specification: http://www.daisy.org/z3986/specifications/daisy_202.htm
 == DAISY 3 Specifications ==
 DAISY 3 specification: available in several forms from http://www.daisy.org/daisy-standard and online at http://www.daisy.org/z3986/2005/Z3986-2005.html
 
-== Differences between DAISY 3 and DAISY 2.02 ==
-http://www.daisy.org/daisypedia/difference-between-daisy-2daisy-2.02-and-daisy-3
 = Samples =
 == Sample DAISY 202 books ==
 Sample DAISY 202 books in various forms are available from 
