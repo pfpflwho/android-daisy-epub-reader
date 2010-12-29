@@ -28,6 +28,11 @@ DAISY 3 has a structure that aims to represent a digital book more faithfully th
    * {{{<spine>}}} 
    * {{{<guide>}}} also seems to be optional.
 
+=== Differences between DAISY 3 and DAISY 2.02 ===
+Here's a useful external (and authoritative) summary of key differences between DAISY 2.02 and DAISY 3 formats.
+
+http://www.daisy.org/daisypedia/difference-between-daisy-2daisy-2.02-and-daisy-3
+
 == epub ==
 Very similar to DAISY 3, with some slight differences - possibly intended to simplify the processing, or to tighten-up possible ambiguities?
 
@@ -48,3 +53,6 @@ Here are some rough notes on how we might handle the various forms of digital bo
    * Should we add strict pre-conditions in the code to assert our understanding? The main advantage would be to find differences, anomalies and quirks quickly and force us to address them soon(er). The disadvantage would be that the software might refuse to read books that it could cope with.
    * Should we change the Java class structure to have an object that represents a generic {{{DigitalBook}}} where we then sub-class this object for each type of digital book? (In practice we may use a Java Interface and classes that implement it, rather than sub-classes).
    * How should we cope with zip compression e.g. should it be explicitly represented in the {{{DigitalBook}}} object? Do we wrap all File IO calls to seamlessly cope with content in a zip file? Does the Java.util.zip cope with uncompressed files? By analogy, Windows XP etc treats zip files as folders in Windows Explorer...
+
+= Further reading =
+Elizabeth Castro's _EPUB Straight to to the Point_ book is a useful and readable guide to some of the nuances and intricacies of creating EPUB content. See her site http://www.elizabethcastro.com/epub/ for more information.
