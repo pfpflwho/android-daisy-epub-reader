@@ -3,13 +3,24 @@ package com.ader.test;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.ader.DaisyReader;
+import com.ader.HomeScreen;
 import com.jayway.android.robotium.solo.Solo;
 
-public class ExampleTest extends ActivityInstrumentationTestCase2<DaisyReader> {
+public class ExampleTest extends ActivityInstrumentationTestCase2<HomeScreen> {
 	private Solo solo;
+	
+	private static Class<?> launcherActivityClass;
+	
+	static {
+		try {
+			launcherActivityClass = Class.forName("com.ader.HomeScreen");
+		} catch (ClassNotFoundException cnfe) {
+			throw new RuntimeException(cnfe);
+		}
+	}
 
 	public ExampleTest() {
-		super("com.ader", DaisyReader.class);
+		super("com.ader", HomeScreen.class);
 	}
 	
 	@Override
@@ -30,6 +41,11 @@ public class ExampleTest extends ActivityInstrumentationTestCase2<DaisyReader> {
 
 	public void testTrue() {
 		assertTrue("This better pass!", true);
+	}
+	
+	public void testCanSelectSettingsButton() {
+		// Note: this is a crude hard-coded test, we will clean up soon.
+		solo.clickOnButton("Settings");
 	}
 
 }
