@@ -75,6 +75,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		solo.clearEditText(0);
 		
 		solo.enterText(0, "test");
+		solo.goBack();  // Clear the soft keyboard
 		
 		solo.clickOnButton("OK");
 		
