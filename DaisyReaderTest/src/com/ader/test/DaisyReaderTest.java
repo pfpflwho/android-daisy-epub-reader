@@ -54,6 +54,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		solo.clearEditText(0);
 		
 		solo.enterText(0, "/sdcard/");
+		solo.goBack(); // clear the soft keyboard.
 		
 		solo.clickOnButton("OK");
 		
