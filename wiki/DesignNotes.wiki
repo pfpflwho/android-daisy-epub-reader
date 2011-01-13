@@ -1,0 +1,21 @@
+#summary Design Notes for the Daisy Reader application.
+#labels Phase-Design,Phase-Requirements
+
+= Introduction =
+
+The Daisy Reader application has been designed in three distinct parts which co-operate to provide the features and functions we believe users (including you) want. The aim is to allow individual parts to be replaced to suit various needs, of libraries and users. Here are some examples of these needs.
+
+== For libraries ==
+There are various organisations who have a large library of DAISY books, typically to serve registered users in their country. They may want to customise the Daisy Reader software to integrate it with their online library to allow users to sign-in, manage their collection of books from this library, etc. 
+
+The application is designed so the selection of books can be replaced with a custom application (known as an Activity in Android) without affecting the rest of the functionality of the player. Currently (r205) the application does not include support for any of the online libraries. I (Julian Harty) working with several organisations in the USA and Scandinavia to find ways to elegantly support their respective libraries by implementing common protocols and services to reduce the development, configuration and support burdens for all concerned.
+
+== To suit the individual user ==
+Different users may have different needs and preferences. For instance a blind user might not care what's displayed on the screen, but want to use gestures to control the application. Some partly blind users may want large visible text, others may want the text to be tiny. Dyslexic users might want to interact using icons and pictures.
+
+The application has been designed so we will be able to replace the user-interface for the player independently of the actual player. At the moment (r205) the code is still integrated and split across two main Java Classes http://code.google.com/p/android-daisy-epub-reader/source/browse/trunk/src/com/ader/DaisyReader.java which starts the plater; and http://code.google.com/p/android-daisy-epub-reader/source/browse/trunk/src/com/ader/DaisyPlayer.java which provides a combination of the user-interface and the actual playing of the audio files. We want to replace DaisyPlayer with an Android Service, and will try to fully separate the user-interface from the player at that point. 
+
+At the moment the application provides a single version of the user-interface that seems to work adequately for the current blind and dyslexic users of the pre-release software. we would like to include several user-interfaces in future, and others are welcome to develop and release additional user-interfaces.
+
+
+Julian Harty 13 Jan 2011
