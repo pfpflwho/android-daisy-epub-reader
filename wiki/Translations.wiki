@@ -1,0 +1,33 @@
+#summary Instructions to help you provide translations to new human languages.
+#labels Phase-Implementation,Phase-Deploy,Featured
+
+= Introduction =
+
+The DAISY reader software is already available in several languages, thanks to the contributions of several volunteers. Additional languages would help make the software usable for more users. 
+
+Your contributions are welcome, either to provide updates, and corrections for existing languages, or to help provide a new translation. This wiki page aims to help you help the project by explaining what to translate and how to donate the translations so we can include them into this project, and therefore into the application.
+
+If you notice problems with the instructions or if you have suggestions for how to improve them, please add a comment to this wiki page, or raise a new issue on this site Issues
+
+= How Android applications support languages =
+
+Android encourages developers to separate content from the main program logic. Content includes things such as text (called strings by Android), images, icons, and even audio and video, etc. Android's term for Content is Resources, and the files containing the various content are placed in sub-folders of a folder called `res`.
+
+There are several sub-folders:
+   * `values` which contains the strings (the text)
+   * `drawable` which contains images and icons, etc
+   * `layout` which contains custom layouts e.g. to improve the formatting of screens in the application.
+These folders contain the default content, these are the values that will be used if the DAISY Reader software doesn't have any more suitable content available.
+
+Android's uses the term 'localization' to describe translating software for specific languages. Localization actually includes more than simply translating the text; for instance some countries format numbers differently from the default US English format, localization includes number formatting, and many other details. For more details on localization for android, several useful technical guides are available online, such as:
+   * http://developer.android.com/resources/tutorials/localization/index.html
+   * http://developer.android.com/guide/topics/resources/localization.html
+
+The localized content are stored in folders that reflect / represent the language and possibly country codes for a given locale. For instance `values-DE` includes the German language translation.
+
+Here are some examples of existing localization for the DAISY Reader project:
+|Language|File containing the translated strings|
+|German|http://code.google.com/p/android-daisy-epub-reader/source/browse/trunk/res/values-de/strings.xml|
+|Norwegian|http://code.google.com/p/android-daisy-epub-reader/source/browse/trunk/res/values-nb/strings.xml|
+
+Android will use the most appropriate translation provided by our software, the DAISY Reader. It does this at the level of individual sentences or phrases (each item in the list of strings). If it cannot find an item in the set of strings, it will use a more general value, and if necessary use the default item.
