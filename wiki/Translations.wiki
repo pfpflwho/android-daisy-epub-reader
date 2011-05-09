@@ -79,5 +79,8 @@ Tell us in the issue or email if you'd like credit for your work and we'll do so
    * Online translation tools such as http://translate.google.com may help you with your translation work. While the results may not be sufficiently accurate to allow auto-translation they're usually good enough to provide some clues to you.
    * Please try to keep the translations accurate and concise.
 
+= Further reading =
+I like the succinct description on how to translate Android applications at http://code.google.com/p/secrets-for-android/wiki/Translating you might find it helps provide another perspective on the process.
+
 = Comments = 
 Please comment on these instructions and the process at the foot of this wiki page.
