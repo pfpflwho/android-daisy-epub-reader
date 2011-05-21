@@ -1,0 +1,23 @@
+#summary Links to some sample DAISY books.
+#labels Featured,Phase-QA,Phase-Support
+
+= Introduction =
+Here are some links and references to sample DAISY books. 
+
+Many books are provided only to registered subscribers and citizens of a particular country which makes samples hard to obtain for general readers.
+
+= Samples =
+== Sample DAISY 202 books ==
+Sample DAISY 202 books in various forms are available from 
+
+http://www.daisy.org/sample-content/
+
+http://www.htctu.net/demos/
+
+== Sample DAISY 3 books ==
+Sample DAISY 3 books are available from
+
+http://www.gh-accessibility.com/store/download.php Search for Chimpanzees to find the first of several links to sample books. The first link is reproduced here to save time
+http://www.gh-accessibility.com/store/files/Chimpanzees_DAISY_3.0.zip
+
+http://www.munseys.com seems to have about 30,000 free books in DAISY format.
