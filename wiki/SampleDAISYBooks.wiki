@@ -16,6 +16,11 @@ Here is a link to the first suitable book, called FireSafety, to save you time h
 http://www.htctu.net/demos/
 Here is a link to the first full-audio book they offer to save you time http://www.htctu.net/demos/daisy/AliceWonderland.zip
 
+http://www.guidedogswa.org/books/scriptures/
+I suggest you try the following book http://www.guidedogswa.org/books/scriptures/bible/niv/niv_nt-202.zip It's one of the smaller full-audio DAISY 2.02 books, but downloading about 270 mega-bytes may still be time-consuming or impractical depending on the cost, speed and quality of your internet connection.
+
+Some of their books are provided in a format suitable for creating CD-ROMs, called an ISO file (as indicated by the end of the filename in the URL address of .iso) These files would need an additional step (to either create a pyhsical CD-ROM or 'mount' the CD image file) which I have not described on this wiki page. I suggest you search online using a search engine for advice on how to create CDs from an ISO file, or how to mount these files so the contents can be read by your computer e.g. to enable you to process the zip file.
+
 == What to do with the sample books ==
 === Step 1 - download the sample book ===
 Currently you need to download the sample (full-audio) DAISY 2.02 books onto your computer. The sample files are typically compressed into a single zip file. Zip files are extremely popular in the computer world and many utilities are available to process them and extract the compressed files. 
