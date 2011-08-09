@@ -4,6 +4,8 @@
 = Introduction =
 
 Here are some tips that may help us to maintain the project effectively and efficiently.
+= Building the project in Eclipse =
+We use an ant script to extract the svn revision number and insert it as part of the version number in `AndroidManifest.xml`. This script should be run automatically by Eclipse when building the project. Sometimes Eclipse will complain about an empty `{project_loc}`. Re-running the build sometimes clears this error message. However another tip is to make sure the project is selected in the project explorer before running the build. See http://blog.samratdhillon.com/archives/473 for an explanation of this solution.
 
 = Running the tests =
 We added JUnit tests in r50, and have been slowly refactoring the code and adding tests to support the refactoring. In the process we're removing unnecessary dependencies on Android libraries, etc. By removing these dependencies the tests can currently (r67) be run using the standard JUnit 3 test runner. Conversely the tests that rely on content in the /Resources project folder currently fail when run using the Android JUnit test runner as the contents of this folder is not pushed to the emulator or devices. We're aware of this limitation, see http://code.google.com/p/android-daisy-epub-reader/issues/detail?id=10 For now please use the standard JUnit test runner from eclipse; and see http://dtmilano.blogspot.com/2009/12/android-testing-external-libraries.html for some tips on configuring the test runner correctly.
