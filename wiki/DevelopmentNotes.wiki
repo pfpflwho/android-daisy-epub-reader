@@ -8,21 +8,31 @@ Here are some tips that may help us to maintain the project effectively and effi
 We use an ant script to extract the svn revision number and insert it as part of the version number in `AndroidManifest.xml`. This script should be run automatically by Eclipse when building the project. Sometimes Eclipse will complain about an empty `{project_loc}`. Re-running the build sometimes clears this error message. However another tip is to make sure the project is selected in the project explorer before running the build. See http://blog.samratdhillon.com/archives/473 for an explanation of this solution.
 
 = Running the tests =
-We added JUnit tests in r50, and have been slowly refactoring the code and adding tests to support the refactoring. In the process we're removing unnecessary dependencies on Android libraries, etc. By removing these dependencies the tests can currently (r67) be run using the standard JUnit 3 test runner. Conversely the tests that rely on content in the /Resources project folder currently fail when run using the Android JUnit test runner as the contents of this folder is not pushed to the emulator or devices. We're aware of this limitation, see http://code.google.com/p/android-daisy-epub-reader/issues/detail?id=10 For now please use the standard JUnit test runner from eclipse; and see http://dtmilano.blogspot.com/2009/12/android-testing-external-libraries.html for some tips on configuring the test runner correctly.
+We added JUnit tests in r50, and have been slowly refactoring the code and adding tests to support the refactoring. In the process we're removing unnecessary dependencies on Android libraries, etc. By removing these dependencies the tests can currently (r67) be run using the standard JUnit 3 test runner. 
 
+== Running tests that rely on external files ==
+Some of the tests use additional files, rather than having all the contents e.g. of a book stored in the JUnit code. Getting these tests to run in both Eclipse and on an Android Device such as a phone can be challenging and has been something I've been experimenting with from time to time over the life of this project.
+
+On an Android device, the simplest place for these test files to go is on the memory card, which is mapped as {{{/sdcard}}}. See http://code.google.com/p/android-daisy-epub-reader/source/detail?r=320 for an initial set of files. On your computer a similar folder would need to be created, which Eclipse (etc) then uses. 
+   * For linux and on a mac simply create /sdcard using a command such as mkdir from a terminal window e.g. {{{mkdir /sdcard}}} You may need Administrative privileges to run this command successfully. The test files will need to be copied onto the sdcard somehow. Here are various ways that might be suitable for you:
+      * Using {{{adb push}}} from the command line when the Android device is connected and visible (Use {{{adb devices}}} to check the device has been detected.
+      * By 'mounting' the memory card on the phone when the USB connection to the computer has been established. The mounted memory card should then appear as a logical drive in Windows e.g. {{{D:\}}}
+      * By physically removing the memory card from the Android device, inserting it into a suitable card reader on the computer, then copy the files from one location (this project) to another. 
+   * For Windows, create a directory in the root of the logical drive. Typically this is {{{C:\}}} so from a command {{{cmd}}} window a command such as {{{md c:\sdcard}}} should work. Again you many need administrative permissions to run the command successfully. You can also use Windows Explorer to create the directory. I don't know the details of where to create the folder on a Windows machine with more than one logical drive, I'd suggest starting with creating the directory on the same logical drive as Eclipse uses.
+ 
+Some of the tests currently rely on content in the /Resources project folder currently fail when run using the Android JUnit test runner as the contents of this folder is not pushed to the emulator or devices. We're aware of this limitation, see http://code.google.com/p/android-daisy-epub-reader/issues/detail?id=10 For now please use the standard JUnit test runner from eclipse; and see http://dtmilano.blogspot.com/2009/12/android-testing-external-libraries.html for some tips on configuring the test runner in Eclipse correctly.
 
 == Getting the JUnit tests to run in Eclipse ==
 When Eclipse has both the Android SDK and the standard Java tools installed there are 2 possible test runners for JUnit tests. For some reason, the classpath for the Eclipse JUnit Test Runner has the Android library on the classpath, instead of the standard JUnit 3 library. We can fix this by editing the Bootstrap Entries on the Classpath tab for the relevant "run configuration". 
 
 I assume there are more elegant and reliable ways than using Eclipse's GUI, however that's the way I know, so here are the hacky instructions :)
-   1. Select the Android entry e.g. Android 1.5 on my machine in the Classpath tab. This will cause the various buttons on the right of the dialog to be enabled. We want the 'Advanced...' button.
+   1. Select the Android entry e.g. Android 1.6 on my machine in the Classpath tab. This will cause the various buttons on the right of the dialog to be enabled. We want the 'Advanced...' button.
    1. Select the Advanced... button, and in the small popup dialog select 'Add Library' in the radio buttons before selecting the OK button. We'll follow this process twice, once for the JRE System Library, and again for the JUnit library.
    1. Select the JRE System Library and the Next button. Accept the "Workspace default JRE". This should work fine, mine's set to jre6.
    1. Click the Finish button.
    1. As mentioned earlier, repeat the steps to add JUnit 3.
-   1. You should now have 3 items under Bootstrap Entries. Now Remove the Android library e.g. Android 1.5 for me.
+   1. You should now have 3 items under Bootstrap Entries. Now Remove the Android library e.g. Android 1.6 for me.
    1. Select the Apply button. Now you should be able to use the Run button to run the JUnit tests with the standard JUnit test runner.
-
 
 == Running all the tests together in Eclipse ==
 In Eclipse, we can create a 'Run Configuration' to run all the tests for a project.
@@ -65,4 +75,5 @@ Here are a collection of links that may be useful as we add more automated tests
 ||http://developer.android.com/guide/samples/ApiDemos/tests/src/com/example/android/apis/app/LocalServiceTest.html||How to create automated tests for an Android Service, useful if and when we make the player a Service.||
 ||http://dtmilano.blogspot.com/||Lots of useful blog posts, with examples, on automated testing for Android||
 ||http://www.slideshare.net/marc_chung/testing-android||A short presentation on Automating Android Testing||
+||http://code.google.com/p/mwta/downloads/list||My published documents on Android Test Automation.||
    *
