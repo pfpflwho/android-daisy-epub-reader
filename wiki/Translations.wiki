@@ -82,5 +82,7 @@ Tell us in the issue or email if you'd like credit for your work and we'll do so
 = Further reading =
 I like the succinct description on how to translate Android applications at http://code.google.com/p/secrets-for-android/wiki/Translating you might find it helps provide another perspective on the process.
 
+The following link introduces open translation tools might help some of you (and me) to improve our translations http://en.flossmanuals.net/open-translation-tools/ch034_introduction/
+
 = Comments = 
 Please comment on these instructions and the process at the foot of this wiki page.
