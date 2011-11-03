@@ -1,5 +1,5 @@
 ﻿#summary Some tips and notes for developers and maintainers of this project.
-#labels Phase-Implementation
+#labels Phase-Implementation,Featured,Phase-QA
 
 = Introduction =
 
@@ -8,8 +8,44 @@ Here are some tips that may help us to maintain the project effectively and effi
 We use an ant script to extract the svn revision number and insert it as part of the version number in `AndroidManifest.xml`. This script should be run automatically by Eclipse when building the project. Sometimes Eclipse will complain about an empty `{project_loc}`. Re-running the build sometimes clears this error message. However another tip is to make sure the project is selected in the project explorer before running the build. See http://blog.samratdhillon.com/archives/473 for an explanation of this solution.
 
 = Running the tests =
-We added JUnit tests in r50, and have been slowly refactoring the code and adding tests to support the refactoring. In the process we're removing unnecessary dependencies on Android libraries, etc. By removing these dependencies the tests can currently (r67) be run using the standard JUnit 3 test runner. 
+We added JUnit tests in r50, and have been slowly refactoring the code and adding tests to support the refactoring. In the process we're removing unnecessary dependencies on Android libraries, etc. By removing these dependencies the tests can currently (r67) be run using the standard JUnit 3 test runner.
 
+== Running the tests specific to Android ==
+We have some tests which test the Activities and the respective UI. These tests are located in the {{{../activitytests}}} folder. 
+
+To run these Activity Tests we need to use the {{{android.test.InstrumentationTestRunner}}}
+
+The tests expect a test DAISY book to be copied to a specific folder on the sdcard on the Android phone or Android Virtual Device (AVD). The DAISY book is called minidaisyaudiobook. This entire folder needs to be copied into the {{{/sdcard/Books/testaudiobooks/}}} folder. The source files for the test book are available as part of the project in {{{../Resources/testfiles/}}} and online at http://code.google.com/p/android-daisy-epub-reader/source/browse/#svn%2Ftrunk%2FResources%2Ftestfiles%2Fminidaisyaudiobook%253Fstate%253Dclosed
+You can use adb to transfer the files using {{{adb push}}}
+
+In Eclipse we can easily create a suitable {{{Run Configuration}}}. Here's one way, there are bound to be other ways. 
+   * Select Run Configurations.
+   * Navigate on the left to Android JUnit Test and select this option.
+   * Select the New button (above the list of run configurations)
+   * On the 'Test' tab select the 'Run all tests in the selected project, or package' radio button. Then specify the package name of {{{com.ader.test.ui}}}
+   * Apply the changes
+   * Run the tests
+
+Here's a slightly more involved way to run these tests using keyboard commands.
+   * Select the Run menu - the Run menu should appear
+   * Type n as the short key for Run Configurations - the Run Configurations should appear
+   * Use the arrow down keys in the Test tab to go to the Run all tests in the selected project, or package (about 4 down arrows)
+   * Select the Alt+S keyboard menu to Search for the package name - The Folder Selection dialog should appear
+   * Press the right-arrow key to expand the project into the set of file folders. Navigate down to the {{{activitytests}}} folder
+   * Press the <Enter> key to expand activitytests. com.ader.tests.ui should appear below the folder
+   * Use the down-arrow key to select it and press <Enter>
+   * Tab to the Instrumentation Runner drop-down option.
+   * Press down-arrow until android.test.InstrumentationTestRunner appears in the drop-down field.
+   * Tab (or press Alt+Y key combination) to Apply the changes.
+   * Use Alt+R to run the tests (You can also tab to the Run button).
+   * Select the Device or Android Virtual Device (AVD) to use. To select the device you may need a combination of Tab, Arrow and Space keys.
+
+You can also use the context-specific (right-click) menu to run the Activity Tests as an Android JUnit test. 
+   * Navigate in the Package Explorer in Eclipse to {{{com.ader.test.ui}}}. Click once on the package name to select it.
+   * Click the right-click button on your mouse. From the small pop-up menu select {{{Run As...}}} 
+   * From the sub-menu select Android JUnit test.
+
+Regardless of how you start the Activity Tests they should run successfully. They may take a while to start, particularly when you use an Android Virtual Device (AVD). Eventually you may hear a split-second of audio.
 == Running tests that rely on external files ==
 Some of the tests use additional files, rather than having all the contents e.g. of a book stored in the JUnit code. Getting these tests to run in both Eclipse and on an Android Device such as a phone can be challenging and has been something I've been experimenting with from time to time over the life of this project.
 
