@@ -80,6 +80,26 @@ One way to do so, is to create a new Run Configuration e.g. from the Run menu. S
 
 I've not needed to change any of the other options or settings. So try to Run the tests once you've got this far :)
 
+== Running the tests from the command line ==
+Note: This is incomplete work and about half of the tests currently fail when run on a device because some of the external files are not in the location the tests expect. I will work to improve the tests so they can be run cleanly from the command line.
+
+For now, here's the basic command line that seems to at least run all the tests {{{adb shell am instrument -w com.ader/android.test.InstrumentationTestRunner}}}
+
+I have been trying to use additional command line options to filter which tests to run (e.g. so we can run all the small tests that don't have any external file dependencies). I'm still experimenting... Here's the official documentation http://developer.android.com/reference/android/test/InstrumentationTestRunner.html
+
+The command options seem to be very sensitive to the order they're called. 
+
+Also I currently seem to need to rebuild the tests in Eclipse before changes take effect. I'll find out how to build the tests using the command line e.g. using {{{ant}}} and revise these notes.
+=== How to run the Activity Tests using adb shell ===
+
+{{{ adb shell am instrument -w -e class com.ader.test.ui.ListenToBookTest com.ader/android.test.InstrumentationTestRun }}}
+
+=== How to run the small tests using adb shell
+
+{{{adb shell am instrument -w -e size small com.ader/android.test.InstrumentationTestRunner }}}
+
+Note: I'm fixing some of the small tests that currently fail when run in this way.
+
 = Importing the project into Eclipse =
 Here are a couple of gotchas that have tripped us up in the past which may be worth documenting to help you fix them if they happen to you too.
 
