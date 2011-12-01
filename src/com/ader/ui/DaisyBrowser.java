@@ -20,10 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.ader.R;
-import com.ader.utilities.DaisyBookUtils;
-import com.ader.utilities.Logging;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -31,6 +27,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.ArrayAdapter;
+
+import com.ader.R;
+import com.ader.utilities.DaisyBookUtils;
+import com.ader.utilities.Logging;
 
 public class DaisyBrowser extends ListActivity {
     private File currentDirectory = new File("/sdcard/");
@@ -59,6 +59,14 @@ public class DaisyBrowser extends ListActivity {
 
             i.putExtra("daisyPath", daisyPath.getAbsolutePath() + "/");
             i.putExtra("daisyNccFile", DaisyBookUtils.getNccFileName(daisyPath));
+            startActivity(i);
+            return;
+        }
+		if (DaisyBookUtils.folderContainsDaisy3Book(daisyPath)) {
+            Intent i = new Intent(this, DaisyReader.class);
+
+            i.putExtra("daisyPath", daisyPath.getAbsolutePath() + "/");
+            i.putExtra("daisyNccFile", DaisyBookUtils.getOpfFileName(daisyPath));
             startActivity(i);
             return;
         }

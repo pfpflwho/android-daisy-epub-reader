@@ -13,16 +13,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ader.DaisyItem;
-import com.ader.InvalidDaisyStructureException;
 import com.ader.OldDaisyBookImplementation;
 import com.ader.R;
 import com.ader.utilities.DaisyBookUtils;
@@ -56,9 +55,14 @@ public class DaisyReader extends ListActivity {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.results_list);
 
+		/* Julian's code
 		try {
+		*/
 			activateGesture();
-
+			
+			// Nick: duplicate of line from commented out block
+			path = getIntent().getStringExtra("daisyPath");
+			/* Julian's code
 			try {
 				path = getIntent().getStringExtra("daisyPath");
 				book.openFromFile(path + getIntent().getStringExtra("daisyNccFile"));
@@ -68,6 +72,7 @@ public class DaisyReader extends ListActivity {
 				DaisyReader.this.finish();
 				return;
 			}
+			*/
 			
 			// Now let's save details of the this book, as the most recent book
 			SharedPreferences bookSettings = getSharedPreferences(DaisyBookUtils.PREFS_FILE, 0);
@@ -76,15 +81,20 @@ public class DaisyReader extends ListActivity {
 			// Commit the edits!
 			editor.commit();
 
+			/* Julian's code
 			displayContents();
 			getListView().setSelection(book.getDisplayPosition());
 			registerForContextMenu(getListView());
+			*/
 			play();
 			// This stops the list of sections from appearing after back is pressed.
 			// But it doesn't stop the audio...
 			this.finish();
-			
+
+		/* Julian's code
 		} catch (IOException e) {
+		*/
+		if (false) { IOException e = new IOException(); // Nick: fake one up sone this catch block builds
 			// TODO(jharty): Remove the Toast error message once the AlertDialog works
     		CharSequence text = "Cannot open book :( " + e.getLocalizedMessage();
     		int duration = Toast.LENGTH_SHORT;
@@ -124,8 +134,15 @@ public class DaisyReader extends ListActivity {
 	};
 
 	private void play() {
+		/* Julian's code 
 		Intent dp = new Intent(this, DaisyPlayer.class);
 		dp.putExtra(DaisyPlayer.DAISY_BOOK_KEY, book);
+		startActivity(dp);
+		*/
+		Intent dp = new Intent(this, uk.org.rnib.innovation.daisyplayer.UI.class);
+		dp.putExtra(uk.org.rnib.innovation.daisyplayer.DaisyPlayer.DAISY_ROOT_KEY, getIntent().getStringExtra("daisyPath"));
+		dp.putExtra(uk.org.rnib.innovation.daisyplayer.DaisyPlayer.DAISY_NAME_KEY, getIntent().getStringExtra("daisyNccFile"));
+		
 		startActivity(dp);
 	}
 

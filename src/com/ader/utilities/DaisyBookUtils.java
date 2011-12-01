@@ -7,6 +7,7 @@ package com.ader.utilities;
  * really justify being a class. So, expect things to change :)
  */
 import java.io.File;
+import java.io.FilenameFilter;
 
 public final class DaisyBookUtils {
 	public static final String LAST_BOOK = "last_book_open";
@@ -43,6 +44,20 @@ public final class DaisyBookUtils {
         return false;
     }
     
+    public static boolean folderContainsDaisy3Book(File folder) {
+        if (!folder.isDirectory()) {
+            return false;
+        }
+
+        FilenameFilter opfFilter = new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".opf") || name.endsWith(".OPF");
+            }
+        };
+
+        return folder.list(opfFilter).length > 0;
+    }
+    
     /**
      * returns the NccFileName for a given book's root folder.
      * @param currentDirectory
@@ -59,4 +74,17 @@ public final class DaisyBookUtils {
 
 		return null;
 	}
+    
+    public static String getOpfFileName(File folder) {
+        FilenameFilter opfFilter = new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".opf") || name.endsWith(".OPF");
+            }
+        };
+
+        String[] opfs = folder.list(opfFilter);
+        if (opfs.length > 0)
+        	return opfs[0];
+        return null;
+    }
 }
