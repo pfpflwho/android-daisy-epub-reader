@@ -19,5 +19,9 @@ The application has been designed so we will be able to replace the user-interfa
 
 At the moment the application provides a single version of the user-interface that seems to work adequately for the current blind and dyslexic users of the pre-release software. we would like to include several user-interfaces in future, and others are welcome to develop and release additional user-interfaces.
 
+= Simplest possible way of connecting to online DAISY libraries =
+Damien suggested adding an embedded web browser to enable users to login to their preferred library / libraries. They can then sign-in if the library requires it. 
+  * Ideally we would specify a default download folder, when creating the web view, so the books would reside in a common, easy to locate, area on the Android device.
+  * Often the DAISY book will be packaged as a zip file. We can either unpack the book before using the content, or ideally process the zipped content directly (which uses less storage and reduces pollution in terms of files)
 
-Julian Harty 13 Jan 2011
+Julian Harty 01 Dec 2011
