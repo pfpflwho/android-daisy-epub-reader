@@ -2,6 +2,7 @@ package com.ader.test;
 
 import com.jayway.android.robotium.solo.Solo;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.MediumTest;
 
 @SuppressWarnings("unchecked")
 public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
@@ -29,7 +30,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 	
-	
+	@MediumTest
 	public void testOpenHelp(){
 		
 		solo.clickOnButton("Help");
@@ -45,6 +46,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		assertTrue("Last part of text is not shown", scrolledTextIsShown);
 	}
 	
+	@MediumTest
 	public void testSettingsSaveCorrectFolder(){
 		
 		solo.clickOnButton("Settings");
@@ -54,7 +56,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		solo.clearEditText(0);
 		
 		solo.enterText(0, "/sdcard/");
-		solo.goBack(); // clear the soft keyboard.
+		// solo.goBack(); // clear the soft keyboard.
 		
 		solo.clickOnButton("OK");
 		
@@ -67,6 +69,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		
 	}
 	
+	@MediumTest
 	public void testSettingsSaveIncorrectFolder(){
 		
 		solo.clickOnButton("Settings");
@@ -76,7 +79,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		solo.clearEditText(0);
 		
 		solo.enterText(0, "test");
-		solo.goBack();  // Clear the soft keyboard
+		// solo.goBack();  // Clear the soft keyboard
 		
 		solo.clickOnButton("OK");
 		
