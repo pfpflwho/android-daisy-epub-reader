@@ -290,4 +290,18 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		Logging.logInfo(TAG, String.format("DaisyItem is index:%d, ncc:%s", nccIndex, item));
 		return item;
 	}
+	
+	/**
+	 * Get the title.
+	 * 
+	 * @see DaisyBook#getTitle
+	 */
+	public String getTitle() {
+		return getPath();
+	}
+	
+	@Override
+	public String toString() {
+		return getTitle();
+	}
 }
