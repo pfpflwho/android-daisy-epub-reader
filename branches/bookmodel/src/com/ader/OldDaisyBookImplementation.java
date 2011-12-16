@@ -270,9 +270,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 			}
 			
 			if (elementName.matches(IS_META)) {
-				System.out.println("Handling meta: " + element.getName());
 				MetaLabel label = determineMetaLabel(element);
-				System.out.println("Meta label is: " + label);
 				switch (label) {
 					// TODO 20111215 (damienkallison) handle conflicts created
 					// by duplicate titles.
