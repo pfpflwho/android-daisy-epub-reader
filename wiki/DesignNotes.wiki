@@ -24,4 +24,11 @@ Damien suggested adding an embedded web browser to enable users to login to thei
   * Ideally we would specify a default download folder, when creating the web view, so the books would reside in a common, easy to locate, area on the Android device.
   * Often the DAISY book will be packaged as a zip file. We can either unpack the book before using the content, or ideally process the zipped content directly (which uses less storage and reduces pollution in terms of files)
 
-Julian Harty 01 Dec 2011
+= Ideas to present and synchronise multimedia content =
+_these are rough notes_
+== For full audio DAISY books ==
+How about using a webview to display text and images for books that include pre-recorded audio? We could try using the Java-to-javascript bridge in the webview to synchronize the contents of the webview with the audio currently playing. When the player finishes playing an audio section (currently the end of an mp3 file) it would fire an event to load the next section. Loading the next section would also update the UI view. We can have a separate thread that processes the timing info from the clip-end timings to also trigger updates to the view *while the audio keeps playing without interruption*. This may enable us to obviate the need to chunk up the audio, and to bypass the restriction placed by not being able to tell the MediaPlayer when to stop playing within an audio file.
+
+== For full text DAISY books ==
+We need to use TTS to 'read' the text anyway (assuming the user wants to listen to the audio) so we will probably need to segment the text content so we don't overrun / overload the TTS engine. Therefore we should be able to segment the full text so it doesn't exceed the viewable area on the current device's screen. The segmenting algorithm is likely to be relatively sophisticated to provide a pleasing user experience; however we can start simply and see how sophisticated we need to get to please the users.
+Julian Harty 03 Jan 2012
