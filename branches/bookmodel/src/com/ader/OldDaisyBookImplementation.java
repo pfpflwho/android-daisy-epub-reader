@@ -19,6 +19,10 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	
 	private static final String META_NAME_KEY = "name",
 			META_VALUE_KEY = "content";
+	
+	private static final String TITLE_PREFIX = "Title: ",
+			PATH_PREFIX = "Directory: ",
+			SPACER = "\t";
 
 	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
 	private int currentnccIndex = 0; // FIXME: Was -1 Temporary change during restructuring
@@ -428,6 +432,14 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	
 	@Override
 	public String toString() {
-		return title;
+		StringBuilder builder = new StringBuilder();
+		if (null != title) {
+			builder.append(TITLE_PREFIX);
+			builder.append(title);
+			builder.append(SPACER);
+		}
+		builder.append(PATH_PREFIX);
+		builder.append(path);
+		return builder.toString();
 	}
 }
