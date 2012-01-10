@@ -13,6 +13,8 @@ Sample DAISY 2.02 books in various forms are available. You will need the full-a
 http://www.daisy.org/sample-content/
 Here is a link to the first suitable book, called FireSafety, to save you time http://www.daisy.org/sample-content/#t9
 
+http://www.nfb.org/nfb/braille_monitor.asp#Online Access is the Braille Monitor magazine from the NFB. Each issue is available as a full audio DAISY book. They appear to be published in the DAISY 2.02 version.
+
 http://www.htctu.net/demos/
 Here is a link to the first full-audio book they offer to save you time http://www.htctu.net/demos/daisy/AliceWonderland.zip
 
