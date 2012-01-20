@@ -24,6 +24,17 @@ Damien suggested adding an embedded web browser to enable users to login to thei
   * Ideally we would specify a default download folder, when creating the web view, so the books would reside in a common, easy to locate, area on the Android device.
   * Often the DAISY book will be packaged as a zip file. We can either unpack the book before using the content, or ideally process the zipped content directly (which uses less storage and reduces pollution in terms of files)
 
+Update: After some initial experimentation using an embedded WebView in a sample Android application. We can probably use a WebView to provide adequate functionality for users who can read and interpret the contents of web pages on Android. However for users who rely on TextToSpeech e.g. using the TalkBack accessibility service, the main problem seems to be the WebView doesn't trigger suitable events to drive TalkBack or other Accessibility services on Android. 
+
+Note: for Android version 9 and later versions, Android includes the [http://developer.android.com/reference/android/app/DownloadManager.html Download Manager] which offloads some of the complications of the actual downloads. We still need to implement a download mechanism to work on older versions of Android.
+
+StackOverflow has some useful posts regarding the download mechanisms, see:
+   * http://stackoverflow.com/questions/3926629/downloadlistener-not-working
+   * http://stackoverflow.com/questions/6870709/android-downloadlistener-or-asynctask
+   * http://stackoverflow.com/questions/4860484/download-a-file-from-webview-to-a-custom-folder 
+   * http://stackoverflow.com/questions/7288109/manually-handle-mp3-download-in-webview
+
+
 = Ideas to present and synchronise multimedia content =
 _these are rough notes_
 == For full audio DAISY books ==
