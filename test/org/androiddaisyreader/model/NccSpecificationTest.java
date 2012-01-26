@@ -17,6 +17,10 @@ public class NccSpecificationTest extends TestCase {
 	
 	@Override
 	protected void setUp() {
+		bookContents = createNCC();
+	}
+
+	public static ByteArrayInputStream createNCC() {
 		ByteArrayOutputStream out  = new ByteArrayOutputStream();
 		CreateDaisy202Book eBookContents = null;
 		try {
@@ -30,7 +34,7 @@ public class NccSpecificationTest extends TestCase {
 		eBookContents.writeBasicMetadata();
 		eBookContents.addTheseLevels("12231");
 		eBookContents.writeEndOfDocument();
-		bookContents = new ByteArrayInputStream(out.toByteArray());
+		return new ByteArrayInputStream(out.toByteArray());
 	}
 	
 	// This is a spike, and intended to be replaced once we integrate this code with the main project.
