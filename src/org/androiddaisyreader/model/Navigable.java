@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Navigable {
 	public Navigable getParent();
-	public List<Navigable> getChildren();
+	public List<? extends Navigable> getChildren();
 }

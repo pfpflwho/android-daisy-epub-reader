@@ -33,6 +33,7 @@ public class NccSpecification extends DefaultHandler {
 	Daisy202Book.Builder bookBuilder = new Daisy202Book.Builder();
 	
 	private enum Element {
+		HTML,
 		META,
 		TITLE,
 		H1,
@@ -193,6 +194,11 @@ public class NccSpecification extends DefaultHandler {
 			case H5:
 			case H6:
 				handleEndOfHeading(current);
+				break;
+			case HTML:
+				while (!headingStack.empty()) {
+					attachSectionToParent();
+				}
 				break;
 			default:
 				break;
