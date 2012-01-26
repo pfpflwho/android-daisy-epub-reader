@@ -136,15 +136,22 @@ public class NccSpecification extends DefaultHandler {
 	}
 	
 	private void handleStartOfHeading(Element heading, Attributes attributes) {
+		// Create the new header
 		Daisy202Section.Builder builder = new Daisy202Section.Builder();
 		builder.setId(getId(attributes));
 		builder.setLevel(levelMap.get(heading));
 		
+		// if the stack is not empty
 		if (!headingStack.empty()) {
+			// get the current top of the stack
 			Daisy202Section.Builder previous = headingStack.peek();
 			
+			// while there are more items on the stack and the parent 
 			while (!headingStack.isEmpty() && previous.getLevel() >= levelMap.get(heading)) {
 				attachSectionToParent();
+				if (!headingStack.empty()) {
+					previous = headingStack.peek();
+				}
 			}
 		}
 		headingStack.push(builder);
@@ -288,6 +295,12 @@ public class NccSpecification extends DefaultHandler {
 		InputStream contents = new BufferedInputStream(new FileInputStream(file));
 		String encoding = obtainEncodingStringFromInputStream(contents);
 		return readFromStream(contents, encoding);
+	}
+	
+	static Daisy202Book readFromStream(InputStream contents) throws IOException {
+		String encoding = obtainEncodingStringFromInputStream(contents);
+		return readFromStream(contents, encoding);
+		
 	}
 	
 	static Daisy202Book readFromStream(InputStream contents, String encoding) throws IOException {
