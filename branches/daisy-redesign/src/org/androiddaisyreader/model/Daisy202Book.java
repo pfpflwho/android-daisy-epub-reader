@@ -1,5 +1,6 @@
 package org.androiddaisyreader.model;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class Daisy202Book extends Book {
 		}
 
 		public Daisy202Book build() {
+			book.sections = Collections.unmodifiableList(book.sections);
 			return book;
 		}
 	}
@@ -40,9 +42,8 @@ public class Daisy202Book extends Book {
 		return null;
 	}
 
-	public List<Navigable> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<? extends Navigable> getChildren() {
+		return sections;
 	}
 
 	public Date getDate() {
