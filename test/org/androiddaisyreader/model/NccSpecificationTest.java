@@ -13,6 +13,25 @@ import org.androiddaisyreader.testutilities.SampleContent;
 import junit.framework.TestCase;
 
 public class NccSpecificationTest extends TestCase {
+	ByteArrayInputStream bookContents = null;
+	
+	@Override
+	protected void setUp() {
+		ByteArrayOutputStream out  = new ByteArrayOutputStream();
+		CreateDaisy202Book eBookContents = null;
+		try {
+			eBookContents = new CreateDaisy202Book(out);
+		} catch (NotImplementedException e) {
+			e.printStackTrace();
+		}
+		eBookContents.writeXmlHeader();
+		eBookContents.writeDoctype();
+		eBookContents.writeXmlns();
+		eBookContents.writeBasicMetadata();
+		eBookContents.addTheseLevels("12231");
+		eBookContents.writeEndOfDocument();
+		bookContents = new ByteArrayInputStream(out.toByteArray());
+	}
 	
 	// This is a spike, and intended to be replaced once we integrate this code with the main project.
 	public void testReadFromFile() throws IOException {
@@ -39,16 +58,16 @@ public class NccSpecificationTest extends TestCase {
 	}
 	
 	public void testNestingOfSections() throws NotImplementedException, IOException {
-		ByteArrayOutputStream out  = new ByteArrayOutputStream();
-		CreateDaisy202Book eBookContents = new CreateDaisy202Book(out);
-		eBookContents.writeXmlHeader();
-		eBookContents.writeDoctype();
-		eBookContents.writeXmlns();
-		eBookContents.writeBasicMetadata();
-		eBookContents.addTheseLevels("12231");
-		eBookContents.writeEndOfDocument();
-		ByteArrayInputStream bookContents = new ByteArrayInputStream(out.toByteArray());
 		Daisy202Book book = NccSpecification.readFromStream(bookContents);
 		assertEquals("Count should match the number of level 1 sections.", 2, book.getChildren().size());
+	}
+	
+	public void testChildrenSections() throws IOException {
+		Daisy202Book book = NccSpecification.readFromStream(bookContents);
+		Navigable childrenOfFirstLevelOneSection = book.getChildren().get(0);
+		assertEquals("There should be 2 level 2 children", 2, childrenOfFirstLevelOneSection.getChildren().size());
+		assertEquals("There should be 1 level 3 child for the second level 2", 
+				1, childrenOfFirstLevelOneSection.getChildren().get(1).getChildren().size());
+		
 	}
 }
