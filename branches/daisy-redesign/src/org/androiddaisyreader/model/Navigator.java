@@ -1,6 +1,5 @@
 package org.androiddaisyreader.model;
 
-import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Stack;
 
@@ -34,7 +33,10 @@ public class Navigator {
 	}
 	
 	public boolean hasPrevious() {
-		return stack.peek().hasPrevious();
+		if ((stack.size() > 1) || stack.peek().hasPrevious()) {
+			return true;
+		}
+		return false;
 	}
 	
 	public Navigable next() {
@@ -53,7 +55,49 @@ public class Navigator {
 	}
 	
 	public Navigable previous() {
-		return stack.peek().previous();
+		// TODO 20120127 (jharty): I'm sure this logic is overly complicated. Simplify and make more elegant.
+		Navigable item;
+		int debugLevelIndicator = 1;
+		
+		if (!hasPrevious()) {
+			return null;
+		}
+		
+		if (stack.peek().hasPrevious()) {
+			boolean pushedItem = false;
+			
+			item = stack.peek().previous();
+			// Now try to get to the bottom right root
+			while (item.getChildren().size() > 0) {
+				System.out.print("L:" + debugLevelIndicator++ + "[");
+				ListIterator<? extends Navigable> nextLevel = item.getChildren().listIterator();
+				if (!pushedItem) {
+					// We need to reset the cursor to before the current item as we will not use it yet.
+					// It will be used when the stack is popped again.
+					stack.peek().next();
+				}
+				
+				while (nextLevel.hasNext()) {
+					item = nextLevel.next();
+					System.out.print(".");
+				}
+				stack.push(nextLevel);
+				pushedItem = true;
+				System.out.print("]");
+			}
+			if (pushedItem) {
+				// Reset the cursor to be before the item we're about to return. 
+				stack.peek().previous();
+			}
+		} else {
+			// We have finished at this level, go up one level
+			stack.pop();
+			// How do we get the current item on the stack
+			item = stack.peek().previous();
+		}
+
+		return item;
+		
 	}
 	
 

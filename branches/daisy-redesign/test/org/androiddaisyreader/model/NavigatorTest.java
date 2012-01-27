@@ -32,4 +32,26 @@ public class NavigatorTest extends TestCase {
 		}
 		assertEquals("Expected 5 elements for a book with 12231 sections", 5, elements);
 	}
+	
+	public void testNavigationBackwardsThroughBook() {
+		int elements = 0;
+		
+		// First we need to reach the end of the book
+		while (navigator.hasNext()) {
+			Navigable n = navigator.next();
+			System.out.println(((Section)n).id);
+		}
+		System.out.println("Reversing...");
+		
+		// We should be at the end of the book now.
+		while (navigator.hasPrevious()) {
+			System.out.println("p");
+			Navigable n = navigator.previous();
+			assertTrue(n != null);
+			Section s = (Section)n;
+			System.out.println(s.id);
+			elements++;
+		}
+		assertEquals("Expected 5 elements for a book with 12231 sections", 5, elements);
+	}
 }
