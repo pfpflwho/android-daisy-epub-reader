@@ -1,12 +1,17 @@
 package org.androiddaisyreader.model;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import org.androiddaisyreader.testutilities.CreateDaisy202Book;
+import org.androiddaisyreader.testutilities.NotImplementedException;
+
 public class NavigatorTest extends TestCase {
 
+	private static final String SECTIONS_FOR_COMPLEX_NCC = "123123211123454566";
 	private ByteArrayInputStream bookContents;
 	private Navigator navigator;
 	
@@ -17,7 +22,7 @@ public class NavigatorTest extends TestCase {
 		try {
 			book = NccSpecification.readFromStream(bookContents);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// We cannot throw an exception from setUp so this is all we're doing...
 			e.printStackTrace();
 		}
 		navigator = new Navigator(book);
@@ -39,7 +44,8 @@ public class NavigatorTest extends TestCase {
 		// First we need to reach the end of the book
 		while (navigator.hasNext()) {
 			Navigable n = navigator.next();
-			System.out.println(((Section)n).id);
+			System.out.println(String.format("Level[%d], id[%s]", 
+					((Section)n).getLevel(), ((Section)n).id));
 		}
 		System.out.println("Reversing...");
 		
@@ -53,5 +59,61 @@ public class NavigatorTest extends TestCase {
 			elements++;
 		}
 		assertEquals("Expected 5 elements for a book with 12231 sections", 5, elements);
+	}
+	
+	public void testNavigationOfComplexDaisy202BookStructure() throws NotImplementedException, IOException {
+		Daisy202Book book = createDaisy202Structure(SECTIONS_FOR_COMPLEX_NCC);
+		
+		Navigator navigator = new Navigator(book);
+		navigator.gotoStartOfContent();
+		
+		int elements = 0;
+		while (navigator.hasNext()) {
+			Navigable n = navigator.next();
+			assertSectionEquals(SECTIONS_FOR_COMPLEX_NCC, elements, n);
+			elements++;
+		}
+		assertEquals("Expected to process all elements", 
+				SECTIONS_FOR_COMPLEX_NCC.length(), elements);
+	}
+
+	/**
+	 * assertSectionEquals compare section contains the correct value.
+	 * 
+	 * The value of the section at position is compared with the contents of
+	 * the navigable item.
+	 * @param structure The string that represents the sequence of sections.
+	 * @param position The position within the structure to compare against.
+	 * @param n the Navigable item.
+	 */
+	void assertSectionEquals(String structure, int position, Navigable n) {
+		assertEquals(
+				String.format(
+						"Section should be in correct sequence. Sequence [%s] element [%d]",
+						structure, position), 
+						Character.getNumericValue((structure.charAt(position))),
+						((Section)n).getLevel());
+	}
+
+	/**
+	 * Helper method to create a Daisy202 Ncc Structure.
+	 * @param structure to create as a numeric string e.g. 11231
+	 * @return a Daisy202Book structure
+	 * @throws NotImplementedException
+	 * @throws IOException
+	 */
+	Daisy202Book createDaisy202Structure(String structure) throws NotImplementedException,
+			IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		CreateDaisy202Book eBookContents = new CreateDaisy202Book(out);
+		eBookContents.writeXmlHeader();
+		eBookContents.writeDoctype();
+		eBookContents.writeXmlns();
+		eBookContents.writeBasicMetadata();
+		eBookContents.addTheseLevels(structure);
+		eBookContents.writeEndOfDocument();
+		ByteArrayInputStream bookContents = new ByteArrayInputStream(out.toByteArray());
+		Daisy202Book book = NccSpecification.readFromStream(bookContents);
+		return book;
 	}
 }
