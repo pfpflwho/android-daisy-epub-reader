@@ -10,9 +10,33 @@ public class Section implements Navigable {
 	protected String title;
 	protected String id;
 	protected String href;
+
+	public String getHref() {
+		return href;
+	}
 	
 	public int getLevel() {
 		return level;
+	}
+	
+	public String getSmilFilename() {
+		String[] values = href.split("#");
+		String smilFilename = values[0];
+		return smilFilenameIsValid(smilFilename) ? smilFilename : null;
+	}
+
+	/**
+	 * Simple helper method to validate the smil filename.
+	 * 
+	 * We can enhance this to suit our needs.
+	 * @param smilFilename
+	 * @return true if the filename seems to represent a smil file, else false.
+	 */
+	private boolean smilFilenameIsValid(String smilFilename) {
+		if (smilFilename.endsWith(".smil")) {
+			return true;
+		}
+		return false;
 	}
 
 	public String getTitle() {

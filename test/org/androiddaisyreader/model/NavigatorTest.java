@@ -77,16 +77,16 @@ public class NavigatorTest extends TestCase {
 	public void testForwardAndBackwardNavigationOfComplexDaisy202BookStructure() throws NotImplementedException, IOException {
 		Daisy202Book book = createDaisy202Structure(SECTIONS_FOR_COMPLEX_NCC);
 		
-		Navigator navigator = new Navigator(book);
-		navigator.gotoStartOfContent();
+		Navigator localNavigator = new Navigator(book);
+		localNavigator.gotoStartOfContent();
 		
 		int position;
 		ArrayList<Integer> levelsTraversed = new ArrayList<Integer>();
 		
 		for (int sectionsToTraverse = 0; sectionsToTraverse < SECTIONS_FOR_COMPLEX_NCC.length(); sectionsToTraverse++) {
 			position = 0;
-			while (navigator.hasNext() && position < sectionsToTraverse) {
-				Navigable n = navigator.next();
+			while (localNavigator.hasNext() && position < sectionsToTraverse) {
+				Navigable n = localNavigator.next();
 				assertSectionEquals(SECTIONS_FOR_COMPLEX_NCC, position, n);
 				levelsTraversed.add(((Section)n).getLevel());
 				position++;
@@ -97,14 +97,25 @@ public class NavigatorTest extends TestCase {
 							sectionsToTraverse, position);
 
 			Navigable n;
-			while (position > 0 && navigator.hasPrevious()) {
+			while (position > 0 && localNavigator.hasPrevious()) {
 				position--;  // Useful to decrement now as we can use it as the array index.
-				n = navigator.previous();
+				n = localNavigator.previous();
 				int expectedValue = levelsTraversed.get(position);
 				int levelFound = ((Section)n).getLevel();
 				assertEquals("Expected the level returned to match that discovered from the forward navigation.", expectedValue, levelFound);
 			}
 			levelsTraversed.clear();
+		}
+	}
+	
+	public void testSmilFilenamesAreCaptured() {
+		Navigable n = null;
+		String smilFilename = null;
+		while (navigator.hasNext()) {
+			n = navigator.next();
+			smilFilename = ((Section)n).getSmilFilename();
+			System.out.println(smilFilename);
+			assertNotNull("", smilFilename);
 		}
 	}
 	/**
