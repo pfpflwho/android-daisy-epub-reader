@@ -3,6 +3,7 @@ package org.androiddaisyreader.model;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
@@ -68,6 +69,7 @@ public class NavigatorTest extends TestCase {
 		navigator.gotoStartOfContent();
 		
 		int elements = 0;
+		
 		while (navigator.hasNext()) {
 			Navigable n = navigator.next();
 			assertSectionEquals(SECTIONS_FOR_COMPLEX_NCC, elements, n);
@@ -77,6 +79,40 @@ public class NavigatorTest extends TestCase {
 				SECTIONS_FOR_COMPLEX_NCC.length(), elements);
 	}
 
+	public void testForwardAndBackwardNavigationOfComplexDaisy202BookStructure() throws NotImplementedException, IOException {
+		Daisy202Book book = createDaisy202Structure(SECTIONS_FOR_COMPLEX_NCC);
+		
+		Navigator navigator = new Navigator(book);
+		navigator.gotoStartOfContent();
+		
+		int position;
+		ArrayList<Integer> levelsTraversed = new ArrayList<Integer>();
+		
+		for (int sectionsToTraverse = 0; sectionsToTraverse < SECTIONS_FOR_COMPLEX_NCC.length(); sectionsToTraverse++) {
+			position = 0;
+			while (navigator.hasNext() && position < sectionsToTraverse) {
+				Navigable n = navigator.next();
+				assertSectionEquals(SECTIONS_FOR_COMPLEX_NCC, position, n);
+				levelsTraversed.add(((Section)n).getLevel());
+				position++;
+			}
+			assertEquals(
+					String.format("Didn't traverse the expected number of sections in: %s", 
+							SECTIONS_FOR_COMPLEX_NCC),
+							sectionsToTraverse, position);
+			// System.out.println(String.format("Sections to traverse[%02d], reached[%02d]", sectionsToTraverse, position));
+
+			Navigable n;
+			while (position > 0 && navigator.hasPrevious()) {
+				position--;  // Useful to decrement now as we can use it as the array index.
+				n = navigator.previous();
+				int expectedValue = levelsTraversed.get(position);
+				int levelFound = ((Section)n).getLevel();
+				assertEquals("Expected the level returned to match that discovered from the forward navigation.", expectedValue, levelFound);
+			}
+			levelsTraversed.clear();
+		}
+	}
 	/**
 	 * assertSectionEquals compare section contains the correct value.
 	 * 
