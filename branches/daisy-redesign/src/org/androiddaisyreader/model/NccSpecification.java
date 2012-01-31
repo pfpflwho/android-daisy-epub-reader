@@ -145,7 +145,6 @@ public class NccSpecification extends DefaultHandler {
 	
 	private void handleAnchor(Attributes attributes) {
 		href = getValueForName("href", attributes);
-		System.out.println("href = " + href);
 	}
 
 	private void handleStartOfHeading(Element heading, Attributes attributes) {

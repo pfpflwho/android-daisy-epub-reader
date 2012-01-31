@@ -41,10 +41,6 @@ public class Daisy202Section extends Section {
 		public Section build() {
 			return newInstance;
 		}
-
-		public String getHref() {
-			return newInstance.href;
-		}
 		
 		public int getLevel() {
 			return newInstance.level;
