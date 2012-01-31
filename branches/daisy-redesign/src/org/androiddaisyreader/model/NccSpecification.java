@@ -170,9 +170,14 @@ public class NccSpecification extends DefaultHandler {
 	}
 
 	private String getId(Attributes attributes) {
+		String nameToMatch = "id";
+		return getValueForName(nameToMatch, attributes);
+	}
+
+	private String getValueForName(String nameToMatch, Attributes attributes) {
 		for (int i = 0; i < attributes.getLength(); i++) {
 			String name = attributes.getLocalName(i);
-			if (name.equalsIgnoreCase("id")) {
+			if (name.equalsIgnoreCase(nameToMatch)) {
 				return attributes.getValue(i);
 			}
 		}
