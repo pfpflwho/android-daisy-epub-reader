@@ -42,13 +42,23 @@ public class Daisy202Section extends Section {
 			return newInstance;
 		}
 
+		public String getHref() {
+			return newInstance.href;
+		}
+		
 		public int getLevel() {
 			return newInstance.level;
 		}
 
-		public void setId(String id) {
+		public Builder setId(String id) {
 			newInstance.id = id;
+			return this;
 			
+		}
+
+		public Builder setHref(String href) {
+			newInstance.href = href;
+			return this;
 		}
 	}
 }
