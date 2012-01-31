@@ -33,8 +33,10 @@ public class NccSpecification extends DefaultHandler {
 	private static Integer NUM_LEVELS_AVAILABLE_IN_DAISY202 = 6;
 	
 	Daisy202Book.Builder bookBuilder = new Daisy202Book.Builder();
+	private String href;
 	
 	private enum Element {
+		A,
 		HTML,
 		META,
 		TITLE,
@@ -116,6 +118,9 @@ public class NccSpecification extends DefaultHandler {
 		}
 		
 		switch (current) {
+			case A:
+				handleAnchor(attributes);
+				break;
 			case H1:
 			case H2:
 			case H3:
@@ -123,6 +128,7 @@ public class NccSpecification extends DefaultHandler {
 			case H5:
 			case H6:
 				buffer.setLength(0);
+				href = null;
 				handleStartOfHeading(current, attributes);
 				break;
 			case META:
@@ -137,6 +143,11 @@ public class NccSpecification extends DefaultHandler {
 		}
 	}
 	
+	private void handleAnchor(Attributes attributes) {
+		href = getValueForName("href", attributes);
+		System.out.println("href = " + href);
+	}
+
 	private void handleStartOfHeading(Element heading, Attributes attributes) {
 		// Create the new header
 		Daisy202Section.Builder builder = new Daisy202Section.Builder();
@@ -232,6 +243,7 @@ public class NccSpecification extends DefaultHandler {
 		}
 
 		currentBuilder.setTitle(buffer.toString());
+		currentBuilder.setHref(href);
 	}
 
 	private void handleMeta(Attributes attributes) {

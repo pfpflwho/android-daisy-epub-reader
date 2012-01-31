@@ -9,6 +9,7 @@ public class Section implements Navigable {
 	protected Navigable parent;
 	protected String title;
 	protected String id;
+	protected String href;
 	
 	public int getLevel() {
 		return level;
