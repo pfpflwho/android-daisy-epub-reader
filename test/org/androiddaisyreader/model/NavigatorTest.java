@@ -45,18 +45,13 @@ public class NavigatorTest extends TestCase {
 		// First we need to reach the end of the book
 		while (navigator.hasNext()) {
 			Navigable n = navigator.next();
-			System.out.println(String.format("Level[%d], id[%s]", 
-					((Section)n).getLevel(), ((Section)n).id));
 		}
-		System.out.println("Reversing...");
 		
 		// We should be at the end of the book now.
 		while (navigator.hasPrevious()) {
-			System.out.println("p");
 			Navigable n = navigator.previous();
 			assertTrue(n != null);
 			Section s = (Section)n;
-			System.out.println(s.id);
 			elements++;
 		}
 		assertEquals("Expected 5 elements for a book with 12231 sections", 5, elements);
@@ -100,7 +95,6 @@ public class NavigatorTest extends TestCase {
 					String.format("Didn't traverse the expected number of sections in: %s", 
 							SECTIONS_FOR_COMPLEX_NCC),
 							sectionsToTraverse, position);
-			// System.out.println(String.format("Sections to traverse[%02d], reached[%02d]", sectionsToTraverse, position));
 
 			Navigable n;
 			while (position > 0 && navigator.hasPrevious()) {
