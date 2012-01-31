@@ -57,7 +57,6 @@ public class Navigator {
 	public Navigable previous() {
 		// TODO 20120127 (jharty): I'm sure this logic is overly complicated. Simplify and make more elegant.
 		Navigable item;
-		int debugLevelIndicator = 1;
 		
 		if (!hasPrevious()) {
 			return null;
@@ -69,7 +68,6 @@ public class Navigator {
 			item = stack.peek().previous();
 			// Now try to get to the bottom right root
 			while (item.getChildren().size() > 0) {
-				System.out.print("L:" + debugLevelIndicator++ + "[");
 				ListIterator<? extends Navigable> nextLevel = item.getChildren().listIterator();
 				if (!pushedItem) {
 					// We need to reset the cursor to before the current item as we will not use it yet.
@@ -79,11 +77,9 @@ public class Navigator {
 				
 				while (nextLevel.hasNext()) {
 					item = nextLevel.next();
-					System.out.print(".");
 				}
 				stack.push(nextLevel);
 				pushedItem = true;
-				System.out.print("]");
 			}
 			if (pushedItem) {
 				// Reset the cursor to be before the item we're about to return. 
