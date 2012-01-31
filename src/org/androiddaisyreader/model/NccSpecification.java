@@ -24,6 +24,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
+// null comment
+
 public class NccSpecification extends DefaultHandler {
 	private Element current;
 	private Stack<Daisy202Section.Builder> headingStack = new Stack<Daisy202Section.Builder>();  // TODO 20120124 (jharty): replace with something that doesn't use Vector
