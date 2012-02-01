@@ -113,7 +113,7 @@ public class NavigatorTest extends TestCase {
 		String smilFilename = null;
 		while (navigator.hasNext()) {
 			n = navigator.next();
-			smilFilename = ((Section)n).getSmilFilename();
+			smilFilename = ((Daisy202Section)n).getSmilFilename();
 			System.out.println(smilFilename);
 			assertNotNull("", smilFilename);
 		}

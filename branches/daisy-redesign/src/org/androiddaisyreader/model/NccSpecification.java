@@ -24,8 +24,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-// null comment
-
+/**
+ * Parser to handle the NCC files used by Daisy 2.02 books.
+ * 
+ * The NCC contains the central control structures for a Daisy 2.02 book e.g.
+ * The meta-data, sections, and page numbers.
+ * 
+ * @author jharty
+ */
 public class NccSpecification extends DefaultHandler {
 	private Element current;
 	private Stack<Daisy202Section.Builder> headingStack = new Stack<Daisy202Section.Builder>();  // TODO 20120124 (jharty): replace with something that doesn't use Vector
@@ -47,7 +53,8 @@ public class NccSpecification extends DefaultHandler {
 		H5,
 		H6,
 		SPAN;
-		@Override public String toString() {
+		@Override 
+		public String toString() {
 			return this.name().toLowerCase();
 		}
 	}
@@ -112,7 +119,7 @@ public class NccSpecification extends DefaultHandler {
 	
 	@Override
 	public void startElement(String uri, String localName, String name, Attributes attributes) {
-		current = elementMap.get(getName(localName, name));
+		current = elementMap.get(ParserUtilities.getName(localName, name));
 		if (current == null) {
 			return;
 		}
@@ -144,7 +151,7 @@ public class NccSpecification extends DefaultHandler {
 	}
 	
 	private void handleAnchor(Attributes attributes) {
-		href = getValueForName("href", attributes);
+		href = ParserUtilities.getValueForName("href", attributes);
 	}
 
 	private void handleStartOfHeading(Element heading, Attributes attributes) {
@@ -182,18 +189,7 @@ public class NccSpecification extends DefaultHandler {
 	}
 
 	private String getId(Attributes attributes) {
-		String nameToMatch = "id";
-		return getValueForName(nameToMatch, attributes);
-	}
-
-	private String getValueForName(String nameToMatch, Attributes attributes) {
-		for (int i = 0; i < attributes.getLength(); i++) {
-			String name = attributes.getLocalName(i);
-			if (name.equalsIgnoreCase(nameToMatch)) {
-				return attributes.getValue(i);
-			}
-		}
-		return null;
+		return ParserUtilities.getValueForName("id", attributes);
 	}
 
 	@Override
@@ -205,9 +201,10 @@ public class NccSpecification extends DefaultHandler {
 	
 	@Override
 	public void endElement(String uri, String localName, String name)
-	throws SAXException {
+		throws SAXException {
+		
 		// add current element type to the book model.
-		current = elementMap.get(getName(localName, name));
+		current = elementMap.get(ParserUtilities.getName(localName, name));
 		if (current == null) {
 			return;
 		}
@@ -242,7 +239,9 @@ public class NccSpecification extends DefaultHandler {
 		}
 
 		currentBuilder.setTitle(buffer.toString());
-		currentBuilder.setHref(href);
+		if (href != null) {
+			currentBuilder.setHref(href);
+		}
 	}
 
 	private void handleMeta(Attributes attributes) {
@@ -296,17 +295,6 @@ public class NccSpecification extends DefaultHandler {
 		
 	}
 
-	// Possible bug between Android and Java...
-	// On Android the element name is returned in localName, on the
-	// workstation it's returned in 'name'
-	// Adding a temporary workaround until I understand what's happening!
-	private String getName(String localName, String name) {
-		if (localName.length() > 0 ) {
-			return localName;
-		}
-		return name;
-	}
-	
 	public Daisy202Book build() {
 		return bookBuilder.build();
 	}

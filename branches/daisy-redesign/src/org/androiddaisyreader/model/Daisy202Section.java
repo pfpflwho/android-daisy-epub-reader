@@ -3,10 +3,31 @@ package org.androiddaisyreader.model;
 import java.util.ArrayList;
 
 public class Daisy202Section extends Section {
+	
+	private Part part;
 
+	public String getSmilFilename() {
+		String[] values = href.split("#");
+		String smilFilename = values[0];
+		return smilFilenameIsValid(smilFilename) ? smilFilename : null;
+	}
+
+	/**
+	 * Simple helper method to validate the smil filename.
+	 * 
+	 * We can enhance this to suit our needs.
+	 * @param smilFilename
+	 * @return true if the filename seems to represent a smil file, else false.
+	 */
+	public boolean smilFilenameIsValid(String smilFilename) {
+		if (smilFilename.endsWith(".smil")) {
+			return true;
+		}
+		return false;
+	}
 	
 	public static class Builder {
-		private Section newInstance = new Section();
+		private Section newInstance = new Daisy202Section();
 		
 		Builder() {
 			newInstance.navigables = new ArrayList<Navigable>();
@@ -56,5 +77,9 @@ public class Daisy202Section extends Section {
 			newInstance.href = href;
 			return this;
 		}
+	}
+
+	public void setPart(Part part) {
+		this.part = part;
 	}
 }

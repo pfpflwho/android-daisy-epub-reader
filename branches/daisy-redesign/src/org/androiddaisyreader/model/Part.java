@@ -6,8 +6,11 @@ import java.util.List;
 
 public class Part implements Navigable {
 	private List<Snippet> snippets = new ArrayList<Snippet>();
+	private List<Part> parts = new ArrayList<Part>();
 	private Audio audio;
 	private Image image;
+	public String id;
+	public String timingMode;
 	
 	private Part() {}
 
@@ -38,6 +41,11 @@ public class Part implements Navigable {
 	public static class Builder {
 		private Part newInstance;
 		
+		public Builder addPart(Part part) {
+			newInstance.parts.add(part);
+			return this;
+		}
+		
 		public Builder addSnippet(Snippet snippet) {
 			newInstance.snippets.add(snippet);
 			return this;
@@ -55,6 +63,17 @@ public class Part implements Navigable {
 		
 		public Part build() {
 			return newInstance;
+		}
+
+		public Builder setId(String id) {
+			newInstance.id = id;
+			return this;
+			
+		}
+
+		public Builder setTimingMode(String mode) {
+			newInstance.timingMode = mode;
+			return this;
 		}
 	}
 
