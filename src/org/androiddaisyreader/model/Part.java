@@ -7,15 +7,17 @@ import java.util.List;
 public class Part implements Navigable {
 	private List<Snippet> snippets = new ArrayList<Snippet>();
 	private List<Part> parts = new ArrayList<Part>();
-	private Audio audio;
+	private List<Audio> audioElements = new ArrayList<Audio>();
+	private List<String> textElements = new ArrayList<String>();
+	private List<String> unhandledElements = new ArrayList<String>();
 	private Image image;
 	public String id;
 	public String timingMode;
 	
 	private Part() {}
 
-	public Audio getAudio() {
-		return audio;
+	public List<Audio> getAudioElements() {
+		return Collections.unmodifiableList(audioElements);
 	}
 	
 	public Image getImage() {
@@ -27,7 +29,7 @@ public class Part implements Navigable {
 	}
 	
 	public boolean hasAudio() {
-		return audio != null;
+		return !audioElements.isEmpty();
 	}
 	
 	public boolean hasImage() {
@@ -38,8 +40,18 @@ public class Part implements Navigable {
 		return !snippets.isEmpty();
 	}
 	
+	/**
+	 * Builder class to construct a Part object correctly.
+	 * 
+	 * @author jharty
+	 */
 	public static class Builder {
 		private Part newInstance;
+		
+		public Builder addAudio(Audio audioClip) {
+			newInstance.audioElements.add(audioClip);
+			return this;
+		}
 		
 		public Builder addPart(Part part) {
 			newInstance.parts.add(part);
@@ -50,9 +62,9 @@ public class Part implements Navigable {
 			newInstance.snippets.add(snippet);
 			return this;
 		}
-		
-		public Builder setAudio(Audio audioClip) {
-			newInstance.audio = audioClip;
+
+		public Builder addUnhandledElement(String elementDetails) {
+			newInstance.unhandledElements.add(elementDetails);
 			return this;
 		}
 		
@@ -73,6 +85,11 @@ public class Part implements Navigable {
 
 		public Builder setTimingMode(String mode) {
 			newInstance.timingMode = mode;
+			return this;
+		}
+
+		public Builder addTextElement(String location) {
+			newInstance.textElements.add(location);
 			return this;
 		}
 	}

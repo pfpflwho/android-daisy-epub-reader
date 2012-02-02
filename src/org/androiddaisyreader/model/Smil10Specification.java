@@ -71,14 +71,41 @@ public class Smil10Specification extends DefaultHandler {
 				handleStartOfNestedElement(current, attributes);
 				break;
 			case TEXT:
-				// TODO add handleText(attributes);
+				handleTextElement(attributes);
 				break;
 			default:
-				// do nothing for now for unmatched elements
+				// Record the element(s) we don't handle in case we can improve our processing of smil files.
+				recordUnhandledElement(current, attributes);
 				break;
 		}
 	}
 	
+	/**
+	 * Handle the Text Element.
+	 * 
+	 * The text element stores the location of a text fragment in an id
+	 * attribute.
+	 * @param attributes
+	 */
+	private void handleTextElement(Attributes attributes) {
+		String location = ParserUtilities.getValueForName("id", attributes);
+		partStack.peek().addTextElement(location);
+		
+	}
+
+	private void recordUnhandledElement(Element element, Attributes attributes) {
+		StringBuilder elementDetails = new StringBuilder();
+		elementDetails.append(String.format("[%s ", element.toString()));
+		for (int i = 0; i < attributes.getLength(); i++) {
+			elementDetails.append(
+					String.format("%s=%s", 
+							attributes.getLocalName(i), 
+							attributes.getValue(i)));
+			 }
+		elementDetails.append("]");
+		partStack.peek().addUnhandledElement(elementDetails.toString());
+	}
+
 	private void handleAudio(Attributes attributes) {
 		// <audio src="file.mp3" clip-begin="npt=0.000s" clip-end="npt=3.578s" id="audio_0001"/>
 		String audioFilename = ParserUtilities.getValueForName("src", attributes);
@@ -92,7 +119,7 @@ public class Smil10Specification extends DefaultHandler {
 		audio.setFilename(audioFilename);
 		audio.setClipTimings(clipBegin, clipEnd);
 		audio.setId(id);
-		partStack.peek().setAudio(audio);
+		partStack.peek().addAudio(audio);
 	}
 	
 	private void handleMeta(Attributes attributes) {
