@@ -132,4 +132,11 @@ Here are a collection of links that may be useful as we add more automated tests
 ||http://dtmilano.blogspot.com/||Lots of useful blog posts, with examples, on automated testing for Android||
 ||http://www.slideshare.net/marc_chung/testing-android||A short presentation on Automating Android Testing||
 ||http://code.google.com/p/mwta/downloads/list||My published documents on Android Test Automation.||
-   *
+
+== Coping with svn ==
+Here are a couple of notes to remind me how to recover when I've gotten into trouble with svn.
+
+To recover files that were accidentally deleted (often because eclipse seems to copy the .svn contents from ../src/ to ../bin/ use `svn copy` e.g. `svn copy https://android-daisy-epub-reader.googlecode.com/svn/branches/daisy-redesign/src/org/androiddaisyreader/TextSection.java@395 .\TextSection.java`
+then commit the changes.
+
+When svn refuses to allow me to commit code because the file is out of date. I ended up using another svn instance. Committed a change to the file it complained about, then return to the original workspace and try committing my changes again. `svn clean`, `svn update`, and deleting the file in my local workspace (after making a safe copy of my changes) seem to be part of the process.
