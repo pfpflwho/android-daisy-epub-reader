@@ -48,7 +48,9 @@ public class Smil10Specification extends DefaultHandler {
 				break;
 			case AUDIO:
 			case TEXT:
-				addPartToSection();
+				if (!handlingPar) {
+					addPartToSection();
+				}
 			default:
 				break;
 		}
@@ -113,10 +115,11 @@ public class Smil10Specification extends DefaultHandler {
 	 * @param attributes
 	 */
 	private void handleTextElement(Attributes attributes) {
-		String location = ParserUtilities.getValueForName("id", attributes);
+		String id = ParserUtilities.getValueForName("id", attributes);
+		String src = ParserUtilities.getValueForName("src", attributes);
 		// TODO 20120207 (jharty) Refactor for a text reference into a html file
 		// Create HTML Snippet Reader
-		partBuilder.addSnippet(new Snippet(location));
+		partBuilder.addSnippet(new Snippet(src));
 	}
 
 	private void recordUnhandledElement(Element element, Attributes attributes) {
@@ -164,6 +167,7 @@ public class Smil10Specification extends DefaultHandler {
 		
 		switch (meta) {
 		case FORMAT:
+			// TODO 20120207 (jharty): store the format.
 			break;
 		default:
 			break;
@@ -183,6 +187,11 @@ public class Smil10Specification extends DefaultHandler {
 	}
 	
 	private static Map <String, Element> elementMap = new HashMap<String, Element>(Element.values().length);
+	static {
+		for (Element e : Element.values()) {
+			elementMap.put(e.toString(), e);
+		}
+	}
 	
 	private enum Meta {
 		FORMAT {
