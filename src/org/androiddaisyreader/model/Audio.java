@@ -7,17 +7,10 @@ public class Audio {
 	private double clipEnd;
 	private String id;
 
-	public void setFilename(String audioFilename) {
+	public Audio(String id, String audioFilename, double clipBegin, double clipEnd) {
+		this.id = id;
 		this.audioFilename = audioFilename;
-	}
-
-	public void setClipTimings(double clipBegin, double clipEnd) {
 		this.clipBegin = clipBegin;
 		this.clipEnd = clipEnd;
 	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 }
