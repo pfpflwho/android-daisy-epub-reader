@@ -140,3 +140,14 @@ To recover files that were accidentally deleted (often because eclipse seems to 
 then commit the changes.
 
 When svn refuses to allow me to commit code because the file is out of date. I ended up using another svn instance. Committed a change to the file it complained about, then return to the original workspace and try committing my changes again. `svn clean`, `svn update`, and deleting the file in my local workspace (after making a safe copy of my changes) seem to be part of the process.
+
+== Processing SMIL files from the command line ==
+We have a simple java program which accepts a smil filename from the command line and calls the code and methods which process SMIL files for the new book `model`. The main purpose is to help us quickly discover if we've more work to do in order to process real files, rather than our hand-crafted test data. Here is an example of how to call it in a Windows command shell.
+{{{
+..\bin>for %1 in ("c:\Users\jharty\Downloads\daisy.org\daisy 2.02\frontpage
+-202-complete\frontpage\*.smil") do java org.androiddaisyreader.model.ProcessExternalSmilFile "%1"
+}}}
+
+Please note the double-quotes which are needed when the path or filename contains spaces. Also, this code is currently in the daisy-redesign branch (r412). We are likely to merge this branch into trunk, hopefully soon.
+
+Note: the first time I ran this I discovered we have problems parsing the times used in audio segments so the test has quickly paid for itself :)
