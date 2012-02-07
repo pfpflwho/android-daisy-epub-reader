@@ -16,12 +16,17 @@ import org.xml.sax.helpers.DefaultHandler;
 public class Smil10Specification extends DefaultHandler {
 	
 	private Element current;
-	private Stack<Part.Builder> partStack = new Stack<Part.Builder>();
-	Smil.Builder smilBuilder = new Smil.Builder();
-	private Daisy202Section parent;  // Our link to whoever or whatever our parent is
+	private Part.Builder partBuilder;
+	private Daisy202Section.Builder sectionBuilder;
+	
+	boolean handlingPar = false;
 
-	Smil10Specification(Daisy202Section parent) {
-		this.parent = parent;
+	Smil10Specification() {
+		sectionBuilder = new Daisy202Section.Builder();
+	}
+	
+	public Section build() {
+		return sectionBuilder.build();
 	}
 	
 	@Override
@@ -35,23 +40,24 @@ public class Smil10Specification extends DefaultHandler {
 		
 		switch (current) {
 			case PAR:
-			case SEQ:
-				handleEndOfNestedGroup(current);
+				handlingPar = false;
+				addPartToSection();
 				break;
+			case SEQ:
+				// do nothing
+				break;
+			case AUDIO:
+			case TEXT:
+				addPartToSection();
 			default:
 				break;
 		}
 	}
-	private void handleEndOfNestedGroup(Element element) {
-		Builder builder = partStack.pop();
-		// Do we need to add other items gathered between our start and end tags? I think not...
-		Part part = builder.build();
-		// TODO We need to connect to our parent (in a Section or a nested part)
-		if (partStack.empty()) {
-			parent.setPart(part);
-		}
-	}
 	
+	private void addPartToSection() {
+		sectionBuilder.addPart(partBuilder.build());
+	}
+
 	@Override
 	public void startElement(String uri, String localName, String name, Attributes attributes) {
 		current = elementMap.get(ParserUtilities.getName(localName, name));
@@ -61,16 +67,25 @@ public class Smil10Specification extends DefaultHandler {
 		
 		switch (current) {
 			case AUDIO:
+				if (!handlingPar) {
+					newPart();
+				}
 				handleAudio(attributes);
 				break;
 			case META:
 				handleMeta(attributes);
 				break;
-			case PAR:  // fall through to SEQ
+			case PAR:
+				handlingPar = true;
+				handlePar(attributes);
+				break;
 			case SEQ:
-				handleStartOfNestedElement(current, attributes);
+				// do nothing.
 				break;
 			case TEXT:
+				if (!handlingPar) {
+					newPart();
+				}
 				handleTextElement(attributes);
 				break;
 			default:
@@ -80,6 +95,16 @@ public class Smil10Specification extends DefaultHandler {
 		}
 	}
 	
+	private void handlePar(Attributes attributes) {
+		newPart();
+		String id = ParserUtilities.getValueForName("id", attributes);
+		partBuilder.setId(id);
+	}
+
+	private void newPart() {
+		partBuilder = new Part.Builder();
+	}
+
 	/**
 	 * Handle the Text Element.
 	 * 
@@ -89,8 +114,9 @@ public class Smil10Specification extends DefaultHandler {
 	 */
 	private void handleTextElement(Attributes attributes) {
 		String location = ParserUtilities.getValueForName("id", attributes);
-		partStack.peek().addTextElement(location);
-		
+		// TODO 20120207 (jharty) Refactor for a text reference into a html file
+		// Create HTML Snippet Reader
+		partBuilder.addSnippet(new Snippet(location));
 	}
 
 	private void recordUnhandledElement(Element element, Attributes attributes) {
@@ -103,7 +129,6 @@ public class Smil10Specification extends DefaultHandler {
 							attributes.getValue(i)));
 			 }
 		elementDetails.append("]");
-		partStack.peek().addUnhandledElement(elementDetails.toString());
 	}
 
 	private void handleAudio(Attributes attributes) {
@@ -115,16 +140,12 @@ public class Smil10Specification extends DefaultHandler {
 		
 		// TODO 20120201 (jharty): temporary debug, we need to add the attributes to the parent element.
 		System.out.println(audioFilename);
-		Audio audio = new Audio();
-		audio.setFilename(audioFilename);
-		audio.setClipTimings(clipBegin, clipEnd);
-		audio.setId(id);
-		partStack.peek().addAudio(audio);
+		Audio audio = new Audio(id, audioFilename, clipBegin, clipEnd);
+		partBuilder.addAudio(audio);
 	}
 	
 	private void handleMeta(Attributes attributes) {
 		String metaName = null;
-		String content = null;
 		
 		for (int i = 0; i < attributes.getLength(); i++) {
 			String name = attributes.getLocalName(i);
@@ -133,7 +154,6 @@ public class Smil10Specification extends DefaultHandler {
 			 }
 			
 			if (name.equalsIgnoreCase("content")) {
-				content = attributes.getValue(i);
 			}
 		}
 		
@@ -144,22 +164,10 @@ public class Smil10Specification extends DefaultHandler {
 		
 		switch (meta) {
 		case FORMAT:
-			smilBuilder.setFormat(content);
 			break;
 		default:
 			break;
 		}
-	}
-
-	private void handleStartOfNestedElement(Element element, Attributes attributes) {
-		// TODO 20120201 (jharty): Decide whether to build a nested structure.
-		String id = ParserUtilities.getValueForName("id", attributes);
-		// The nested elements need adding to this structure, maybe as children?
-		Part.Builder builder = new Part.Builder();
-		builder.setTimingMode(element.toString());
-		builder.setId(id);
-		// Do we need to set or add anything else before adding this builder to the stack?
-		partStack.push(builder);
 	}
 
 	private enum Element {
