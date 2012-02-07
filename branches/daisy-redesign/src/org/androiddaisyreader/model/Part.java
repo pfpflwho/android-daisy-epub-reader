@@ -46,7 +46,7 @@ public class Part implements Navigable {
 	 * @author jharty
 	 */
 	public static class Builder {
-		private Part newInstance;
+		private Part newInstance = new Part();
 		
 		public Builder addAudio(Audio audioClip) {
 			newInstance.audioElements.add(audioClip);
