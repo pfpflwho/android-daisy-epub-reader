@@ -53,6 +53,7 @@ public class Smil10SpecificationTest extends TestCase {
 		assertEquals("The part should contain one snippet", 1, part.getSnippets().size());
 		// TODO 20120207 revise once we implement processing of the snippets.
 		assertEquals("The snippet name is incorrect", "dummy.html#s8", part.getSnippets().get(0).getText());
+		assertEquals("Currently we expect only one snippet.", 1, part.getSnippets().size());
 	}
 
 }
