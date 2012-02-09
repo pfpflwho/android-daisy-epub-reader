@@ -25,7 +25,14 @@ public class ProcessExternalSmilFile {
 			System.exit(1);
 		}
 		
-		InputStream contents = new FileInputStream(args[0]);
+		StringBuilder filename = new StringBuilder();
+		
+		// To help cope with spaces in the filename e.g. on my windows machine.
+		for (int i = 0; i < args.length; i++) {
+			filename.append(args[i]);
+		}
+		
+		InputStream contents = new FileInputStream(filename.toString());
 		String encoding = obtainEncodingStringFromInputStream(contents);
 		Smil10Specification smil = new Smil10Specification();
 		

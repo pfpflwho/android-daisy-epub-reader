@@ -137,8 +137,8 @@ public class Smil10Specification extends DefaultHandler {
 	private void handleAudio(Attributes attributes) {
 		// <audio src="file.mp3" clip-begin="npt=0.000s" clip-end="npt=3.578s" id="audio_0001"/>
 		String audioFilename = ParserUtilities.getValueForName("src", attributes);
-		double clipBegin = Double.parseDouble(ParserUtilities.getValueForName("clip-begin", attributes));
-		double clipEnd = Double.parseDouble(ParserUtilities.getValueForName("clip-end", attributes));
+		double clipBegin = extractTiming("clip-begin", attributes);
+		double clipEnd = extractTiming("clip-end", attributes);
 		String id = ParserUtilities.getValueForName("id", attributes);
 		
 		// TODO 20120201 (jharty): temporary debug, we need to add the attributes to the parent element.
@@ -147,6 +147,12 @@ public class Smil10Specification extends DefaultHandler {
 		partBuilder.addAudio(audio);
 	}
 	
+	private double extractTiming(String value, Attributes attributes) {
+		String rawValue = ParserUtilities.getValueForName(value, attributes);
+		String trimmedValue = rawValue.replace("npt=", "").replace("s", "");
+		return Double.parseDouble(trimmedValue);
+	}
+
 	private void handleMeta(Attributes attributes) {
 		String metaName = null;
 		
