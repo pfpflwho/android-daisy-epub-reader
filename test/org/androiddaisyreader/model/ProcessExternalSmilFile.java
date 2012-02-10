@@ -53,7 +53,7 @@ public class ProcessExternalSmilFile {
 			if (section.navigables.size() > 0) {
 				// TODO 20120209 (jharty): replace this mess with cleaner code
 				// once I've worked out ways to get the text we're looking for...
-				System.out.printf("*** There are [%d] navigables", section.navigables.size());
+				System.out.printf("*** There are [%d] navigables\n", section.navigables.size());
 				for (int i = 0; i < section.navigables.size(); i++) {
 					Part part = (Part) section.navigables.get(i);
 					for (int j = 0; j < part.getSnippets().size(); j++) {
@@ -70,8 +70,16 @@ public class ProcessExternalSmilFile {
 						Document processedContents = fullText
 							.processHTML(fileContents.toString());
 						Element element = processedContents.getElementById(id);
-						System.out.printf("Text contents for [%s]: %s", id,
-							element.text());
+						if (part.getAudioElements().size() > 0) {
+							Audio audio = part.getAudioElements().get(0);
+							System.out.printf(" [%s]: %s < Show text for %f seconds => %s", 
+								id, 
+								audio.getAudioFilename(), 
+								audio.getClipEnd() - audio.getClipBegin(),	
+								element.text());
+						} else {
+							System.out.printf(" [%s]: => %s", id, element.text());
+						}
 					}
 				}
 			} else {
