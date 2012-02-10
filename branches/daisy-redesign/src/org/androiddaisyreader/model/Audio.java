@@ -13,4 +13,20 @@ public class Audio {
 		this.clipBegin = clipBegin;
 		this.clipEnd = clipEnd;
 	}
+	
+	public String getAudioFilename() {
+		return audioFilename;
+	}
+	
+	public double getClipBegin() {
+		return clipBegin;
+	}
+	
+	public double getClipEnd() {
+		return clipEnd;
+	}
+	
+	public String getId() {
+		return id;
+	}
 }
