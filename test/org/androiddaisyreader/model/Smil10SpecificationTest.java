@@ -27,6 +27,7 @@ public class Smil10SpecificationTest extends TestCase {
 	private static final String SMIL10PROLOGUE = 
 		"</body>" +
 		"</smil>";
+	
 	private static final String SMILWITH1TEXTSECTION = 
 		SMIL10PREAMBLE  +
 		"<seq dur=\"0.0s\">" +
@@ -35,12 +36,31 @@ public class Smil10SpecificationTest extends TestCase {
 		"</par>" +
 		"</seq>" +
 		SMIL10PROLOGUE;
+	
+	private static final String SMILWITH2TEXTSECTIONS = 
+		SMIL10PREAMBLE  +
+		"<seq dur=\"0.0s\">" +
+		"<par endsync=\"last\" id=\"par_12\">" +
+		"<text src=\"dummy.html#s8\" id=\"i10\" />" +
+		"<text src=\"dummy.html#s9\" id=\"i11\" />" +
+		"</par>" +
+		"</seq>" +
+		SMIL10PROLOGUE;
+	
 	private static final String SMILWITH1AUDIOSECTION = 
 		SMIL10PREAMBLE +
-		"<seq dur=\"1.4s\">" +
+		"<seq dur=\"1.666s\">" +
 		"<audio src=\"meow.mp3\" clip-begin=\"npt=0.000s\" clip-end=\"npt=1.666s\" id=\"audio_0001\"/>" +
 		"</seq>" +
 		SMIL10PROLOGUE;
+
+	private static final String SMILWITH2AUDIOSECTIONS = 
+			SMIL10PREAMBLE +
+			"<seq dur=\"4.317s\">" +
+			"<audio src=\"meow.mp3\" clip-begin=\"npt=0.000s\" clip-end=\"npt=1.666s\" id=\"audio_0001\"/>" +
+			"<audio src=\"meow.mp3\" clip-begin=\"npt=1.666s\" clip-end=\"npt=4.317s\" id=\"audio_0001\"/>" +
+			"</seq>" +
+			SMIL10PROLOGUE;
 	
 	public void testParsingOfSimpleSmil10WithText() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH1TEXTSECTION.getBytes());
@@ -62,9 +82,27 @@ public class Smil10SpecificationTest extends TestCase {
 		Part part = (Part) section.navigables.get(0);		
 		assertEquals("The part should contain one audio element", 1, part.getAudioElements().size());
 		assertEquals("The part should not contain any snippets", 0, part.getSnippets().size());
-		
 	}
 	
+	public void testParsingOfSimpleSmil10WithTwoAudioSections() throws IOException, SAXException, ParserConfigurationException {
+		InputStream contents = new ByteArrayInputStream(SMILWITH2AUDIOSECTIONS.getBytes());
+		Section section = parseSmilContents(contents);
+		assertEquals("Expected two parts", 2, section.navigables.size());
+		for (int item = 0; item < section.navigables.size(); item++) {
+			Part part = (Part) section.navigables.get(item);		
+			assertEquals("The part should contain 1 audio element", 1, part.getAudioElements().size());
+			assertEquals("The part should not contain any snippets", 0, part.getSnippets().size());
+		}
+	}
+	
+	public void testParsingOfSimpleSmil10WithTwoTextSections() throws IOException, SAXException, ParserConfigurationException {
+		InputStream contents = new ByteArrayInputStream(SMILWITH2TEXTSECTIONS.getBytes());
+		Section section = parseSmilContents(contents);
+		assertEquals("Expected two parts", 1, section.navigables.size());
+		Part part = (Part) section.navigables.get(0);		
+		assertEquals("The part should not contain any audio", 0, part.getAudioElements().size());
+		assertEquals("The part should contain 2 snippets", 2, part.getSnippets().size());
+	}
 	
 	private Section parseSmilContents(InputStream contents) throws IOException,
 			SAXException, ParserConfigurationException {

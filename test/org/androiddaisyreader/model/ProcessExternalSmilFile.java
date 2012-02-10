@@ -2,6 +2,7 @@ package org.androiddaisyreader.model;
 
 import static org.androiddaisyreader.model.XmlUtilities.obtainEncodingStringFromInputStream;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +10,8 @@ import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -43,11 +46,39 @@ public class ProcessExternalSmilFile {
 			saxParser.setEntityResolver(XmlUtilities.dummyEntityResolver());
 			saxParser.setContentHandler(smil);
 			InputSource input = new InputSource(contents);
+			// TODO 20120209 (jharty) need to map unsupported windows code page.
 			input.setEncoding(encoding);
 			saxParser.parse(input);
 			Section section = smil.build();
+			if (section.navigables.size() > 0) {
+				// TODO 20120209 (jharty): replace this mess with cleaner code
+				// once I've worked out ways to get the text we're looking for...
+				System.out.printf("*** There are [%d] navigables", section.navigables.size());
+				for (int i = 0; i < section.navigables.size(); i++) {
+					Part part = (Part) section.navigables.get(i);
+					for (int j = 0; j < part.getSnippets().size(); j++) {
+						String snippetReference = part.getSnippets().get(j).getText();
+						String[] elements = snippetReference.split("#");
+						File smilFile = new File(filename.toString());
+						String snippetFilename = smilFile.getParent()
+								+ File.separatorChar + elements[0];
+						String id = elements[1];
+						File fileToReadFrom = new File(snippetFilename);
+						FullText fullText = new FullText();
+						StringBuilder fileContents = fullText
+							.getContentsOfHTMLFile(fileToReadFrom);
+						Document processedContents = fullText
+							.processHTML(fileContents.toString());
+						Element element = processedContents.getElementById(id);
+						System.out.printf("Text contents for [%s]: %s", id,
+							element.text());
+					}
+				}
+			} else {
+				System.out.println("No text found in this smil file.");
+			}
 			// TODO 20120207 (jharty): consider checking the section contents here.
-			System.out.println("parsed file " + args[0] + " without error");
+			System.out.println("\nparsed file " + args[0] + " without error");
 			System.exit(0);
 		} catch (SAXException e) {
 			e.printStackTrace();

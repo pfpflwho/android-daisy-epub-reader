@@ -141,8 +141,6 @@ public class Smil10Specification extends DefaultHandler {
 		double clipEnd = extractTiming("clip-end", attributes);
 		String id = ParserUtilities.getValueForName("id", attributes);
 		
-		// TODO 20120201 (jharty): temporary debug, we need to add the attributes to the parent element.
-		System.out.println(audioFilename);
 		Audio audio = new Audio(id, audioFilename, clipBegin, clipEnd);
 		partBuilder.addAudio(audio);
 	}
