@@ -107,7 +107,7 @@ public class Smil10SpecificationTest extends TestCase {
 	private Section parseSmilContents(InputStream contents) throws IOException,
 			SAXException, ParserConfigurationException {
 		String encoding = obtainEncodingStringFromInputStream(contents);
-		Smil10Specification smil = new Smil10Specification();
+		Smil10Specification smil = new Smil10Specification(null);
 		
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		XMLReader saxParser = factory.newSAXParser().getXMLReader();

@@ -18,10 +18,12 @@ public class Smil10Specification extends DefaultHandler {
 	private Element current;
 	private Part.Builder partBuilder;
 	private Daisy202Section.Builder sectionBuilder;
+	private BookContext context;
 	
 	boolean handlingPar = false;
 
-	Smil10Specification() {
+	public Smil10Specification(BookContext context) {
+		this.context = context;
 		sectionBuilder = new Daisy202Section.Builder();
 	}
 	
@@ -119,7 +121,7 @@ public class Smil10Specification extends DefaultHandler {
 		String src = ParserUtilities.getValueForName("src", attributes);
 		// TODO 20120207 (jharty) Refactor for a text reference into a html file
 		// Create HTML Snippet Reader
-		partBuilder.addSnippet(new Snippet(src));
+		partBuilder.addSnippet(new Daisy202Snippet(context, src));
 	}
 
 	private void recordUnhandledElement(Element element, Attributes attributes) {
