@@ -24,7 +24,7 @@ public class ProcessExternalSmilFile {
 	 */
 	public static void main(String[] args) throws IOException {
 		if (args.length == 0) {
-			printUsage("ProcessExternalSmilFile");
+			CommandLineUtilities.printUsage("ProcessExternalSmilFile");
 			System.exit(1);
 		}
 		
@@ -93,10 +93,6 @@ public class ProcessExternalSmilFile {
 			System.exit(-1);
 		}
 
-	}
-
-	private static void printUsage(String programName) {
-		System.out.println("Usage: \n\t" + programName + "smilfilename");
 	}
 
 }
