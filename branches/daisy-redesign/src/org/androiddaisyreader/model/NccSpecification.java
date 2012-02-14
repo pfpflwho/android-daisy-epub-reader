@@ -30,6 +30,18 @@ import org.xml.sax.helpers.DefaultHandler;
  * The NCC contains the central control structures for a Daisy 2.02 book e.g.
  * The meta-data, sections, and page numbers.
  * 
+ * TODO 20120214 (jharty): I'd like to improve the way we report errors in the
+ * contents. For instance we may encounter several problems in the ncc.html 
+ * file. It'd be good to capture the set of problems, store them for later
+ * reporting (so we can discover ways to improve our code to handle the 
+ * issues). We should be able to tell the user what went wrong when trying to
+ * parse the contents of the book and make it easy for them to send us details
+ * of the problems (and optionally the ncc.html file that caused the problem).
+ * 
+ * My current idea would be to collect the issues and throw an exception when
+ * the parsing has completed. Sometimes we may throw an exception sooner e.g.
+ * if it's impractical to continue with the parsing.
+ * 
  * @author jharty
  */
 public class NccSpecification extends DefaultHandler {
@@ -284,12 +296,22 @@ public class NccSpecification extends DefaultHandler {
 	}
 
 	private Date parseDate(String content, String scheme) {
-		String format = scheme.replaceAll("m", "M");
+		String format;
+		
+		if (scheme == null) {
+			// Assume this structure, see http://www.daisy.org/z3986/specifications/daisy_202.html#dtbclass
+			// Note: Java uses MM for month, unlike ISO8601
+			format = "yyyy-MM-dd";  
+		} else {
+			format = scheme.replaceAll("m", "M");
+		}
+		
 		DateFormat formatter =  new SimpleDateFormat(format);
 		try {
 			return formatter.parse(content);
 		} catch (ParseException pe) {
-			throw new IllegalArgumentException(String.format("Problem parsing the date[%s] using scheme [%s]",
+			throw new IllegalArgumentException(
+					String.format("Problem parsing the date[%s] using scheme [%s]",
 					content, scheme), pe);
 		}
 		
