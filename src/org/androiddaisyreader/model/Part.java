@@ -94,11 +94,6 @@ public class Part implements Navigable {
 		}
 	}
 
-	public Navigable getParent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<Navigable> getChildren() {
 		// TODO Auto-generated method stub
 		return null;

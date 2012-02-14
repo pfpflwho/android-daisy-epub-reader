@@ -32,7 +32,6 @@ public class Daisy202Book extends Book {
 		}
 	}
 
-	private NccSpecification ncc;
 	private Daisy202Book() {
 		super();
 	}

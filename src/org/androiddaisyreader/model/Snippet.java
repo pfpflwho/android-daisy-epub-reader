@@ -1,14 +1,9 @@
 package org.androiddaisyreader.model;
 
-public class Snippet {
-	private String text;
+public abstract class Snippet {
 	
-	Snippet(String text) {
-		this.text = text;
-	}
-	
-	public String getText() {
-		return text;
-	}
+	public abstract String getText();
+
+	public abstract String getId();
 	
 }

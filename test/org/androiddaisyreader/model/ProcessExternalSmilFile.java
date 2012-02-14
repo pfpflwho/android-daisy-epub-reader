@@ -37,7 +37,13 @@ public class ProcessExternalSmilFile {
 		
 		InputStream contents = new FileInputStream(filename.toString());
 		String encoding = obtainEncodingStringFromInputStream(contents);
-		Smil10Specification smil = new Smil10Specification();
+
+		File directory = new File(filename.toString());
+		
+		BookContext bookContext = new BookContext(directory.getParent());
+		directory = null;
+		
+		Smil10Specification smil = new Smil10Specification(bookContext);
 		
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		XMLReader saxParser;
@@ -57,28 +63,19 @@ public class ProcessExternalSmilFile {
 				for (int i = 0; i < section.navigables.size(); i++) {
 					Part part = (Part) section.navigables.get(i);
 					for (int j = 0; j < part.getSnippets().size(); j++) {
-						String snippetReference = part.getSnippets().get(j).getText();
-						String[] elements = snippetReference.split("#");
-						File smilFile = new File(filename.toString());
-						String snippetFilename = smilFile.getParent()
-								+ File.separatorChar + elements[0];
-						String id = elements[1];
-						File fileToReadFrom = new File(snippetFilename);
-						FullText fullText = new FullText();
-						StringBuilder fileContents = fullText
-							.getContentsOfHTMLFile(fileToReadFrom);
-						Document processedContents = fullText
-							.processHTML(fileContents.toString());
-						Element element = processedContents.getElementById(id);
+
+						String text = part.getSnippets().get(j).getText();
+						String id = part.getSnippets().get(j).getId();
+						
 						if (part.getAudioElements().size() > 0) {
 							Audio audio = part.getAudioElements().get(0);
 							System.out.printf(" [%s]: %s < Show text for %f seconds => %s", 
 								id, 
 								audio.getAudioFilename(), 
 								audio.getClipEnd() - audio.getClipBegin(),	
-								element.text());
+								text);
 						} else {
-							System.out.printf(" [%s]: => %s", id, element.text());
+							System.out.printf(" [%s]: => %s", id, text);
 						}
 					}
 				}
