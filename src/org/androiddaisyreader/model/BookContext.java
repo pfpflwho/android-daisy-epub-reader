@@ -10,6 +10,10 @@ public class BookContext {
 	private String directoryName; // TODO 20120214 (jharty): use more general uri rather than assuming files.
 	private File directory;
 
+	protected BookContext() {
+		// Do nothing.
+	}
+	
 	public BookContext(String directoryName) {
 		System.out.println("BookContext: directoryname = " + directoryName);
 		directory = new File(directoryName);
@@ -26,6 +30,7 @@ public class BookContext {
 	}
 
 	public String getCharSet(String uri) {
+		// TODO 20120214 (jharty): extract (and cache?) the character set.
 		return "utf-8";
 	}
 

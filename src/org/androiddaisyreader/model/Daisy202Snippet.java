@@ -12,6 +12,10 @@ public class Daisy202Snippet extends Snippet {
 	private String uri;
 	private String id;
 
+	// Prevent people from using the default constructor.
+	private Daisy202Snippet() {
+	}
+	
 	/**
 	 * Create a DAISY 2.02 snippet.
 	 * Uses the book's context & a composite reference.
@@ -27,6 +31,10 @@ public class Daisy202Snippet extends Snippet {
 	 * @param compositeReference
 	 */
 	Daisy202Snippet(BookContext context, String compositeReference) {
+		if (context == null) {
+			throw new IllegalArgumentException("Programming error: context needs to be set");
+		}
+		
 		this.context = context;
 		String[] elements = compositeReference.split("#");
 		if (elements.length != 2) {

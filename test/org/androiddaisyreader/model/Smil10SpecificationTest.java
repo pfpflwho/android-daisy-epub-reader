@@ -16,6 +16,8 @@ import org.xml.sax.XMLReader;
 import junit.framework.TestCase;
 
 public class Smil10SpecificationTest extends TestCase {
+	private BookContext context;
+
 	private static final String SMIL10PREAMBLE = 
 		"<?xml version=\"1.0\" encoding=\"windows-1252\"?>" +
 		"<!DOCTYPE smil PUBLIC \"-//W3C//DTD SMIL 1.0//EN\" \"http://www.w3.org/TR/REC-smil/SMIL10.dtd\">" +
@@ -61,6 +63,8 @@ public class Smil10SpecificationTest extends TestCase {
 			"<audio src=\"meow.mp3\" clip-begin=\"npt=1.666s\" clip-end=\"npt=4.317s\" id=\"audio_0001\"/>" +
 			"</seq>" +
 			SMIL10PROLOGUE;
+
+	private static final String EXPECTED_CONTENTS = "Hello tests";
 	
 	public void testParsingOfSimpleSmil10WithText() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH1TEXTSECTION.getBytes());
@@ -70,7 +74,7 @@ public class Smil10SpecificationTest extends TestCase {
 		Part part = (Part) section.navigables.get(0);
 		assertEquals("The part should contain one snippet", 1, part.getSnippets().size());
 		// TODO 20120207 revise once we implement processing of the snippets.
-		assertEquals("The snippet name is incorrect", "dummy.html#s8", part.getSnippets().get(0).getText());
+		assertEquals("The snippet name is incorrect", EXPECTED_CONTENTS, part.getSnippets().get(0).getText());
 		assertEquals("Currently we expect only one snippet.", 1, part.getSnippets().size());
 		assertEquals("The part should not contain any audio elements", 0, part.getAudioElements().size());
 		}
@@ -107,7 +111,10 @@ public class Smil10SpecificationTest extends TestCase {
 	private Section parseSmilContents(InputStream contents) throws IOException,
 			SAXException, ParserConfigurationException {
 		String encoding = obtainEncodingStringFromInputStream(contents);
-		Smil10Specification smil = new Smil10Specification(null);
+		
+		// TODO 20120214 (jharty): we need a way to create a book context for streams.
+		context = new DummyBookContext("<h1 id=\"s8\"><p>" + EXPECTED_CONTENTS + "</p></h1>");
+		Smil10Specification smil = new Smil10Specification(context);
 		
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		XMLReader saxParser = factory.newSAXParser().getXMLReader();
