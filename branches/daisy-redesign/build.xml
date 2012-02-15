@@ -8,6 +8,7 @@
 <property name="build" location="classes" />
 
 <path id="java.classpath">
+  <!-- TODO 20120215 (jharty): tidy up the references to jsoup once we move back to trunk. -->
   <fileset dir="../../trunk/libs/">
     <include name="*.jar" /> 
   </fileset>
@@ -26,6 +27,10 @@
 <target name="jar" depends="compile" description="create the jar file" >
    <mkdir dir="lib" />
    <jar jarfile="lib/daisymodel.jar" basedir="${build}" />
+</target>
+
+<target name="clean" description="clean up temporary files." >
+  <delete dir="${build}" />
 </target>
 
 </project>
