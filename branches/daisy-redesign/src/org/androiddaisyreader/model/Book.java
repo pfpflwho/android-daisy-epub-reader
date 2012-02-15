@@ -9,19 +9,19 @@ public abstract class Book implements Navigable {
 	protected String author;
 	protected List<Section> sections = new ArrayList<Section>();
 	
-	String getAuthor() {
+	public String getAuthor() {
 		return author;
 	}
 	
-		String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 	
-	boolean hasAuthor() {
+	public boolean hasAuthor() {
 		return author != null;
 	}
 	
-	boolean hasTitle() {
+	public boolean hasTitle() {
 		return title != null;
 	}
 	
