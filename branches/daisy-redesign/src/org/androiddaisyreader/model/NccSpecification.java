@@ -321,19 +321,19 @@ public class NccSpecification extends DefaultHandler {
 		return bookBuilder.build();
 	}
 
-	static Daisy202Book readFromFile(File file) throws IOException {
+	public static Daisy202Book readFromFile(File file) throws IOException {
 		InputStream contents = new BufferedInputStream(new FileInputStream(file));
 		String encoding = obtainEncodingStringFromInputStream(contents);
 		return readFromStream(contents, encoding);
 	}
 	
-	static Daisy202Book readFromStream(InputStream contents) throws IOException {
+	public static Daisy202Book readFromStream(InputStream contents) throws IOException {
 		String encoding = obtainEncodingStringFromInputStream(contents);
 		return readFromStream(contents, encoding);
 		
 	}
 	
-	static Daisy202Book readFromStream(InputStream contents, String encoding) throws IOException {
+	public static Daisy202Book readFromStream(InputStream contents, String encoding) throws IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		NccSpecification specification = new NccSpecification();
 		try {
