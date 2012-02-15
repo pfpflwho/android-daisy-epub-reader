@@ -1,0 +1,31 @@
+<project name="DaisyBookModel" default="jar" basedir=".">
+  <description>
+    Creates a jar containing the model for the book.
+  </description>
+
+<!-- set global properties for this build -->
+<property name="src" location="src" />
+<property name="build" location="classes" />
+
+<path id="java.classpath">
+  <fileset dir="../../trunk/libs/">
+    <include name="*.jar" /> 
+  </fileset>
+</path>
+
+<target name="init">
+  <mkdir dir="${build}"/>
+</target>
+
+<target name="compile" depends="init" description="compile the java source" >
+  <javac srcdir="${src}" destdir="${build}" >
+    <classpath refid="java.classpath"/>
+  </javac>
+</target>
+
+<target name="jar" depends="compile" description="create the jar file" >
+   <mkdir dir="lib" />
+   <jar jarfile="lib/daisymodel.jar" basedir="${build}" />
+</target>
+
+</project>
