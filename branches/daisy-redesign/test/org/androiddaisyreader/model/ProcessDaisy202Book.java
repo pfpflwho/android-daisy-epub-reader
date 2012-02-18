@@ -9,6 +9,9 @@ import java.io.InputStream;
 
 public class ProcessDaisy202Book {
 
+	private static BookContext bookContext;
+	private static InputStream contents;
+
 	/**
 	 * @param args
 	 */
@@ -24,14 +27,17 @@ public class ProcessDaisy202Book {
 		for (int i = 0; i < args.length; i++) {
 			filename.append(args[i]);
 		}
-		
-		InputStream contents = new FileInputStream(filename.toString());
-		String encoding = obtainEncodingStringFromInputStream(contents);
-
-		File directory = new File(filename.toString());
-		
-		BookContext bookContext = new FileSystemContext(directory.getParent());
-		directory = null;
+		if (filename.toString().endsWith(".zip")) {
+			bookContext = new ZippedBookContext(filename.toString());
+			contents = bookContext.getResource("ncc.html");
+		} else {
+			contents = new FileInputStream(filename.toString());
+			String encoding = obtainEncodingStringFromInputStream(contents);
+	
+			File directory = new File(filename.toString());
+			bookContext = new FileSystemContext(directory.getParent());
+			directory = null;
+		}
 		
 		Daisy202Book book = NccSpecification.readFromStream(contents);
 		System.out.println("Book: " + book.getTitle());
