@@ -4,6 +4,7 @@
 package org.androiddaisyreader.model;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,10 +25,10 @@ public interface BookContext {
 	 *  
 	 * @param uri the name of the resource.
 	 * @return an InputStream with the contents of the resource. 
-	 * @throws FileNotFoundException if the resource is not found or other
+	 * @throws IOException if the resource is not found or other
 	 *         problems related to obtaining the contents.
 	 */
-	public InputStream getResource(String uri) throws FileNotFoundException;
+	public InputStream getResource(String uri) throws IOException;
 		
 	/**
 	 * Obtain the character set for the specified uri.
