@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class FileSystemContext {
+public class FileSystemContext implements BookContext {
 
 	private String directoryName; // TODO 20120214 (jharty): use more general uri rather than assuming files.
 	private File directory;
