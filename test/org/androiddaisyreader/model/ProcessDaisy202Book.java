@@ -30,7 +30,7 @@ public class ProcessDaisy202Book {
 
 		File directory = new File(filename.toString());
 		
-		BookContext bookContext = new BookContext(directory.getParent());
+		BookContext bookContext = new FileSystemContext(directory.getParent());
 		directory = null;
 		
 		Daisy202Book book = NccSpecification.readFromStream(contents);

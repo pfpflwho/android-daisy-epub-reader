@@ -10,8 +10,6 @@ import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -40,7 +38,7 @@ public class ProcessExternalSmilFile {
 
 		File directory = new File(filename.toString());
 		
-		BookContext bookContext = new BookContext(directory.getParent());
+		BookContext bookContext = new FileSystemContext(directory.getParent());
 		directory = null;
 		
 		Smil10Specification smil = new Smil10Specification(bookContext);

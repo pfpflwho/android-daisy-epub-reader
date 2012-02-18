@@ -9,10 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
+ * Represents a dummy book for testing purposes.
+ * 
  * @author jharty
- *
  */
-public class DummyBookContext extends BookContext {
+public class DummyBookContext implements BookContext {
 
 	private String contents;
 
@@ -20,18 +21,14 @@ public class DummyBookContext extends BookContext {
 		this.contents = contents;
 	}
 
-	@Override
 	public InputStream getResource(String uri) throws FileNotFoundException {
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 
-	@Override
 	public String getCharSet(String uri) {
-		// TODO Auto-generated method stub
-		return super.getCharSet(uri);
+		return "utf-8";
 	}
 
-	@Override
 	public String getBaseUri() {
 		return File.separator;
 	}
