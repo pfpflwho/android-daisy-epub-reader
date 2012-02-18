@@ -15,7 +15,6 @@ public class FileSystemContext implements BookContext {
 	}
 	
 	public FileSystemContext(String directoryName) {
-		System.out.println("BookContext: directoryname = " + directoryName);
 		directory = new File(directoryName);
 		if (!directory.isDirectory()) {
 			throw new IllegalStateException("A valid directory is required");
