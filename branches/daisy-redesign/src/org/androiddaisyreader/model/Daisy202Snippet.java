@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 
 public class Daisy202Snippet extends Snippet {
 
-	private FileSystemContext context;
+	private BookContext context;
 	private String uri;
 	private String id;
 
@@ -30,7 +30,7 @@ public class Daisy202Snippet extends Snippet {
 	 * @param context
 	 * @param compositeReference
 	 */
-	Daisy202Snippet(FileSystemContext context, String compositeReference) {
+	Daisy202Snippet(BookContext context, String compositeReference) {
 		if (context == null) {
 			throw new IllegalArgumentException("Programming error: context needs to be set");
 		}

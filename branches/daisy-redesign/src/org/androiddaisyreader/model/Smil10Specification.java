@@ -18,11 +18,11 @@ public class Smil10Specification extends DefaultHandler {
 	private Element current;
 	private Part.Builder partBuilder;
 	private Daisy202Section.Builder sectionBuilder;
-	private FileSystemContext context;
+	private BookContext context;
 	
 	boolean handlingPar = false;
 
-	public Smil10Specification(FileSystemContext context) {
+	public Smil10Specification(BookContext context) {
 		this.context = context;
 		sectionBuilder = new Daisy202Section.Builder();
 	}
