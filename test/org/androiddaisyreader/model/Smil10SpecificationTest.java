@@ -16,6 +16,11 @@ import org.xml.sax.XMLReader;
 import junit.framework.TestCase;
 
 public class Smil10SpecificationTest extends TestCase {
+	private static final String SEQ_PAR_POSTAMBLE = "</par>" + "</seq>";
+
+	private static final String SEQ_PAR_PREAMBLE = "<seq dur=\"0.0s\">" +
+			"<par endsync=\"last\" id=\"par_12\">";
+
 	private BookContext context;
 
 	private static final String SMIL10PREAMBLE = 
@@ -31,23 +36,19 @@ public class Smil10SpecificationTest extends TestCase {
 		"</smil>";
 	
 	private static final String SMILWITH1TEXTSECTION = 
-		SMIL10PREAMBLE  +
-		"<seq dur=\"0.0s\">" +
-		"<par endsync=\"last\" id=\"par_12\">" +
-		"<text src=\"dummy.html#s8\" id=\"i10\" />" +
-		"</par>" +
-		"</seq>" +
+		SMIL10PREAMBLE + SEQ_PAR_PREAMBLE + 
+		"<text src=\"dummy.html#s8\" id=\"i10\" />" + 
+		SEQ_PAR_POSTAMBLE + 
 		SMIL10PROLOGUE;
 	
+	private static final String SMILWITH1BROKENLINKINTEXTSECTION = 
+			SMIL10PREAMBLE + SEQ_PAR_PREAMBLE + 
+			"<text src=\"dummy.html#broken_link\" id=\"i10\" />" + 
+			SEQ_PAR_POSTAMBLE + 
+			SMIL10PROLOGUE;
+	
 	private static final String SMILWITH2TEXTSECTIONS = 
-		SMIL10PREAMBLE  +
-		"<seq dur=\"0.0s\">" +
-		"<par endsync=\"last\" id=\"par_12\">" +
-		"<text src=\"dummy.html#s8\" id=\"i10\" />" +
-		"<text src=\"dummy.html#s9\" id=\"i11\" />" +
-		"</par>" +
-		"</seq>" +
-		SMIL10PROLOGUE;
+		SMIL10PREAMBLE + SEQ_PAR_PREAMBLE + "<text src=\"dummy.html#s8\" id=\"i10\" />" + "<text src=\"dummy.html#s9\" id=\"i11\" />" + SEQ_PAR_POSTAMBLE + SMIL10PROLOGUE;
 	
 	private static final String SMILWITH1AUDIOSECTION = 
 		SMIL10PREAMBLE +
@@ -79,6 +80,19 @@ public class Smil10SpecificationTest extends TestCase {
 		assertEquals("The part should not contain any audio elements", 0, part.getAudioElements().size());
 		}
 
+	public void testErrorHandlingForBrokenSmilPointerToTextContents() throws IOException, SAXException, ParserConfigurationException {
+		InputStream contents = new ByteArrayInputStream(SMILWITH1BROKENLINKINTEXTSECTION.getBytes());
+		Section section = parseSmilContents(contents);
+		assertEquals("Expected one part", 1, section.navigables.size());
+		Part part = (Part) section.navigables.get(0);
+		assertEquals("The part should contain one snippet", 1, part.getSnippets().size());
+
+		// Now we need to decide how we want parsing problems to be reported...
+		// Currently this throws a null pointer exception (NPE)
+		assertEquals("The snippet name is incorrect", EXPECTED_CONTENTS, part.getSnippets().get(0).getText());
+		
+	}
+	
 	public void testParsingOfSimpleSmil10WithAudio() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH1AUDIOSECTION.getBytes());
 		Section section = parseSmilContents(contents);
