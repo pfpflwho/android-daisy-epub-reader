@@ -25,10 +25,6 @@ public class DummyBookContext implements BookContext {
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 
-	public String getCharSet(String uri) {
-		return "utf-8";
-	}
-
 	public String getBaseUri() {
 		return File.separator;
 	}
