@@ -1,5 +1,7 @@
 package org.androiddaisyreader.model;
 
+import static org.androiddaisyreader.model.XmlUtilities.obtainEncodingStringFromInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -53,7 +55,8 @@ public class Daisy202Snippet extends Snippet {
 		Document doc = null;
 		try {
 			InputStream contents = context.getResource(uri);
-			doc = Jsoup.parse(contents, context.getCharSet(uri), context.getBaseUri());
+			String encoding = obtainEncodingStringFromInputStream(contents);
+			doc = Jsoup.parse(contents, encoding, context.getBaseUri());
 			return doc.getElementById(id).text(); 
 		} catch (IOException ioe) {
 			// TODO 20120214 (jharty): we need to consider more appropriate error reporting.

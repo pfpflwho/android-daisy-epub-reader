@@ -28,11 +28,6 @@ public class FileSystemContext implements BookContext {
 		return contents;
 	}
 
-	public String getCharSet(String uri) {
-		// TODO 20120214 (jharty): extract (and cache?) the character set.
-		return "utf-8";
-	}
-
 	public String getBaseUri() {
 		return directoryName;
 	}

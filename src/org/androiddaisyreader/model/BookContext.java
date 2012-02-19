@@ -29,19 +29,6 @@ public interface BookContext {
 	 *         problems related to obtaining the contents.
 	 */
 	public InputStream getResource(String uri) throws IOException;
-		
-	/**
-	 * Obtain the character set for the specified uri.
-	 * 
-	 * The character set is important when parsing the contents of the uri.
-	 * 
-	 * TODO 20120218 (jharty): actually implement code to return the correct
-	 * contents rather than a hardcoded result.
-	 * 
-	 * @param uri the name of the resource.
-	 * @return a string representing the character set of the uri.
-	 */
-	public String getCharSet(String uri);
 	
 	/**
 	 * Obtain the base URI for the Book's Context. e.g. the directory name

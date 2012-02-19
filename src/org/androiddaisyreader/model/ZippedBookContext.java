@@ -47,10 +47,6 @@ public class ZippedBookContext implements BookContext {
 		return null;
 	}
 
-	public String getCharSet(String uri) {
-		return "utf-8";
-	}
-
 	public String getBaseUri() {
 		return zipContents.getName();
 	}
