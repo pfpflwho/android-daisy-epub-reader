@@ -29,6 +29,7 @@ public class DaisyBookListerActivity extends Activity {
 	private Daisy202Book book;
 	private TextView sectionTitle;
 	private Navigator navigator;
+	private Controller controller = new Controller();
 	
 	/** Called when the activity is first created. */
     @Override
@@ -49,15 +50,7 @@ public class DaisyBookListerActivity extends Activity {
     
     private OnClickListener nextSectionListener = new OnClickListener() {
     	public void onClick(View v) {
-    		
-    		if (navigator.hasNext()) {
-    			Section section = ((Section) navigator.next());
-    			sectionTitle.setText(section.getTitle());
-    		} else {
-    			Toast.makeText(getBaseContext(), "At end of " + book.getTitle(), Toast.LENGTH_LONG).show();
-    			nextSection.setEnabled(false);
-    		}
-    		
+    		controller.next();
     	}
     };
     
@@ -96,4 +89,24 @@ public class DaisyBookListerActivity extends Activity {
 		}
 		return bookContext;
 	}
+	
+	private class NavigationListener {
+		
+	}
+	
+	private class Controller {
+		public void next() {
+			// TODO 20120220 (jharty): First step in the migration process. Clean me up!
+			if (navigator.hasNext()) {
+				Section section = ((Section) navigator.next());
+				sectionTitle.setText(section.getTitle());
+			} else {
+				Toast.makeText(getBaseContext(), "At end of " + book.getTitle(), Toast.LENGTH_LONG).show();
+				nextSection.setEnabled(false);
+			}
+			
+		}
+	}
+	
+	
 }
