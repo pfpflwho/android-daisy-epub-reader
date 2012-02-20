@@ -19,6 +19,19 @@
   android:id="@+id/openbook"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:text="Open book" />  
+  android:text="Open book" />
+<Button 
+  android:id="@+id/nextsection"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="Next Section"
+  android:enabled="false"
+/> 
+<TextView 
+  android:id="@+id/sectiontitle"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:text=""
+/>
   
 </LinearLayout>
