@@ -29,7 +29,8 @@ public class DaisyBookListerActivity extends Activity {
 	private Daisy202Book book;
 	private TextView sectionTitle;
 	private Navigator navigator;
-	private Controller controller = new Controller();
+	private NavigationListener navigationListener = new NavigationListener();
+	private Controller controller = new Controller(navigationListener);
 	
 	/** Called when the activity is first created. */
     @Override
@@ -90,23 +91,43 @@ public class DaisyBookListerActivity extends Activity {
 		return bookContext;
 	}
 	
+	/**
+	 * Listens to Navigation Events.
+	 * 
+	 * @author Julian Harty
+	 */
 	private class NavigationListener {
+		public void onNext(Section section) {
+			sectionTitle.setText(section.getTitle());
+		}
 		
-	}
-	
-	private class Controller {
-		public void next() {
-			// TODO 20120220 (jharty): First step in the migration process. Clean me up!
-			if (navigator.hasNext()) {
-				Section section = ((Section) navigator.next());
-				sectionTitle.setText(section.getTitle());
-			} else {
-				Toast.makeText(getBaseContext(), "At end of " + book.getTitle(), Toast.LENGTH_LONG).show();
-				nextSection.setEnabled(false);
-			}
-			
+		public void atEndOfBook() {
+			Toast.makeText(getBaseContext(), "At end of " + book.getTitle(), Toast.LENGTH_LONG).show();
+			nextSection.setEnabled(false);
 		}
 	}
 	
+	/**
+	 * Here is our nano-controller which calls methods on the Navigation Listener.
+	 * We could include a method to add additional listeners.
+	 * 
+	 * @author Julian Harty
+	 */
+	private class Controller {
+		private NavigationListener navigationListener;
+		
+		Controller (NavigationListener navigationListener) {
+			this.navigationListener = navigationListener;
+		}
+		public void next() {
+			// TODO 20120220 (jharty): Second step in the migration process. Clean me up!
+			if (navigator.hasNext()) {
+				Section section = ((Section) navigator.next());
+				navigationListener.onNext(section);
+			} else {
+				navigationListener.atEndOfBook();
+			}
+		}
+	}
 	
 }
