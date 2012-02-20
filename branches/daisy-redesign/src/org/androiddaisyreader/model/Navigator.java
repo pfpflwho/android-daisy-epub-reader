@@ -12,7 +12,7 @@ public class Navigator {
 	private Book book;
 	private Stack<ListIterator<? extends Navigable>> stack = new Stack<ListIterator<? extends Navigable>>();
 	
-	Navigator(Book book) {
+	public Navigator(Book book) {
 		this.book = book;
 		gotoStartOfContent();
 	}
