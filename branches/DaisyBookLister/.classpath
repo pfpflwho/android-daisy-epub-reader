@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="C:/myopensourceprojects/DaisyProject/branches/daisy-redesign/lib/daisymodel.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="/Users/untitled/myopensourceprojects/DaisyProject/branches/DaisyBookLister/libs/daisymodel.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
