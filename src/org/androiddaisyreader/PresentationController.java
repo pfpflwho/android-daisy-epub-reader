@@ -9,11 +9,6 @@ public class PresentationController implements AudioCallbackListener, Navigation
 		
 	}
 
-	public void completedCurrentSection() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void endOfAudio() {
 		// TODO Auto-generated method stub
 	}
@@ -35,6 +30,27 @@ public class PresentationController implements AudioCallbackListener, Navigation
 			// e.g. throw a new IllegalStateException if we're not happy
 			return controller;
 		}
+	}
+
+	public void next() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void previous() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void goTo(LocationInBook location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public NavigationListener build(
+			NavigationEventListener navigationEventListener) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
