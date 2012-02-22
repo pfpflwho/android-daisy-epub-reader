@@ -29,6 +29,12 @@
    <jar jarfile="lib/daisymodel.jar" basedir="${build}" />
 </target>
 
+<target name="sources-jar" depends="jar" description="create jar of source code" >
+  <jar jarfile="lib/daisymodel-sources.jar"> 
+    <fileset dir="${src}" includes="**/*.java" />
+  </jar>
+</target>
+
 <target name="clean" description="clean up temporary files." >
   <delete dir="${build}" />
 </target>
