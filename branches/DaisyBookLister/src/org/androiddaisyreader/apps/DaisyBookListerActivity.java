@@ -8,9 +8,12 @@ import java.io.InputStream;
 
 import org.androiddaisyreader.model.BookContext;
 import org.androiddaisyreader.model.Daisy202Book;
+import org.androiddaisyreader.model.Daisy202Section;
 import org.androiddaisyreader.model.FileSystemContext;
+import org.androiddaisyreader.model.Navigable;
 import org.androiddaisyreader.model.Navigator;
 import org.androiddaisyreader.model.NccSpecification;
+import org.androiddaisyreader.model.Part;
 import org.androiddaisyreader.model.Section;
 import org.androiddaisyreader.model.ZippedBookContext;
 
@@ -24,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DaisyBookListerActivity extends Activity {
+	private BookContext bookContext;
     private EditText filename;
 	private Button nextSection;
 	private Daisy202Book book;
@@ -31,6 +35,8 @@ public class DaisyBookListerActivity extends Activity {
 	private Navigator navigator;
 	private NavigationListener navigationListener = new NavigationListener();
 	private Controller controller = new Controller(navigationListener);
+	private Button partTitle;
+	private TextView snippets;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -46,22 +52,33 @@ public class DaisyBookListerActivity extends Activity {
         nextSection = (Button) findViewById(R.id.nextsection);
         nextSection.setOnClickListener(nextSectionListener);
         
-        sectionTitle = (TextView) findViewById(R.id.sectiontitle);
+        sectionTitle = (Button) findViewById(R.id.sectiontitle);
+        sectionTitle.setOnClickListener(playSectionListener);
+        snippets = (TextView) findViewById(R.id.words);
     }
+    
+    
+    private OnClickListener playSectionListener = new OnClickListener() {
+    	public void onClick(View v) {
+    		controller.play();
+    	}
+    };
     
     private OnClickListener nextSectionListener = new OnClickListener() {
     	public void onClick(View v) {
+    		sectionTitle.setEnabled(true);
     		controller.next();
     	}
     };
     
     private OnClickListener openListener = new OnClickListener() {
 
+
 		public void onClick(View v) {
     		InputStream contents;
 			try {
 				// contents = new FileInputStream(filename.getText().toString());
-				BookContext bookContext = openBook(filename.getText().toString());
+				bookContext = openBook(filename.getText().toString());
 				
 				contents = bookContext.getResource("ncc.html");
 				
@@ -99,11 +116,27 @@ public class DaisyBookListerActivity extends Activity {
 	private class NavigationListener {
 		public void onNext(Section section) {
 			sectionTitle.setText(section.getTitle());
+
+			Daisy202Section currentSection = new Daisy202Section.Builder()
+			.setHref(section.getHref())
+			.setContext(bookContext)
+			.build();
+			
+			StringBuilder snippetText = new StringBuilder();
+			
+			for (Part part : currentSection.getParts()) {
+				for (int i = 0; i < part.getSnippets().size(); i++) {
+					snippetText.append(part.getSnippets().get(i).getText());
+				}
+			}
+			
+			snippets.setText(snippetText.toString());
 		}
 		
 		public void atEndOfBook() {
 			Toast.makeText(getBaseContext(), "At end of " + book.getTitle(), Toast.LENGTH_LONG).show();
 			nextSection.setEnabled(false);
+			sectionTitle.setEnabled(false);
 		}
 	}
 	
@@ -115,15 +148,27 @@ public class DaisyBookListerActivity extends Activity {
 	 */
 	private class Controller {
 		private NavigationListener navigationListener;
+		private Navigable n;
 		
 		Controller (NavigationListener navigationListener) {
 			this.navigationListener = navigationListener;
 		}
+		public void play() {
+			Toast.makeText(getApplicationContext(), ((Section)n).getHref(), Toast.LENGTH_LONG);
+		}
+		
 		public void next() {
 			// TODO 20120220 (jharty): Second step in the migration process. Clean me up!
 			if (navigator.hasNext()) {
-				Section section = ((Section) navigator.next());
-				navigationListener.onNext(section);
+				n = navigator.next();
+				if (n instanceof Section) {
+					navigationListener.onNext((Section)n);
+				} 
+				
+				if (n instanceof Part) {
+					String msg = "Part, id: " + ((Part)n).id;
+					Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+				}
 			} else {
 				navigationListener.atEndOfBook();
 			}
