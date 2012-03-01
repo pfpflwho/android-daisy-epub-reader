@@ -17,8 +17,10 @@ import org.xml.sax.XMLReader;
 public class ProcessExternalSmilFile {
 
 	/**
-	 * @param args
-	 * @throws IOException 
+	 * Process and External SMIL file. 
+	 * @param args the filename of the SMIL file. If there are several 
+	 * arguments, assume they comprise a single composite path and filename.
+	 * @throws IOException if there are problems finding or opening the file.
 	 */
 	public static void main(String[] args) throws IOException {
 		if (args.length == 0) {
@@ -36,16 +38,16 @@ public class ProcessExternalSmilFile {
 		InputStream contents = new FileInputStream(filename.toString());
 		String encoding = obtainEncodingStringFromInputStream(contents);
 
-		File directory = new File(filename.toString());
+		File file = new File(filename.toString());
 		
-		BookContext bookContext = new FileSystemContext(directory.getParent());
+		BookContext bookContext = new FileSystemContext(file.getParent());
 		
 		Daisy202Section section = new Daisy202Section.Builder()
-			.setHref(directory.getName())
+			.setHref(file.getName())
 			.setContext(bookContext)
 			.build();
 		
-		directory = null;
+		file = null;
 
 		for (Part part : section.getParts()) {
 			for (int j = 0; j < part.getSnippets().size(); j++) {

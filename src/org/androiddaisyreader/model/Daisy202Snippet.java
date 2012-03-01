@@ -15,6 +15,7 @@ public class Daisy202Snippet extends Snippet {
 	private String id;
 
 	// Prevent people from using the default constructor.
+	@SuppressWarnings("unused")
 	private Daisy202Snippet() {
 	}
 	
