@@ -1,4 +1,4 @@
-<project name="DaisyBookModel" default="jar" basedir=".">
+<project name="DaisyBookModel" default="sources-jar" basedir=".">
   <description>
     Creates a jar containing the model for the book.
   </description>
@@ -19,7 +19,7 @@
 </target>
 
 <target name="compile" depends="init" description="compile the java source" >
-  <javac srcdir="${src}" destdir="${build}" >
+  <javac srcdir="${src}" destdir="${build}" debug="on" debuglevel="lines,vars,source">
     <classpath refid="java.classpath"/>
   </javac>
 </target>
