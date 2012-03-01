@@ -1,16 +1,12 @@
-/**
- * 
- */
 package org.androiddaisyreader.model;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 /**
  * BookContext provides a resource-independent way to access a book's contents.
  * 
- * The current design should work for zipped content and files in a directory.
+ * The current design works for zipped content and files in a directory.
  * Potentially it may also support URI based content e.g. on a web server.
  * 
  * @author Julian Harty

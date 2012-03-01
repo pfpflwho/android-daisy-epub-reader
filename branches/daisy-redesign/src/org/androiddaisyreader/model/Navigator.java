@@ -4,19 +4,31 @@ import java.util.ListIterator;
 import java.util.Stack;
 
 /** 
- * Navigates through a book.
+ * Navigates through the structure of a book.
+ * 
+ * This doesn't process the contents, which is handled at the Section level.
+ * 
  * @author jharty
- *
  */
 public class Navigator {
 	private Book book;
 	private Stack<ListIterator<? extends Navigable>> stack = new Stack<ListIterator<? extends Navigable>>();
 	
+	/**
+	 * Creates a new navigator, which is initialised at the start of the book.
+	 * 
+	 * TODO 20120301 (jharty): add a mechanism to navigate to a chosen location.
+	 * @param book the book to read.
+	 */
 	public Navigator(Book book) {
 		this.book = book;
 		gotoStartOfContent();
 	}
 	
+	/**
+	 * Reset navigation to the start of the content; generally the beginning of
+	 * the book.
+	 */
 	public void gotoStartOfContent() {
 		stack.clear();
 		stack.push(book.getChildren().listIterator());
@@ -25,6 +37,10 @@ public class Navigator {
 	
 	// think about goto(navigation_point);
 	
+	/**
+	 * Is there a next section? 
+	 * @return true if there is, else return false.
+	 */
 	public boolean hasNext() {
 		while ((stack.size() > 1) && !stack.peek().hasNext()) {
 			stack.pop();
@@ -32,6 +48,10 @@ public class Navigator {
 		return stack.peek().hasNext();
 	}
 	
+	/**
+	 * Is there a previous section?
+	 * @return true if there is, else return false.
+	 */
 	public boolean hasPrevious() {
 		if ((stack.size() > 1) || stack.peek().hasPrevious()) {
 			return true;
@@ -39,6 +59,10 @@ public class Navigator {
 		return false;
 	}
 	
+	/**
+	 * Navigate to the next section.
+	 * @return the next item.
+	 */
 	public Navigable next() {
 		Navigable item;
 		
@@ -54,6 +78,10 @@ public class Navigator {
 		return item;
 	}
 	
+	/**
+	 * Navigate to the previous section.
+	 * @return the previous item.
+	 */
 	public Navigable previous() {
 		// TODO 20120127 (jharty): I'm sure this logic is overly complicated. Simplify and make more elegant.
 		Navigable item;
@@ -95,6 +123,5 @@ public class Navigator {
 		return item;
 		
 	}
-	
 
 }
