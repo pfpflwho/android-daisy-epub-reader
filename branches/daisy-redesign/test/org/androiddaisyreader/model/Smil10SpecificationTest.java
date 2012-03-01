@@ -69,10 +69,10 @@ public class Smil10SpecificationTest extends TestCase {
 	
 	public void testParsingOfSimpleSmil10WithText() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH1TEXTSECTION.getBytes());
-		Section section = parseSmilContents(contents);
+		Part[] parts = parseSmilContents(contents);
 
-		assertEquals("Expected one part", 1, section.navigables.size());
-		Part part = (Part) section.navigables.get(0);
+		assertEquals("Expected one part", 1, parts.length);
+		Part part = parts[0];
 		assertEquals("The part should contain one snippet", 1, part.getSnippets().size());
 		// TODO 20120207 revise once we implement processing of the snippets.
 		assertEquals("The snippet name is incorrect", EXPECTED_CONTENTS, part.getSnippets().get(0).getText());
@@ -82,9 +82,9 @@ public class Smil10SpecificationTest extends TestCase {
 
 	public void testErrorHandlingForBrokenSmilPointerToTextContents() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH1BROKENLINKINTEXTSECTION.getBytes());
-		Section section = parseSmilContents(contents);
-		assertEquals("Expected one part", 1, section.navigables.size());
-		Part part = (Part) section.navigables.get(0);
+		Part[] parts = parseSmilContents(contents);
+		assertEquals("Expected one part", 1, parts.length);
+		Part part = parts[0];
 		assertEquals("The part should contain one snippet", 1, part.getSnippets().size());
 
 		// Now we need to decide how we want parsing problems to be reported...
@@ -95,19 +95,19 @@ public class Smil10SpecificationTest extends TestCase {
 	
 	public void testParsingOfSimpleSmil10WithAudio() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH1AUDIOSECTION.getBytes());
-		Section section = parseSmilContents(contents);
-		assertEquals("Expected one part", 1, section.navigables.size());
-		Part part = (Part) section.navigables.get(0);		
+		Part[] parts = parseSmilContents(contents);
+		assertEquals("Expected one part", 1, parts.length);
+		Part part = parts[0];		
 		assertEquals("The part should contain one audio element", 1, part.getAudioElements().size());
 		assertEquals("The part should not contain any snippets", 0, part.getSnippets().size());
 	}
 	
 	public void testParsingOfSimpleSmil10WithTwoAudioSections() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH2AUDIOSECTIONS.getBytes());
-		Section section = parseSmilContents(contents);
-		assertEquals("Expected two parts", 2, section.navigables.size());
-		for (int item = 0; item < section.navigables.size(); item++) {
-			Part part = (Part) section.navigables.get(item);		
+		Part[] parts = parseSmilContents(contents);
+		assertEquals("Expected two parts", 2, parts.length);
+		for (int item = 0; item < parts.length; item++) {
+			Part part = parts[item];		
 			assertEquals("The part should contain 1 audio element", 1, part.getAudioElements().size());
 			assertEquals("The part should not contain any snippets", 0, part.getSnippets().size());
 		}
@@ -115,30 +115,21 @@ public class Smil10SpecificationTest extends TestCase {
 	
 	public void testParsingOfSimpleSmil10WithTwoTextSections() throws IOException, SAXException, ParserConfigurationException {
 		InputStream contents = new ByteArrayInputStream(SMILWITH2TEXTSECTIONS.getBytes());
-		Section section = parseSmilContents(contents);
-		assertEquals("Expected two parts", 1, section.navigables.size());
-		Part part = (Part) section.navigables.get(0);		
+		Part[] parts = parseSmilContents(contents);
+		assertEquals("Expected two parts", 1, parts.length);
+		Part part = parts[0];		
 		assertEquals("The part should not contain any audio", 0, part.getAudioElements().size());
 		assertEquals("The part should contain 2 snippets", 2, part.getSnippets().size());
 	}
 	
-	private Section parseSmilContents(InputStream contents) throws IOException,
+	private Part[] parseSmilContents(InputStream contents) throws IOException,
 			SAXException, ParserConfigurationException {
 		String encoding = obtainEncodingStringFromInputStream(contents);
 		
 		// TODO 20120214 (jharty): we need a way to create a book context for streams.
 		context = new DummyBookContext("<h1 id=\"s8\"><p>" + EXPECTED_CONTENTS + "</p></h1>");
 		Smil10Specification smil = new Smil10Specification(context);
-		
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		XMLReader saxParser = factory.newSAXParser().getXMLReader();
-		saxParser.setEntityResolver(XmlUtilities.dummyEntityResolver());
-		saxParser.setContentHandler(smil);
-		InputSource input = new InputSource(contents);
-		input.setEncoding(encoding);
-		saxParser.parse(input);
-		Section section = smil.build();
-		return section;
+		return Smil10Specification.getParts(context, contents);
 	}
 
 }

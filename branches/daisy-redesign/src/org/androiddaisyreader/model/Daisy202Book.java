@@ -35,11 +35,6 @@ public class Daisy202Book extends Book {
 	private Daisy202Book() {
 		super();
 	}
-	
-	public Navigable getParent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public List<? extends Navigable> getChildren() {
 		return sections;

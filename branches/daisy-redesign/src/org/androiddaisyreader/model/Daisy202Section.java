@@ -1,15 +1,33 @@
 package org.androiddaisyreader.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Daisy202Section extends Section {
 	
-	private Part part;
 
+	private Daisy202Section() {
+		// Use the Builder... not me...
+	}
+	
 	public String getSmilFilename() {
 		String[] values = href.split("#");
 		String smilFilename = values[0];
 		return smilFilenameIsValid(smilFilename) ? smilFilename : null;
+	}
+	
+	public Part[] getParts() {
+		try {
+			return Smil10Specification.getParts(bookContext, bookContext.getResource(getSmilFilename()));
+		} catch (IOException e) {
+			// TODO 20120301 jharty: refactor once I've sorted out the custom exceptions
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	public boolean hasParts() {
+		return false;
 	}
 
 	/**
@@ -27,15 +45,10 @@ public class Daisy202Section extends Section {
 	}
 	
 	public static class Builder {
-		private Section newInstance = new Daisy202Section();
+		private Daisy202Section newInstance = new Daisy202Section();
 		
-		Builder() {
+		public Builder() {
 			newInstance.navigables = new ArrayList<Navigable>();
-		}
-		
-		public Builder addPart(Part part) {
-			newInstance.navigables.add(part);
-			return this;
 		}
 		
 		public Builder addSection(Section section) {
@@ -54,12 +67,17 @@ public class Daisy202Section extends Section {
 			return this;
 		}
 		
+		public Builder setContext(BookContext context) {
+			newInstance.bookContext = context;
+			return this;
+		}
+		
 		public Builder setTitle(String title) {
 			newInstance.title = title;
 			return this;
 		}
 		
-		public Section build() {
+		public Daisy202Section build() {
 			return newInstance;
 		}
 		
@@ -77,9 +95,5 @@ public class Daisy202Section extends Section {
 			newInstance.href = href;
 			return this;
 		}
-	}
-
-	public void setPart(Part part) {
-		this.part = part;
 	}
 }
