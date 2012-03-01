@@ -10,6 +10,7 @@ public class Section implements Navigable {
 	protected String title;
 	protected String id;
 	protected String href;
+	protected BookContext bookContext;
 
 	public String getHref() {
 		return href;

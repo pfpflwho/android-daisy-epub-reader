@@ -39,57 +39,35 @@ public class ProcessExternalSmilFile {
 		File directory = new File(filename.toString());
 		
 		BookContext bookContext = new FileSystemContext(directory.getParent());
+		
+		Daisy202Section section = new Daisy202Section.Builder()
+			.setHref(directory.getName())
+			.setContext(bookContext)
+			.build();
+		
 		directory = null;
-		
-		Smil10Specification smil = new Smil10Specification(bookContext);
-		
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		XMLReader saxParser;
-		try {
-			saxParser = factory.newSAXParser().getXMLReader();
-			saxParser.setEntityResolver(XmlUtilities.dummyEntityResolver());
-			saxParser.setContentHandler(smil);
-			InputSource input = new InputSource(contents);
-			// TODO 20120209 (jharty) need to map unsupported windows code page.
-			input.setEncoding(encoding);
-			saxParser.parse(input);
-			Section section = smil.build();
-			if (section.navigables.size() > 0) {
-				// TODO 20120209 (jharty): replace this mess with cleaner code
-				// once I've worked out ways to get the text we're looking for...
-				System.out.printf("*** There are [%d] navigables\n", section.navigables.size());
-				for (int i = 0; i < section.navigables.size(); i++) {
-					Part part = (Part) section.navigables.get(i);
-					for (int j = 0; j < part.getSnippets().size(); j++) {
 
-						String text = part.getSnippets().get(j).getText();
-						String id = part.getSnippets().get(j).getId();
-						
-						if (part.getAudioElements().size() > 0) {
-							Audio audio = part.getAudioElements().get(0);
-							System.out.printf(" [%s]: %s < Show text for %f seconds => %s", 
-								id, 
-								audio.getAudioFilename(), 
-								audio.getClipEnd() - audio.getClipBegin(),	
-								text);
-						} else {
-							System.out.printf(" [%s]: => %s", id, text);
-						}
-					}
+		for (Part part : section.getParts()) {
+			for (int j = 0; j < part.getSnippets().size(); j++) {
+
+				String text = part.getSnippets().get(j).getText();
+				String id = part.getSnippets().get(j).getId();
+
+				if (part.getAudioElements().size() > 0) {
+					Audio audio = part.getAudioElements().get(0);
+					System.out.printf(" [%s]: %s < Show text for %f seconds => %s", 
+							id, 
+							audio.getAudioFilename(), 
+							audio.getClipEnd() - audio.getClipBegin(),	
+							text);
+				} else {
+					System.out.printf(" [%s]: => %s", id, text);
 				}
-			} else {
-				System.out.println("No text found in this smil file.");
 			}
-			// TODO 20120207 (jharty): consider checking the section contents here.
-			System.out.println("\nparsed file " + args[0] + " without error");
-			System.exit(0);
-		} catch (SAXException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			System.exit(-1);
 		}
+		// TODO 20120207 (jharty): consider checking the section contents here.
+		System.out.println("\nparsed file " + args[0] + " without error");
+		System.exit(0);
 
 	}
 

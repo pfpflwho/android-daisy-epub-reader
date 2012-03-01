@@ -1,12 +1,21 @@
 package org.androiddaisyreader.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.androiddaisyreader.model.Part.Builder;
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 /**
  * Parser to handle SMIL 1.0 files used by Daisy 2.02 books.
@@ -17,18 +26,17 @@ public class Smil10Specification extends DefaultHandler {
 	
 	private Element current;
 	private Part.Builder partBuilder;
-	private Daisy202Section.Builder sectionBuilder;
+	private List<Part> parts = new ArrayList<Part>();
 	private BookContext context;
 	
 	boolean handlingPar = false;
 
 	public Smil10Specification(BookContext context) {
 		this.context = context;
-		sectionBuilder = new Daisy202Section.Builder();
 	}
 	
-	public Section build() {
-		return sectionBuilder.build();
+	public Part[] getParts() {
+		return parts.toArray(new Part[0]);
 	}
 	
 	@Override
@@ -59,7 +67,7 @@ public class Smil10Specification extends DefaultHandler {
 	}
 	
 	private void addPartToSection() {
-		sectionBuilder.addPart(partBuilder.build());
+		parts.add(partBuilder.build());
 	}
 
 	@Override
@@ -216,5 +224,31 @@ public class Smil10Specification extends DefaultHandler {
 				metaMap.put(m.toString(), m);
 			}
 		}
+		
+	public static Part[] getParts(BookContext context, InputStream contents) {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		Smil10Specification smil = new Smil10Specification(context);
+		try {
+			XMLReader saxParser;
+			saxParser = factory.newSAXParser().getXMLReader();
+			saxParser.setEntityResolver(XmlUtilities.dummyEntityResolver());
+			saxParser.setContentHandler(smil);
+			InputSource input = new InputSource(contents);
+			String encoding = "UTF-8"; //TODO Find my method...
+
+			// TODO 20120209 (jharty) need to map unsupported windows code page.
+			input.setEncoding(encoding);
+			saxParser.parse(input);
+			contents.close();
+			return smil.getParts();
+			
+		} catch (SAXException e) {
+			throw new RuntimeException(e);
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 }

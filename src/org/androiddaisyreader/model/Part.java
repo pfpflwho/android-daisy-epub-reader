@@ -20,6 +20,10 @@ public class Part implements Navigable {
 		return Collections.unmodifiableList(audioElements);
 	}
 	
+	public String getId() {
+		return id;
+	}
+	
 	public Image getImage() {
 		return image;
 	}
