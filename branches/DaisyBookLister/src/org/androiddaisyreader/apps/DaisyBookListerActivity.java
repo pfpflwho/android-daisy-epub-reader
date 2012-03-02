@@ -19,6 +19,7 @@ import org.androiddaisyreader.model.ZippedBookContext;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DaisyBookListerActivity extends Activity {
+	private static final boolean BENCHMARK_ACTIVITY = true;
 	private BookContext bookContext;
     private EditText filename;
 	private Button nextSection;
@@ -55,10 +57,22 @@ public class DaisyBookListerActivity extends Activity {
         sectionTitle = (Button) findViewById(R.id.sectiontitle);
         sectionTitle.setOnClickListener(playSectionListener);
         snippets = (TextView) findViewById(R.id.words);
+        if (BENCHMARK_ACTIVITY) {
+        	Debug.startMethodTracing();
+        }
     }
     
     
-    private OnClickListener playSectionListener = new OnClickListener() {
+    @Override
+	protected void onPause() {
+    	if (BENCHMARK_ACTIVITY) {
+    		Debug.stopMethodTracing();
+    	}
+		super.onPause();
+	}
+
+
+	private OnClickListener playSectionListener = new OnClickListener() {
     	public void onClick(View v) {
     		controller.play();
     	}
