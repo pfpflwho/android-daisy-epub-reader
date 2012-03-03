@@ -1,22 +1,24 @@
 package org.androiddaisyreader.model;
 
+import static org.androiddaisyreader.model.XmlUtilities.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.androiddaisyreader.model.Part.Builder;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+
+
 /**
  * Parser to handle SMIL 1.0 files used by Daisy 2.02 books.
  * 
@@ -31,11 +33,59 @@ public class Smil10Specification extends DefaultHandler {
 	
 	boolean handlingPar = false;
 
+	/**
+	 * Create an object representing a SMIL version 1.0 Specification.
+	 * 
+	 * @param context the BookContext used to locate references to files in the
+	 * SMIL file.
+	 */
 	public Smil10Specification(BookContext context) {
 		this.context = context;
 	}
 	
-	public Part[] getParts() {
+	/**
+	 * Factory method that returns the Parts discovered in the contents.
+	 * 
+	 * TODO 20120303 (jharty): review the exception handling as all exceptions
+	 * are currently converted to RuntimeExceptions which makes them harder to
+	 * interpret by calling code. Note: this rework should be across the entire
+	 * body of code, not just for this method.
+	 * @param context BookContext used to locate files that comprise the book
+	 * @param contents The contents to parse to extract the Parts.
+	 * @return The parts discovered in the contents.
+	 */
+	public static Part[] getParts(BookContext context, InputStream contents) {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		Smil10Specification smil = new Smil10Specification(context);
+		try {
+			XMLReader saxParser;
+			saxParser = factory.newSAXParser().getXMLReader();
+			saxParser.setEntityResolver(XmlUtilities.dummyEntityResolver());
+			saxParser.setContentHandler(smil);
+			InputSource input = new InputSource(contents);
+			
+			String encoding = obtainEncodingStringFromInputStream(contents); 
+			encoding = mapUnsupportedEncoding(encoding);
+			input.setEncoding(encoding);
+			
+			saxParser.parse(input);
+			contents.close();
+			return smil.getParts();
+			
+		} catch (SAXException e) {
+			throw new RuntimeException(e);
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * Get the Parts discovered in this SMIL contents.
+	 * @return The Parts.
+	 */
+	private Part[] getParts() {
 		return parts.toArray(new Part[0]);
 	}
 	
@@ -219,36 +269,9 @@ public class Smil10Specification extends DefaultHandler {
 	}
 	
 	private static Map <String, Meta> metaMap = new HashMap<String, Meta>(Meta.values().length);
-		static {
-			for (Meta m : Meta.values()) {
-				metaMap.put(m.toString(), m);
-			}
-		}
-		
-	public static Part[] getParts(BookContext context, InputStream contents) {
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		Smil10Specification smil = new Smil10Specification(context);
-		try {
-			XMLReader saxParser;
-			saxParser = factory.newSAXParser().getXMLReader();
-			saxParser.setEntityResolver(XmlUtilities.dummyEntityResolver());
-			saxParser.setContentHandler(smil);
-			InputSource input = new InputSource(contents);
-			String encoding = "UTF-8"; //TODO Find my method...
-
-			// TODO 20120209 (jharty) need to map unsupported windows code page.
-			input.setEncoding(encoding);
-			saxParser.parse(input);
-			contents.close();
-			return smil.getParts();
-			
-		} catch (SAXException e) {
-			throw new RuntimeException(e);
-		} catch (ParserConfigurationException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+	static {
+		for (Meta m : Meta.values()) {
+			metaMap.put(m.toString(), m);
 		}
 	}
-
 }

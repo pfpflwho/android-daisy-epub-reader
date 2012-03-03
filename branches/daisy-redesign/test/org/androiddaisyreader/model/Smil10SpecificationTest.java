@@ -1,19 +1,14 @@
 package org.androiddaisyreader.model;
 
-import static org.androiddaisyreader.model.XmlUtilities.obtainEncodingStringFromInputStream;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 import junit.framework.TestCase;
+
+import org.xml.sax.SAXException;
 
 public class Smil10SpecificationTest extends TestCase {
 	private static final String SEQ_PAR_POSTAMBLE = "</par>" + "</seq>";
@@ -124,11 +119,9 @@ public class Smil10SpecificationTest extends TestCase {
 	
 	private Part[] parseSmilContents(InputStream contents) throws IOException,
 			SAXException, ParserConfigurationException {
-		String encoding = obtainEncodingStringFromInputStream(contents);
 		
 		// TODO 20120214 (jharty): we need a way to create a book context for streams.
 		context = new DummyBookContext("<h1 id=\"s8\"><p>" + EXPECTED_CONTENTS + "</p></h1>");
-		Smil10Specification smil = new Smil10Specification(context);
 		return Smil10Specification.getParts(context, contents);
 	}
 
