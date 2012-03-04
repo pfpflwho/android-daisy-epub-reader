@@ -9,9 +9,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public class Daisy202Snippet extends Snippet {
-
-	private BookContext context;
-	private String uri;
+	private Document doc;
 	private String id;
 
 	// Prevent people from using the default constructor.
@@ -19,6 +17,20 @@ public class Daisy202Snippet extends Snippet {
 	private Daisy202Snippet() {
 	}
 	
+	/**
+	 * Create a DAISY 2.02 snippet. 
+	 * 
+	 * Uses a jsoup document and the id part of a composite reference. This
+	 * constructor should be significantly faster than the one that creates a
+	 * jsoup document.
+	 * @param doc the jsoup representation of the HTML document
+	 * @param id the id used to get the text.
+	 */
+	Daisy202Snippet(Document doc, String id) {
+		this.doc = doc;
+		this.id = id;
+	}
+
 	/**
 	 * Create a DAISY 2.02 snippet.
 	 * Uses the book's context & a composite reference.
@@ -38,14 +50,39 @@ public class Daisy202Snippet extends Snippet {
 			throw new IllegalArgumentException("Programming error: context needs to be set");
 		}
 		
-		this.context = context;
+		String[] elements = parseCompositeReference(compositeReference);
+		String uri = elements[0];
+		this.id = elements[1];
+		try {
+			InputStream contents = context.getResource(uri);
+			String encoding = obtainEncodingStringFromInputStream(contents);
+			doc = Jsoup.parse(contents, encoding, context.getBaseUri());
+		} catch (IOException ioe) {
+			// TODO 20120214 (jharty): we need to consider more appropriate error reporting.
+			throw new RuntimeException("TODO fix me", ioe);
+		}
+	}
+
+	/**
+	 * Split a composite reference into the constituent parts.
+	 * 
+	 *   A composite reference is formatted as follows:
+	 *   fire_safety.html#dol_1_4_rgn_cnt_0043
+	 *   An example of the reference in context follows:
+	 *   <text src="fire_safety.html#dol_1_4_rgn_cnt_0043" id="rgn_txt_0004_0017"/>
+	 * @param compositeReference to split
+	 * @return 2 strings, the first [0] contains the relative filename, the
+	 *   second [1] contains the id.
+	 * @throws IllegalArgumentException if the composite reference doesn't
+	 *   match the expected structure.
+	 */
+	public static String[] parseCompositeReference(String compositeReference) {
 		String[] elements = compositeReference.split("#");
 		if (elements.length != 2) {
 			throw new IllegalArgumentException(
 					"Expected composite reference in the form uri#id, got " + compositeReference);
 		}
-		this.uri = elements[0];
-		this.id = elements[1];
+		return elements;
 	}
 
 	/**
@@ -53,16 +90,7 @@ public class Daisy202Snippet extends Snippet {
 	 */
 	@Override
 	public String getText() {
-		Document doc = null;
-		try {
-			InputStream contents = context.getResource(uri);
-			String encoding = obtainEncodingStringFromInputStream(contents);
-			doc = Jsoup.parse(contents, encoding, context.getBaseUri());
 			return doc.getElementById(id).text(); 
-		} catch (IOException ioe) {
-			// TODO 20120214 (jharty): we need to consider more appropriate error reporting.
-			throw new RuntimeException("TODO fix me", ioe);
-		}
 	}
 
 	/**
@@ -71,7 +99,7 @@ public class Daisy202Snippet extends Snippet {
 	public String getId() {
 		// TODO 20120214 (jharty): Consider keeping the composite reference as
 		// the ID since these IDs are only truly unique in the context of the
-		// file...
+		// filename...
 		return id;
 	}
 

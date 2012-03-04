@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -32,6 +34,9 @@ public class Smil10Specification extends DefaultHandler {
 	private BookContext context;
 	
 	boolean handlingPar = false;
+	
+	private String currentContentsFilename;
+	private Document doc;
 
 	/**
 	 * Create an object representing a SMIL version 1.0 Specification.
@@ -39,7 +44,7 @@ public class Smil10Specification extends DefaultHandler {
 	 * @param context the BookContext used to locate references to files in the
 	 * SMIL file.
 	 */
-	public Smil10Specification(BookContext context) {
+	private Smil10Specification(BookContext context) {
 		this.context = context;
 	}
 	
@@ -175,11 +180,28 @@ public class Smil10Specification extends DefaultHandler {
 	 * @param attributes
 	 */
 	private void handleTextElement(Attributes attributes) {
-		String id = ParserUtilities.getValueForName("id", attributes);
 		String src = ParserUtilities.getValueForName("src", attributes);
 		// TODO 20120207 (jharty) Refactor for a text reference into a html file
 		// Create HTML Snippet Reader
-		partBuilder.addSnippet(new Daisy202Snippet(context, src));
+		String [] elements = Daisy202Snippet.parseCompositeReference(src);
+		String uri = elements[0];
+		String id = elements[1];
+		
+		// We need to create the jsoup document if it's not initialised, or if
+		// the filename has changed (which means the contents are no longer valid).
+		if (doc == null || !uri.equalsIgnoreCase(currentContentsFilename)) {
+			try {
+				InputStream contents = context.getResource(uri);
+				String encoding = obtainEncodingStringFromInputStream(contents);
+				doc = Jsoup.parse(contents, encoding, context.getBaseUri());
+				currentContentsFilename = uri;
+			} catch (IOException ioe) {
+				// TODO 20120214 (jharty): we need to consider more appropriate error reporting.
+				throw new RuntimeException("TODO fix me", ioe);
+			} 
+		}
+		
+		partBuilder.addSnippet(new Daisy202Snippet(doc, id));
 	}
 
 	private void recordUnhandledElement(Element element, Attributes attributes) {
