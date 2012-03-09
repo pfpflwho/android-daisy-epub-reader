@@ -6,7 +6,7 @@ import org.androiddaisyreader.AudioPlayer;
 
 public class MockAudioPlayer implements AudioPlayer {
 
-	Logger log;
+	Logger log = Logger.getLogger("MockAudioPlayer");
 	Integer currentVolume = 0;
 	Boolean muted = false;
 	Boolean playing = true;
