@@ -1,7 +1,5 @@
 package org.androiddaisyreader.apps;
 
-import static org.androiddaisyreader.model.XmlUtilities.obtainEncodingStringFromInputStream;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +35,6 @@ public class DaisyBookListerActivity extends Activity {
 	private Navigator navigator;
 	private NavigationListener navigationListener = new NavigationListener();
 	private Controller controller = new Controller(navigationListener);
-	private Button partTitle;
 	private TextView snippets;
 	
 	/** Called when the activity is first created. */
@@ -91,15 +88,12 @@ public class DaisyBookListerActivity extends Activity {
 		public void onClick(View v) {
     		InputStream contents;
 			try {
-				// contents = new FileInputStream(filename.getText().toString());
 				bookContext = openBook(filename.getText().toString());
-				
 				contents = bookContext.getResource("ncc.html");
-				
-				String encoding = obtainEncodingStringFromInputStream(contents);
 				
 				book = NccSpecification.readFromStream(contents);
 				Toast.makeText(getBaseContext(), book.getTitle(), Toast.LENGTH_LONG).show();
+
 				nextSection.setEnabled(true);
 				navigator = new Navigator(book);
 				
