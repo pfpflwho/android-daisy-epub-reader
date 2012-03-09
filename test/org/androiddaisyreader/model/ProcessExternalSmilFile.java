@@ -10,6 +10,8 @@ import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.androiddaisyreader.AudioPlayer;
+import org.androiddaisyreader.mock.MockAudioPlayer;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -29,6 +31,7 @@ public class ProcessExternalSmilFile {
 		}
 		
 		StringBuilder filename = new StringBuilder();
+		AudioPlayer audioPlayer = new MockAudioPlayer();
 		
 		// To help cope with spaces in the filename e.g. on my windows machine.
 		for (int i = 0; i < args.length; i++) {
@@ -62,6 +65,7 @@ public class ProcessExternalSmilFile {
 							audio.getAudioFilename(), 
 							audio.getClipEnd() - audio.getClipBegin(),	
 							text);
+					audioPlayer.playFile(audio.getAudioFilename());
 				} else {
 					System.out.printf(" [%s]: => %s", id, text);
 				}
