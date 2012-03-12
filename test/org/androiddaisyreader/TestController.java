@@ -2,7 +2,7 @@ package org.androiddaisyreader;
 
 import junit.framework.TestCase;
 
-import org.androiddaisyreader.mock.MockAudioPlayer;
+import org.androiddaisyreader.mock.MockAndroidAudioPlayer;
 
 public class TestController extends TestCase {
 	
@@ -13,7 +13,7 @@ public class TestController extends TestCase {
 		
 	}
 	public void testAudioPlays() {
-		MockAudioPlayer player = new MockAudioPlayer();
+		MockAndroidAudioPlayer player = new MockAndroidAudioPlayer();
 		PresentationController controller = newController(player);
 		assertTrue("", player.isPlaying());
 	}

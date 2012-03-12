@@ -11,7 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.androiddaisyreader.AudioPlayer;
-import org.androiddaisyreader.mock.MockAudioPlayer;
+import org.androiddaisyreader.mock.MockAndroidAudioPlayer;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -31,7 +31,7 @@ public class ProcessExternalSmilFile {
 		}
 		
 		StringBuilder filename = new StringBuilder();
-		AudioPlayer audioPlayer = new MockAudioPlayer();
+		AudioPlayer audioPlayer = new MockAndroidAudioPlayer();
 		
 		// To help cope with spaces in the filename e.g. on my windows machine.
 		for (int i = 0; i < args.length; i++) {
