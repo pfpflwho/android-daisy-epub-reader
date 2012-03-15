@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="lib" path="/Users/jharty/myopensourceprojects/DaisyProject/trunk/libs/jsoup-1.6.1.jar" sourcepath="C:/myopensourceprojects/DaisyProject/trunk/libs/jsoup-1.6.1-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/jharty/myopensourceprojects/DaisyProject/trunk/libs/jsoup-1.6.1-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/jharty/myopensourceprojects/DaisyProject/trunk/libs/jsoup-1.6.1.jar" sourcepath="/Users/jharty/myopensourceprojects/DaisyProject/trunk/libs/jsoup-1.6.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
