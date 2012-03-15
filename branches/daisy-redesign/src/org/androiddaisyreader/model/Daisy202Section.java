@@ -92,8 +92,12 @@ public class Daisy202Section extends Section {
 		}
 
 		public Builder setHref(String href) {
-			newInstance.href = href;
-			return this;
+			if (newInstance.smilFilenameIsValid(href)) {
+				newInstance.href = href;
+				return this;
+			} else {
+				throw new IllegalArgumentException(String.format("Smil Filename [%s] seems invalid", href));
+			}
 		}
 	}
 }

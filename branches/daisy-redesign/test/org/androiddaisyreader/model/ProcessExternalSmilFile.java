@@ -60,12 +60,13 @@ public class ProcessExternalSmilFile {
 
 				if (part.getAudioElements().size() > 0) {
 					Audio audio = part.getAudioElements().get(0);
-					System.out.printf(" [%s]: %s < Show text for %f seconds => %s", 
+					double duration = audio.getClipEnd() - audio.getClipBegin();
+					System.out.printf(" [%s]: %s < Show text for %f seconds => %s\n", 
 							id, 
 							audio.getAudioFilename(), 
-							audio.getClipEnd() - audio.getClipBegin(),	
+							duration,	
 							text);
-					audioPlayer.playFile(audio.getAudioFilename());
+					audioPlayer.playFileSegment(audio.getAudioFilename(), audio.getClipBegin(), duration);
 				} else {
 					System.out.printf(" [%s]: => %s", id, text);
 				}
