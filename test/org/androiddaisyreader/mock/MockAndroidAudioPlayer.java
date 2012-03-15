@@ -34,6 +34,11 @@ public class MockAndroidAudioPlayer implements AudioPlayer {
 		// Note: if we are able to determine the overall duration of the fileToPlay
 		// we could check whether the duration is valid. For now, we'll assume it is.
 		
+		if (currentlyPlaying == null) {
+			log.info("Starting to play a new file");
+			this.state = AudioPlayerState.PLAY_NEW_FILE;
+		}
+		
 		if (fileToPlay.matches(currentlyPlaying)) {
 			if (from >= this.to) { // TODO We should only allow a small tolerance e.g. a milli-second.
 				log.info("The player will continue playing the existing audio, without interruption.");
