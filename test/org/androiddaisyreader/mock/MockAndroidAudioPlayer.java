@@ -28,16 +28,17 @@ public class MockAndroidAudioPlayer implements AudioPlayer {
 	 * audio player.
 	 */
 	public void playFileSegment(String fileToPlay, double from, double duration) {
-		this.currentlyPlaying = fileToPlay;
-		this.from = from;
-		
-		// Note: if we are able to determine the overall duration of the fileToPlay
-		// we could check whether the duration is valid. For now, we'll assume it is.
 		
 		if (currentlyPlaying == null) {
 			log.info("Starting to play a new file");
 			this.state = AudioPlayerState.PLAY_NEW_FILE;
 		}
+
+		this.currentlyPlaying = fileToPlay;
+		this.from = from;
+		
+		// Note: if we are able to determine the overall duration of the fileToPlay
+		// we could check whether the duration is valid. For now, we'll assume it is.
 		
 		if (fileToPlay.matches(currentlyPlaying)) {
 			if (from >= this.to) { // TODO We should only allow a small tolerance e.g. a milli-second.
