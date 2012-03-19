@@ -66,7 +66,7 @@ public class ProcessExternalSmilFile {
 							audio.getAudioFilename(), 
 							duration,	
 							text);
-					audioPlayer.playFileSegment(audio.getAudioFilename(), audio.getClipBegin(), duration);
+					audioPlayer.playFileSegment(audio);
 				} else {
 					System.out.printf(" [%s]: => %s", id, text);
 				}
