@@ -3,7 +3,6 @@ package org.androiddaisyreader.testapps;
 import static org.androiddaisyreader.model.XmlUtilities.obtainEncodingStringFromInputStream;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 

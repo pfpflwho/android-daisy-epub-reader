@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.androiddaisyreader.testutilities;
 
 import java.io.ByteArrayInputStream;
