@@ -1,4 +1,4 @@
-package org.androiddaisyreader.model;
+package org.androiddaisyreader.testapps;
 
 import static org.androiddaisyreader.model.XmlUtilities.obtainEncodingStringFromInputStream;
 
@@ -6,6 +6,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.androiddaisyreader.model.BookContext;
+import org.androiddaisyreader.model.Daisy202Book;
+import org.androiddaisyreader.model.FileSystemContext;
+import org.androiddaisyreader.model.Navigator;
+import org.androiddaisyreader.model.NccSpecification;
+import org.androiddaisyreader.model.Section;
+import org.androiddaisyreader.model.ZippedBookContext;
 
 public class ProcessDaisy202Book {
 
@@ -40,7 +48,7 @@ public class ProcessDaisy202Book {
 		Navigator navigator = new Navigator(book);
 		while (navigator.hasNext()) {
 			Section section = (Section) navigator.next();
-			System.out.println(section.level + " " + section.title);
+			System.out.println(section.getLevel() + " " + section.getTitle());
 		}
 		
 		System.exit(0);

@@ -1,4 +1,4 @@
-package org.androiddaisyreader.model;
+package org.androiddaisyreader.testapps;
 
 public class CommandLineUtilities {
 
