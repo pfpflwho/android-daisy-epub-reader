@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.androiddaisyreader.model;
 
 /**
