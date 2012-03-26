@@ -1,12 +1,14 @@
 /**
  * 
  */
-package org.androiddaisyreader.model;
+package org.androiddaisyreader.testutilities;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import org.androiddaisyreader.model.BookContext;
 
 /**
  * Represents a dummy book for testing purposes.

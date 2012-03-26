@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import junit.framework.TestCase;
 
+import org.androiddaisyreader.testutilities.DummyBookContext;
 import org.xml.sax.SAXException;
 
 public class Smil10SpecificationTest extends TestCase {
