@@ -11,14 +11,26 @@ public class Daisy202Section extends Section {
 	}
 	
 	public String getSmilFilename() {
-		String[] values = href.split("#");
+		String[] values = splitHref(href);
 		String smilFilename = values[0];
-		return smilFilenameIsValid(smilFilename) ? smilFilename : null;
+		return isSmilFilenameValid(smilFilename) ? smilFilename : null;
+	}
+
+	/**
+	 * Splits a Smil href.
+	 * The href should be into 2 parts, the filename and the id used to locate
+	 * elements.
+	 * 
+	 * @return an array of string values split on the separator "#"
+	 */
+	private String[] splitHref(String href) {
+		return href.split("#");
 	}
 	
 	public Part[] getParts() {
 		try {
-			return Smil10Specification.getParts(bookContext, bookContext.getResource(getSmilFilename()));
+			return Smil10Specification.getParts(bookContext, 
+					bookContext.getResource(getSmilFilename()));
 		} catch (IOException e) {
 			// TODO 20120301 jharty: refactor once I've sorted out the custom exceptions
 			throw new RuntimeException(e);
@@ -31,13 +43,30 @@ public class Daisy202Section extends Section {
 	}
 
 	/**
+	 * Checks if the SmilHref seems Valid
+	 * @param href in the format filename.smil#id
+	 * @return true if the SmilHref seems valid, else false.
+	 */
+	private boolean isSmilHrefValid(String href) {
+		String[] values = splitHref(href);
+		if (values.length != 2) {
+			return false;
+		}
+		if (!isSmilFilenameValid(values[0])) {
+			return false;
+		}
+		// We can add more checks here. For now declare victory.
+		return true;
+	}
+
+	/**
 	 * Simple helper method to validate the smil filename.
 	 * 
 	 * We can enhance this to suit our needs.
 	 * @param smilFilename
 	 * @return true if the filename seems to represent a smil file, else false.
 	 */
-	public boolean smilFilenameIsValid(String smilFilename) {
+	public boolean isSmilFilenameValid(String smilFilename) {
 		if (smilFilename.endsWith(".smil")) {
 			return true;
 		}
@@ -92,7 +121,7 @@ public class Daisy202Section extends Section {
 		}
 
 		public Builder setHref(String href) {
-			if (newInstance.smilFilenameIsValid(href)) {
+			if (newInstance.isSmilHrefValid(href)) {
 				newInstance.href = href;
 				return this;
 			} else {

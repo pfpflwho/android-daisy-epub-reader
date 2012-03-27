@@ -48,8 +48,12 @@ public class ProcessExternalSmilFile {
 		
 		BookContext bookContext = new FileSystemContext(file.getParent());
 		
+		// TODO 20120327 (jharty): This is a cludge which might be worth fixing the underlying design
+		// that expects a Smil formatted href. 
+		final String fakeHref = file.getName() + "#fake_id";
+		
 		Daisy202Section section = new Daisy202Section.Builder()
-			.setHref(file.getName())
+			.setHref(fakeHref)
 			.setContext(bookContext)
 			.build();
 		
