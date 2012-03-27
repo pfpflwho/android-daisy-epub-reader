@@ -47,6 +47,7 @@ public class MockAndroidAudioPlayer implements AudioPlayer {
 				log.warning(String.format("There is a gap between the audio segments, last" +
 											"sergment finished at %f, next segment starts at %f",
 											newClipStartsAt, previousClipEndsAt));
+				this.state = AudioPlayerState.GAP_BETWEEN_CONTENTS;
 				break;
 			case OVERLAPPING:
 				log.warning(
