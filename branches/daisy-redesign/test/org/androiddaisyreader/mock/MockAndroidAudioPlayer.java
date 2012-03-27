@@ -96,4 +96,8 @@ public class MockAndroidAudioPlayer implements AudioPlayer {
 		return playing;
 	}
 
+	public AudioPlayerState getInternalPlayerState() {
+		return state;
+	}
+
 }
