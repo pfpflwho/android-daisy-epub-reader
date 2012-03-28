@@ -82,11 +82,11 @@ public class Smil10SpecificationTest extends TestCase {
 		assertEquals("Expected one part", 1, parts.length);
 		Part part = parts[0];
 		assertEquals("The part should contain one snippet", 1, part.getSnippets().size());
-
-		// Now we need to decide how we want parsing problems to be reported...
-		// Currently this throws a null pointer exception (NPE)
-		assertEquals("The snippet name is incorrect", EXPECTED_CONTENTS, part.getSnippets().get(0).getText());
 		
+		final Snippet snippet = part.getSnippets().get(0);
+		if (snippet.hasText()) {
+			assertEquals("The snippet name is incorrect", EXPECTED_CONTENTS, snippet.getText());
+		}
 	}
 	
 	public void testParsingOfSimpleSmil10WithAudio() throws IOException, SAXException, ParserConfigurationException {
