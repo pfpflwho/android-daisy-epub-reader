@@ -7,6 +7,7 @@ import java.io.InputStream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class Daisy202Snippet extends Snippet {
 	private Document doc;
@@ -85,17 +86,21 @@ public class Daisy202Snippet extends Snippet {
 		return elements;
 	}
 
-	/**
-	 * @return the text contents for this text element.
-	 */
 	@Override
 	public String getText() {
 			return doc.getElementById(id).text(); 
 	}
 
-	/**
-	 * @return the id that points to the contents.
-	 */
+	@Override
+	public boolean hasText() {
+		final Element element = doc.getElementById(id);
+		if (element == null || element.text() == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public String getId() {
 		// TODO 20120214 (jharty): Consider keeping the composite reference as
 		// the ID since these IDs are only truly unique in the context of the

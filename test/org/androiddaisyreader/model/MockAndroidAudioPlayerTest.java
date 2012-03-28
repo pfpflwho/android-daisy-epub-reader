@@ -4,6 +4,15 @@ import junit.framework.TestCase;
 
 import org.androiddaisyreader.mock.MockAndroidAudioPlayer;
 
+/**
+ * Unit tests for the Mock Android Audio Player.
+ * 
+ * These tests are to help validate my assumptions which will be used to craft
+ * the real player for the Android platform.
+ * 
+ * @author Julian Harty
+ *
+ */
 public class MockAndroidAudioPlayerTest extends TestCase {
 
 	private static final String AUDIO_PLAYER_STATE_INCORRECT = "The Audio Player State is incorrect";
