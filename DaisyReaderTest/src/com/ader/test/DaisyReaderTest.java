@@ -1,14 +1,18 @@
 package com.ader.test;
 
+import junit.framework.AssertionFailedError;
+
+import com.ader.ui.HomeScreen;
 import com.jayway.android.robotium.solo.Solo;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;
 
 @SuppressWarnings("unchecked")
-public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
+public class DaisyReaderTest extends ActivityInstrumentationTestCase2<HomeScreen> {
 
+	private static final String SDCARD_FOLDER_NAME = "/sdcard/";
 	private static final String TARGET_PACKAGE_ID = "com.ader";
-	private static final String LAUNCHER_ACTIVITY_FULL_CLASSNAME = "com.ader.HomeScreen";
+	private static final String LAUNCHER_ACTIVITY_FULL_CLASSNAME = "com.ader.ui.HomeScreen";
 
 	private static Class<?> launcherActivityClass;
 	static{
@@ -20,7 +24,7 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 	}
 	
 	public DaisyReaderTest() throws ClassNotFoundException {
-		super(TARGET_PACKAGE_ID, launcherActivityClass);
+		super(TARGET_PACKAGE_ID, HomeScreen.class);
 	}
 	
 	private Solo solo;
@@ -53,20 +57,31 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		
 		solo.clickOnText("Root.*");
 		
+		String oldValue = solo.getEditText(0).getText().toString();
 		solo.clearEditText(0);
 		
-		solo.enterText(0, "/sdcard/");
+		solo.getEditText(0).setInputType(0);
+		solo.enterText(0, SDCARD_FOLDER_NAME);
 		// solo.goBack(); // clear the soft keyboard.
-		
+		try {
 		solo.clickOnButton("OK");
+		} catch (AssertionFailedError e) {
+			solo.goBack();
+			solo.clickOnButton("OK");
+		}
 		
 		boolean toastIsShownNameSaved = solo.searchText("New folder name saved");
 		
 		boolean dialogIsShown = solo.searchText("SD Card folder changed successfully");
 		
 		assertTrue("Toast displaying saved name is not shown", toastIsShownNameSaved);
-		assertTrue("Dialog with success message is not shown", dialogIsShown);
 		
+		// Only expect the second message if a different valid folder was specified.
+		if (SDCARD_FOLDER_NAME.equals(oldValue)) {
+			assertFalse("Dialog with success message should not be shown", dialogIsShown);
+		} else {
+			assertTrue("Dialog with success message is not shown", dialogIsShown);
+		}
 	}
 	
 	@MediumTest
@@ -78,16 +93,20 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2 {
 		
 		solo.clearEditText(0);
 		
-		solo.enterText(0, "test");
-		// solo.goBack();  // Clear the soft keyboard
+		solo.enterText(0, "non existent folder name");
 		
-		solo.clickOnButton("OK");
+		try {
+			solo.clickOnButton("OK");
+			} catch (AssertionFailedError e) {
+				solo.goBack();
+				solo.clickOnButton("OK");
+			}
 		
 		solo.sendKey(Solo.ENTER);solo.sendKey(Solo.ENTER);
 		
 		boolean toastIsShownNameNotSaved = solo.searchText("New folder name NOT saved");
 		
-		assertTrue("Toast displaying folder is not saved is not shown", toastIsShownNameNotSaved);
+		assertTrue("Toast displaying 'folder is not saved' is not shown", toastIsShownNameNotSaved);
 		
 	}
 	

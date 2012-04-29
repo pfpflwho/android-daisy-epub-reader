@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 
-import com.ader.DaisyReader;
-import com.ader.HomeScreen;
+import com.ader.ui.HomeScreen;
 import com.jayway.android.robotium.solo.Solo;
 
 public class ExampleTest extends ActivityInstrumentationTestCase2<HomeScreen> {
@@ -18,7 +17,7 @@ public class ExampleTest extends ActivityInstrumentationTestCase2<HomeScreen> {
 	
 	static {
 		try {
-			launcherActivityClass = Class.forName("com.ader.HomeScreen");
+			launcherActivityClass = Class.forName("com.ader.ui.HomeScreen");
 		} catch (ClassNotFoundException cnfe) {
 			throw new RuntimeException(cnfe);
 		}
