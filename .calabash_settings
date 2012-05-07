@@ -1,0 +1,11 @@
+{
+  "package_name":"com.ader",
+  "activity_name":"com.ader.ui.HomeScreen",
+  "app_path":"C:/myopensourceprojects/DaisyProject/trunk/bin/DaisyReader.apk",
+  "api_level":"8",
+  "keystore_location":"C:/Users/Julian~1/.android/debug.keystore",
+  "keystore_password":"android",
+  "keystore_alias":"androiddebugkey",
+  "keystore_alias_password":"android"
+  
+}
