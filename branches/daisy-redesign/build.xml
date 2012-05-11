@@ -21,7 +21,11 @@
 </target>
 
 <target name="compile" depends="init" description="compile the java source" >
-  <javac srcdir="${src}" destdir="${build}" debug="on" debuglevel="lines,vars,source">
+  <javac
+      srcdir="${src}" destdir="${build}"
+      target="1.5" source="1.5"
+      debug="on" debuglevel="lines,vars,source"
+  >
     <classpath refid="java.classpath"/>
   </javac>
 </target>
