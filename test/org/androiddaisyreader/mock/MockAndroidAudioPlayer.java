@@ -52,6 +52,10 @@ public class MockAndroidAudioPlayer implements AudioPlayer {
 		return currentSegment;
 	}
 
+	public void play() {
+		playing = true;
+	}
+	
 	public void setInternalPlayerState(AudioPlayerState audioState) {
 		state = audioState;
 	}
