@@ -1,4 +1,4 @@
-package org.androiddaisyreader.mock;
+package org.androiddaisyreader.player;
 
 /**
  * Represents the Time Interval between two times specified in a book's content.

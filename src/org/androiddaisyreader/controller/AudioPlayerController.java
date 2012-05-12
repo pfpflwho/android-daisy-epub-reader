@@ -6,7 +6,7 @@ package org.androiddaisyreader.controller;
 import java.util.logging.Logger;
 
 import org.androiddaisyreader.AudioPlayer;
-import org.androiddaisyreader.mock.SegmentTimeInfo;
+import org.androiddaisyreader.player.SegmentTimeInfo;
 import org.androiddaisyreader.model.Audio;
 import org.androiddaisyreader.model.AudioPlayerState;
 
