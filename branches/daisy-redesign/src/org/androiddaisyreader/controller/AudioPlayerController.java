@@ -47,6 +47,7 @@ public class AudioPlayerController {
 			log.info("Starting to play a new file");
 			player.setInternalPlayerState(AudioPlayerState.PLAY_NEW_FILE);
 			player.setCurrentSegment(audioSegment);
+			player.play();
 			return;
 		}
 

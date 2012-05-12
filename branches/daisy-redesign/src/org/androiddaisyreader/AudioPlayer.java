@@ -31,6 +31,11 @@ public interface AudioPlayer extends VolumeControlListener {
 	public AudioPlayerState getInternalPlayerState();
 
 	/**
+	 * Start playing the audio.
+	 */
+	public void play();
+	
+	/**
 	 * Sets the player to use this audio segment.
 	 * 
 	 * @param audioSegment we want the player to play.
