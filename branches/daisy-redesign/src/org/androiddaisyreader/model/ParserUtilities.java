@@ -17,6 +17,9 @@ public class ParserUtilities {
 	
 	public static String getValueForName(String nameToMatch, Attributes attributes) {
 		for (int i = 0; i < attributes.getLength(); i++) {
+			
+			// TODO 20120512 (jharty): this code may fail on Android, see my
+			// comment above. We need to test this on Android soon.
 			String name = attributes.getLocalName(i);
 			if (name.equalsIgnoreCase(nameToMatch)) {
 				return attributes.getValue(i);
