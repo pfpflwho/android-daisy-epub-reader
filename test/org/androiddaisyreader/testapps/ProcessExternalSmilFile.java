@@ -11,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.androiddaisyreader.AudioPlayer;
+import org.androiddaisyreader.controller.AudioPlayerController;
 import org.androiddaisyreader.mock.MockAndroidAudioPlayer;
 import org.androiddaisyreader.model.Audio;
 import org.androiddaisyreader.model.BookContext;
@@ -38,9 +39,13 @@ public class ProcessExternalSmilFile {
 		
 		StringBuilder filename = new StringBuilder();
 		AudioPlayer audioPlayer = new MockAndroidAudioPlayer();
+		AudioPlayerController controller = new AudioPlayerController(audioPlayer);
 		
 		// To help cope with spaces in the filename e.g. on my windows machine.
 		for (int i = 0; i < args.length; i++) {
+			if (i > 0) {
+				filename.append(" ");  // Add a space before the next part of the filename.
+			}
 			filename.append(args[i]);
 		}
 		
@@ -73,7 +78,7 @@ public class ProcessExternalSmilFile {
 							audio.getAudioFilename(), 
 							duration,	
 							text);
-					audioPlayer.playFileSegment(audio);
+					controller.playFileSegment(audio);
 				} else {
 					System.out.printf(" [%s]: => %s", id, text);
 				}
