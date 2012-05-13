@@ -55,8 +55,8 @@ public class AudioPlayerController {
 		// we could check whether the duration is valid. For now, we'll assume it is.
 		
 		if (currentSegment.getAudioFilename().matches(audioSegment.getAudioFilename())) {
-			double newClipStartsAt = audioSegment.getClipBegin();
-			double previousClipEndsAt = currentSegment.getClipEnd();
+			int newClipStartsAt = audioSegment.getClipBegin();
+			int previousClipEndsAt = currentSegment.getClipEnd();
 			SegmentTimeInfo interval = SegmentTimeInfo.compareTimesForAudioSegments(
 					newClipStartsAt, previousClipEndsAt);
 			switch(interval) {
@@ -66,7 +66,7 @@ public class AudioPlayerController {
 				break;
 			case GAP:
 				log.warning(String.format("There is a gap between the audio segments, last " +
-											"segment finished at %f, next segment starts at %f",
+											"segment finished at %d, next segment starts at %d",
 											newClipStartsAt, previousClipEndsAt));
 				player.setInternalPlayerState(AudioPlayerState.GAP_BETWEEN_CONTENTS);
 				break;
@@ -74,8 +74,8 @@ public class AudioPlayerController {
 				log.warning(
 						String.format(
 								"The player was asked to play earlier in the file than expected." + 
-										" Generally the next request %f should be contiguous with the" +
-										" end of the previous section %f", newClipStartsAt, previousClipEndsAt));
+										" Generally the next request %d should be contiguous with the" +
+										" end of the previous section %d", newClipStartsAt, previousClipEndsAt));
 				player.setInternalPlayerState(AudioPlayerState.OVERLAPPING_CONTENTS);
 				break;
 			}
@@ -84,7 +84,7 @@ public class AudioPlayerController {
 			player.setInternalPlayerState(AudioPlayerState.PLAY_NEW_FILE);
 		}
 		currentSegment = audioSegment;
-		log.info(String.format("Playing %s from %f to %f", currentSegment.getAudioFilename(), 
+		log.info(String.format("Playing %s from %d to %d", currentSegment.getAudioFilename(), 
 								currentSegment.getClipBegin(), currentSegment.getClipEnd()));
 	}
 

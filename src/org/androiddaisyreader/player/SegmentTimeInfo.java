@@ -12,9 +12,9 @@ public enum SegmentTimeInfo {
 	CONTIGUOUS,  // The times are contiguous
 	GAP;  // There is a gap between the 2 times.
 	
-	public static SegmentTimeInfo compareTimesForAudioSegments(double timeToStartPlayingFrom, double timeLastSegmentFinished) {
-		double difference = Math.abs(timeToStartPlayingFrom - timeLastSegmentFinished);
-		if (difference < 0.001f) {
+	public static SegmentTimeInfo compareTimesForAudioSegments(int timeToStartPlayingFrom, int timeLastSegmentFinished) {
+		int difference = Math.abs(timeToStartPlayingFrom - timeLastSegmentFinished);
+		if (difference <= 1) {
 			return SegmentTimeInfo.CONTIGUOUS;
 		}
 		else if (timeToStartPlayingFrom > timeLastSegmentFinished) {

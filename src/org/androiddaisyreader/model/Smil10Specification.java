@@ -219,8 +219,8 @@ public class Smil10Specification extends DefaultHandler {
 	private void handleAudio(Attributes attributes) {
 		// <audio src="file.mp3" clip-begin="npt=0.000s" clip-end="npt=3.578s" id="audio_0001"/>
 		String audioFilename = ParserUtilities.getValueForName("src", attributes);
-		double clipBegin = ExtractTimingValues.extractTiming("clip-begin", attributes);
-		double clipEnd = ExtractTimingValues.extractTiming("clip-end", attributes);
+		int clipBegin = ExtractTimingValues.extractTimingAsMilliSeconds("clip-begin", attributes);
+		int clipEnd = ExtractTimingValues.extractTimingAsMilliSeconds("clip-end", attributes);
 		String id = ParserUtilities.getValueForName("id", attributes);
 		
 		Audio audio = new Audio(id, audioFilename, clipBegin, clipEnd);
