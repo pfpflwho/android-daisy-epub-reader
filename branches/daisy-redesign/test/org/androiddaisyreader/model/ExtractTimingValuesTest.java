@@ -68,20 +68,17 @@ public class ExtractTimingValuesTest extends TestCase {
 	}
 	
 	/**
-	 * Note: I'm assuming this is the correct behaviour from reading the 
-	 * specification for DAISY 2.02
+	 * The DAISY 2.02 specification says all numbers should be in SS.S format.
 	 * 
-	 * We can change the implementation to allow numbers with no decimal point
-	 * to be accepted and used.
+	 * However, I've ended up writing the code to also accept numbers without
+	 * the decimal point. Doing so makes the application more tolerant and
+	 * shouldn't adversely affect the behaviour AFAIK.
+	 * 
+	 * This is the relevant test of the new behaviour :)
 	 */
-	public void testNumberWithoutDecimalRaisesNPE () {
+	public void testNumberWithoutDecimal () {
 		attributes.addAttribute("", CLIP_BEGIN, "", CDATA, NUMBER_WITHOUT_DECIMAL_POINT);
-		try {
-			int result = ExtractTimingValues.extractTimingAsMilliSeconds(CLIP_BEGIN, attributes);
-			fail("Expected a NumberFormatException for a number with no decimal points, Number = "
-					+ NUMBER_WITHOUT_DECIMAL_POINT);
-		} catch (NumberFormatException nfe) {
-				// Nothing to do, this is the expected behaviour.
-			}
+		int result = ExtractTimingValues.extractTimingAsMilliSeconds(CLIP_BEGIN, attributes);
+		assertEquals("Number without a decimal point should be accepted.", 10000, result);
 	}
 }

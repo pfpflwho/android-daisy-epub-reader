@@ -25,6 +25,7 @@ public class ExtractTimingValues {
 	 * @param attributes the set of attributes which include the expected name.
 	 * @return the double representing the effective value of the time offset.
 	 */
+	@Deprecated
 	static double extractTiming(String elementName, Attributes attributes) {
 		String trimmedValue = getTrimmedValue(elementName, attributes);
 		return Double.parseDouble(trimmedValue);
@@ -58,16 +59,32 @@ public class ExtractTimingValues {
 		DecimalFormat milliseconds = new DecimalFormat("###.###");
 		String formattedDouble = milliseconds.format(temp);
 		String[] values = formattedDouble.split("\\.");
-		if (values.length != 2) {
+		
+		if (values.length > 2 || values.length == 0) {
 			throw new NumberFormatException(
-					"Expected the number to be formatted with a decimal point, got " 
+					"Expected the number to be formatted with no more than 1 decimal point, got " 
 					+ temp.toString());
 		}
 		
-		// The following code compensates for values such as .6 which is 600 mS
-		// and .15 which is 150 mS, etc.
+		if (values.length == 1) {
+			return Integer.parseInt(values[0]) * 1000;
+		}
+
+		return Integer.parseInt(values[0]) * 1000 + extractMilliSeconds(values[1]);
+	}
+
+	/**
+	 * The following code compensates for values such as .6 which is 600 mS
+	 * and .15 which is 150 mS, etc.
+	 * 
+	 * @param decimalPart the string representing the digits to the right of
+	 * the decimal point.
+	 * @return the value as an integer.
+	 */
+	private static int extractMilliSeconds(String decimalPart) {
+
 		int multiplier = 1;
-		switch (values[1].length()) {
+		switch (decimalPart.length()) {
 		case 3:
 		case 0:
 			multiplier = 1;
@@ -80,11 +97,9 @@ public class ExtractTimingValues {
 			break;
 		default:
 			throw new NumberFormatException("Unexpected number of digits after decimal point, got "
-					+ temp.toString());
+					+ decimalPart);
 		}
-		
-		int correctedMilliSeconds = Integer.parseInt(values[1]) * multiplier;
-		int intValue = Integer.parseInt(values[0]) * 1000 + correctedMilliSeconds;
-		return intValue;
+		return Integer.parseInt(decimalPart) * multiplier;
 	}
 }
+
