@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.androiddaisyreader.controller.AudioPlayerController;
+import org.androiddaisyreader.model.Audio;
 import org.androiddaisyreader.model.BookContext;
 import org.androiddaisyreader.model.Daisy202Book;
 import org.androiddaisyreader.model.Daisy202Section;
@@ -14,10 +16,12 @@ import org.androiddaisyreader.model.NccSpecification;
 import org.androiddaisyreader.model.Part;
 import org.androiddaisyreader.model.Section;
 import org.androiddaisyreader.model.ZippedBookContext;
+import org.androiddaisyreader.player.AndroidAudioPlayer;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DaisyBookListerActivity extends Activity {
-	private static final boolean BENCHMARK_ACTIVITY = true;
+	private static final boolean BENCHMARK_ACTIVITY = false;
 	private BookContext bookContext;
     private EditText filename;
 	private Button nextSection;
@@ -36,6 +40,10 @@ public class DaisyBookListerActivity extends Activity {
 	private NavigationListener navigationListener = new NavigationListener();
 	private Controller controller = new Controller(navigationListener);
 	private TextView snippets;
+	private AudioPlayerController audioPlayer;
+	private AndroidAudioPlayer androidAudioPlayer;
+	
+	
 	
 	/** Called when the activity is first created. */
     @Override
@@ -54,6 +62,7 @@ public class DaisyBookListerActivity extends Activity {
         sectionTitle = (Button) findViewById(R.id.sectiontitle);
         sectionTitle.setOnClickListener(playSectionListener);
         snippets = (TextView) findViewById(R.id.words);
+        
         if (BENCHMARK_ACTIVITY) {
         	Debug.startMethodTracing();
         }
@@ -91,6 +100,9 @@ public class DaisyBookListerActivity extends Activity {
 				bookContext = openBook(filename.getText().toString());
 				contents = bookContext.getResource("ncc.html");
 				
+				androidAudioPlayer = new AndroidAudioPlayer(bookContext);
+		        audioPlayer = new AudioPlayerController(androidAudioPlayer);
+		        
 				book = NccSpecification.readFromStream(contents);
 				Toast.makeText(getBaseContext(), book.getTitle(), Toast.LENGTH_LONG).show();
 
@@ -139,6 +151,18 @@ public class DaisyBookListerActivity extends Activity {
 			}
 			
 			snippets.setText(snippetText.toString());
+			
+			StringBuilder audioListings = new StringBuilder();
+			
+			for (Part part: currentSection.getParts()) {
+				for (int i = 0; i < part.getAudioElements().size(); i++) {
+					Audio audioSegment = part.getAudioElements().get(i);
+					audioPlayer.playFileSegment(audioSegment);
+					audioListings.append(audioSegment.getAudioFilename() + ", " 
+					+ audioSegment.getClipBegin() + ":" + audioSegment.getClipEnd() + "\n");
+				}
+			}
+			// snippets.setText(audioListings.toString());
 		}
 		
 		public void atEndOfBook() {
@@ -162,7 +186,10 @@ public class DaisyBookListerActivity extends Activity {
 			this.navigationListener = navigationListener;
 		}
 		public void play() {
-			Toast.makeText(getApplicationContext(), ((Section)n).getHref(), Toast.LENGTH_LONG);
+			String href = ((Section)n).getHref();
+			Log.i("DAISY", "Playing: " + href);
+			Toast.makeText(getBaseContext(), href, Toast.LENGTH_LONG);
+			Toast.makeText(getApplicationContext(), href, Toast.LENGTH_LONG);
 		}
 		
 		public void next() {
