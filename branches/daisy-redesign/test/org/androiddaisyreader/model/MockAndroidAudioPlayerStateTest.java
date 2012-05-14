@@ -14,7 +14,7 @@ import org.androiddaisyreader.mock.MockAndroidAudioPlayer;
  * @author Julian Harty
  *
  */
-public class MockAndroidAudioPlayerTest extends TestCase {
+public class MockAndroidAudioPlayerStateTest extends TestCase {
 
 	private static final String AUDIO_PLAYER_STATE_INCORRECT = "The Audio Player State is incorrect";
 	private MockAndroidAudioPlayer playerToTest;
