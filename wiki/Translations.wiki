@@ -84,5 +84,6 @@ I like the succinct description on how to translate Android applications at http
 
 The following link introduces open translation tools might help some of you (and me) to improve our translations http://en.flossmanuals.net/open-translation-tools/ch034_introduction/
 
+And here's a web page containing recommendations for various words and terms often used in mobile phone apps which can help us to pick more appropriate translations for the languages it supports http://www.icanlocalize.com/site/tutorials/mobile-app-keywords/
 = Comments = 
 Please comment on these instructions and the process at the foot of this wiki page.
