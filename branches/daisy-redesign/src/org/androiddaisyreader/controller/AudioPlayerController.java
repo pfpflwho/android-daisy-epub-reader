@@ -59,6 +59,9 @@ public class AudioPlayerController {
 			int previousClipEndsAt = currentSegment.getClipEnd();
 			SegmentTimeInfo interval = SegmentTimeInfo.compareTimesForAudioSegments(
 					newClipStartsAt, previousClipEndsAt);
+			
+			// Update the Player with details of the new segment.
+			player.setCurrentSegment(audioSegment);
 			switch(interval) {
 			case CONTIGUOUS:
 				log.info("The player will continue playing the existing audio, without interruption.");
@@ -69,6 +72,8 @@ public class AudioPlayerController {
 											"segment finished at %d, next segment starts at %d",
 											newClipStartsAt, previousClipEndsAt));
 				player.setInternalPlayerState(AudioPlayerState.GAP_BETWEEN_CONTENTS);
+				player.seekTo(audioSegment.getClipBegin());
+				player.play();
 				break;
 			case OVERLAPPING:
 				log.warning(
@@ -77,11 +82,18 @@ public class AudioPlayerController {
 										" Generally the next request %d should be contiguous with the" +
 										" end of the previous section %d", newClipStartsAt, previousClipEndsAt));
 				player.setInternalPlayerState(AudioPlayerState.OVERLAPPING_CONTENTS);
+				player.seekTo(audioSegment.getClipBegin());
+				player.play();
 				break;
 			}
 		} else {
-			log.info("Stop playing the current file and start playing the newly specified file");
+			log.info(String.format(
+					"Stop playing the current file %s & start playing the newly specified file %s",
+					currentSegment.getAudioFilename(), audioSegment.getAudioFilename()));
 			player.setInternalPlayerState(AudioPlayerState.PLAY_NEW_FILE);
+			player.setCurrentSegment(audioSegment);
+			player.play();
+			log.warning("Why aren't you playing?");
 		}
 		currentSegment = audioSegment;
 		log.info(String.format("Playing %s from %d to %d", currentSegment.getAudioFilename(), 

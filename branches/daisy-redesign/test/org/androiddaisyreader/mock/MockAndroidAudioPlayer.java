@@ -56,6 +56,10 @@ public class MockAndroidAudioPlayer implements AudioPlayer {
 		playing = true;
 	}
 	
+	public void seekTo(int newTimeInMilliseconds) {
+		
+	}
+	
 	public void setInternalPlayerState(AudioPlayerState audioState) {
 		state = audioState;
 	}
