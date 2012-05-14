@@ -36,6 +36,13 @@ public interface AudioPlayer extends VolumeControlListener {
 	public void play();
 	
 	/**
+	 * Seek To a new location in the current audio file.
+	 * 
+	 * @param newTimeInMilliseconds The new time offset to use.
+	 */
+	public void seekTo(int newTimeInMilliseconds);
+	
+	/**
 	 * Sets the player to use this audio segment.
 	 * 
 	 * @param audioSegment we want the player to play.
