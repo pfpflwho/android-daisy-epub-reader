@@ -27,10 +27,12 @@ public class AndroidAudioPlayer implements AudioPlayer, OnCompletionListener {
 	private MediaPlayer player;
 	private Audio audioSegment;
 	private BookContext context;
+	private TempFileForAudioContentProvider tempFileCreator;
 	private List<AudioCallbackListener> listeners = new ArrayList<AudioCallbackListener>();
 	
 	public AndroidAudioPlayer(BookContext context) {
 		this.context = context;
+		tempFileCreator = new TempFileForAudioContentProvider(context);
 		player = new MediaPlayer();
 		player.setOnCompletionListener(this);
 	}
@@ -65,13 +67,25 @@ public class AndroidAudioPlayer implements AudioPlayer, OnCompletionListener {
 
 	public void play() {
 		// TODO 20120514 (jharty): Do I want a play() method in addition to playFileSegment?
-		String audioFilename = audioSegment.getAudioFilename();
-		Log.i(TAG, audioFilename);
+		String requestedFilename = audioSegment.getAudioFilename();
+		String filenameToPlay; 
+		boolean doesContentNeedUnzipping = tempFileCreator.doesContentNeedUnzipping();
+		if (doesContentNeedUnzipping) {
+			try {
+				File f = tempFileCreator.getFileHandleToTempAudioFile(requestedFilename);
+				filenameToPlay = f.getAbsolutePath();
+			} catch (IOException ioe) {
+				Log.e(TAG, "Problem obtaining a temporary audio file.", ioe);
+				return;
+			}
+		} else {
+			filenameToPlay = context.getBaseUri() + File.separator + requestedFilename;
+		}
+		Log.i(TAG, filenameToPlay);
 		Log.i(TAG, context.getBaseUri());
 		player.reset();
 		try {
-			// TODO 20120514 (jharty): we need a way to read the audio from an input stream!
-			player.setDataSource(context.getBaseUri() + File.separator + audioFilename);
+			player.setDataSource(filenameToPlay);
 			player.prepare();
 		} catch (Exception e) {
 			// TODO 20120514 (jharty): Consider how to report exceptions. For now this'll do.
@@ -83,7 +97,8 @@ public class AndroidAudioPlayer implements AudioPlayer, OnCompletionListener {
 		player.seekTo(audioSegment.getClipBegin());
 		player.start();
 		
-		
+		// Hmmm, can we delete any temporary file now?
+		// TODO 20120515 (jharty): add cleanup code for temp file.
 	}
 
 	public void seekTo(int newTimeInMilliseconds) {
