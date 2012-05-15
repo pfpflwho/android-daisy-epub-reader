@@ -4,35 +4,38 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+  <TextView
+  android:id="@+id/filenamePrompt"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:text="@string/filenamePrompt"
+  android:textSize="12sp"
+  />
 <EditText
   android:id="@+id/filename"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
-  android:hint="full filename for ncc.html"
+  android:hint="@string/fullNccFilename"
   />
 <Button
   android:id="@+id/openbook"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:text="Open book" />
+  android:text="@string/openBook" />
 <Button 
   android:id="@+id/nextsection"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:text="Next Section"
-  android:state_enabled="false"
+  android:text="@string/nextSection"
+  android:enabled="false"
 /> 
-<Button 
+<TextView 
   android:id="@+id/sectiontitle"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
   android:text=""
-  android:state_enabled="false"
+  android:textSize="15sp"
+  android:textStyle="bold"
 />
 <TextView 
   android:id="@+id/words"
