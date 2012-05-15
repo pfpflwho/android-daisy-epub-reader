@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, DaisyBookListerActivity!</string>
+    <string name="filenamePrompt">Enter full filename of the ncc.html or the zip file</string>
+    <string name="fullNccFilename">full filename for ncc.html</string>
+    <string name="nextSection">Play Next Section</string>
+    <string name="openBook">Open book</string>
     <string name="app_name">DaisyBookLister</string>
 </resources>

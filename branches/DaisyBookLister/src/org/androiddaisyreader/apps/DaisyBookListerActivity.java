@@ -44,8 +44,6 @@ public class DaisyBookListerActivity extends Activity {
 	private AudioPlayerController audioPlayer;
 	private AndroidAudioPlayer androidAudioPlayer;
 	
-	
-	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,15 +58,14 @@ public class DaisyBookListerActivity extends Activity {
         nextSection = (Button) findViewById(R.id.nextsection);
         nextSection.setOnClickListener(nextSectionListener);
         
-        sectionTitle = (Button) findViewById(R.id.sectiontitle);
-        sectionTitle.setOnClickListener(playSectionListener);
+        sectionTitle = (TextView) findViewById(R.id.sectiontitle);
+        
         snippets = (TextView) findViewById(R.id.words);
         
         if (BENCHMARK_ACTIVITY) {
         	Debug.startMethodTracing();
         }
     }
-    
     
     @Override
 	protected void onPause() {
@@ -86,11 +83,6 @@ public class DaisyBookListerActivity extends Activity {
 		}
     };
 
-	private OnClickListener playSectionListener = new OnClickListener() {
-    	public void onClick(View v) {
-    		controller.play();
-    	}
-    };
     
     private OnClickListener nextSectionListener = new OnClickListener() {
     	public void onClick(View v) {
@@ -156,8 +148,12 @@ public class DaisyBookListerActivity extends Activity {
 			
 			for (Part part : currentSection.getParts()) {
 				for (int i = 0; i < part.getSnippets().size(); i++) {
+					if (i > 0) {
+						snippetText.append(" ");
+					}
 					snippetText.append(part.getSnippets().get(i).getText());
 				}
+				snippetText.append(" ");
 			}
 			
 			snippets.setText(snippetText.toString());
@@ -172,7 +168,6 @@ public class DaisyBookListerActivity extends Activity {
 					+ audioSegment.getClipBegin() + ":" + audioSegment.getClipEnd() + "\n");
 				}
 			}
-			// snippets.setText(audioListings.toString());
 		}
 		
 		public void atEndOfBook() {
@@ -195,15 +190,8 @@ public class DaisyBookListerActivity extends Activity {
 		Controller (NavigationListener navigationListener) {
 			this.navigationListener = navigationListener;
 		}
-		public void play() {
-			String href = ((Section)n).getHref();
-			Log.i("DAISY", "Playing: " + href);
-			Toast.makeText(getBaseContext(), href, Toast.LENGTH_LONG);
-			Toast.makeText(getApplicationContext(), href, Toast.LENGTH_LONG);
-		}
 		
 		public void next() {
-			// TODO 20120220 (jharty): Second step in the migration process. Clean me up!
 			if (navigator.hasNext()) {
 				n = navigator.next();
 				if (n instanceof Section) {

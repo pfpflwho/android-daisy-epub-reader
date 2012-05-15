@@ -68,12 +68,14 @@ public class AndroidAudioPlayer implements AudioPlayer, OnCompletionListener {
 	public void play() {
 		// TODO 20120514 (jharty): Do I want a play() method in addition to playFileSegment?
 		String requestedFilename = audioSegment.getAudioFilename();
-		String filenameToPlay; 
+		String filenameToPlay;
 		boolean doesContentNeedUnzipping = tempFileCreator.doesContentNeedUnzipping();
 		if (doesContentNeedUnzipping) {
 			try {
 				File f = tempFileCreator.getFileHandleToTempAudioFile(requestedFilename);
 				filenameToPlay = f.getAbsolutePath();
+				Log.i(TAG, "Created temporary audio file, " + filenameToPlay);
+				
 			} catch (IOException ioe) {
 				Log.e(TAG, "Problem obtaining a temporary audio file.", ioe);
 				return;
@@ -97,8 +99,12 @@ public class AndroidAudioPlayer implements AudioPlayer, OnCompletionListener {
 		player.seekTo(audioSegment.getClipBegin());
 		player.start();
 		
-		// Hmmm, can we delete any temporary file now?
-		// TODO 20120515 (jharty): add cleanup code for temp file.
+		// Seems we can delete the temporary file now.
+		if (doesContentNeedUnzipping) {
+			File deleteMe = new File(filenameToPlay);
+			deleteMe.delete();
+			Log.i(TAG, "Deleting temporary file, " + filenameToPlay);
+		}
 	}
 
 	public void seekTo(int newTimeInMilliseconds) {
