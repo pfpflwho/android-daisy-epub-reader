@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.androiddaisyreader.AudioCallbackListener;
 import org.androiddaisyreader.controller.AudioPlayerController;
 import org.androiddaisyreader.model.Audio;
 import org.androiddaisyreader.model.BookContext;
@@ -77,6 +78,13 @@ public class DaisyBookListerActivity extends Activity {
 		super.onPause();
 	}
 
+    private AudioCallbackListener audioCallbackListener = new AudioCallbackListener() {
+
+		public void endOfAudio() {
+			Log.i("DAISYBOOKLISTENERACTIVITY", "Audio is over...");
+			controller.next();
+		}
+    };
 
 	private OnClickListener playSectionListener = new OnClickListener() {
     	public void onClick(View v) {
@@ -101,6 +109,7 @@ public class DaisyBookListerActivity extends Activity {
 				contents = bookContext.getResource("ncc.html");
 				
 				androidAudioPlayer = new AndroidAudioPlayer(bookContext);
+				androidAudioPlayer.addCallbackListener(audioCallbackListener);
 		        audioPlayer = new AudioPlayerController(androidAudioPlayer);
 		        
 				book = NccSpecification.readFromStream(contents);
@@ -110,6 +119,7 @@ public class DaisyBookListerActivity extends Activity {
 				navigator = new Navigator(book);
 				
 			} catch (Exception e) {
+				// TODO 20120515 (jharty): Add test for SDCARD being available so we can tell the user...
 				e.printStackTrace();
 			} 
     	}
