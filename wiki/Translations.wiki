@@ -89,5 +89,8 @@ And here's a web page containing recommendations for various words and terms oft
 Another reference is the following list of Android Supported Language and Locales http://colincooper.net/?p=238 I found some discrepancies e.g. several of the locales are available in Android 2.1 on the Xperia X8 (which has lots of useful locales available to use)
 
 Here is the wikipedia page for the 2 character language codes which Android uses to locate the relevant language file http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+
+And the following web page contains some useful information that helps with the translation process http://www.wilsonmar.com/android_localization.htm
+
 = Comments = 
 Please comment on these instructions and the process at the foot of this wiki page.
