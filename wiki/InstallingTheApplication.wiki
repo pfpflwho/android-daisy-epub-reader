@@ -31,3 +31,6 @@ Sometimes you may need to install a previously installed version of the DaisyRea
 
 == Uninstallation using adb ==
 If you are using the Android SDK you can use {{{adb uninstall com.ader}}} to deinstall the application.
+
+== Troubleshooting problems ==
+The following wiki page has some advice on investigating and resolving installation and other problems DebuggingInstallationAndOtherProblems
