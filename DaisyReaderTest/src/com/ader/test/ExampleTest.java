@@ -50,7 +50,7 @@ public class ExampleTest extends ActivityInstrumentationTestCase2<HomeScreen> {
 	public void testCanSelectSettingsButton() {
 		// Note: this is a crude hard-coded test, we will clean up soon.
 		ArrayList<Button> buttons = solo.getCurrentButtons();
-		assertEquals("Expected 5 buttons on the homescreen", 5, buttons.size());
+		assertEquals("Expected 6 buttons on the homescreen", 6, buttons.size());
 		for (Button button: buttons) {
 			if (button.getText().equals(SETTINGS)) {
 				solo.clickOnButton(SETTINGS);
