@@ -109,6 +109,11 @@ public class DaisyReaderTest extends ActivityInstrumentationTestCase2<HomeScreen
 		assertTrue("Toast displaying 'folder is not saved' is not shown", toastIsShownNameNotSaved);
 		
 	}
+
+	@Override
+	protected void tearDown() throws Exception {
+		solo.finishOpenedActivities();
+	}
 	
 	}
 

@@ -35,12 +35,10 @@ public class ExampleTest extends ActivityInstrumentationTestCase2<HomeScreen> {
 	@Override
 	protected void tearDown() throws Exception {
 		try {
-			solo.finalize();
+			solo.finishOpenedActivities();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		getActivity().finish();
-		super.tearDown();
 	}
 
 	public void testTrue() {
