@@ -93,5 +93,6 @@ And the ISO country codes http://www.iso.org/iso/country_codes/iso_3166_code_lis
 
 And the following web page contains some useful information that helps with the translation process http://www.wilsonmar.com/android_localization.htm
 
+One for the developers, how to support plurals http://www.kaloer.com/android-plurals
 = Comments = 
 Please comment on these instructions and the process at the foot of this wiki page.
