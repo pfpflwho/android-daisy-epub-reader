@@ -2,6 +2,7 @@ package org.androiddaisyreader.model;
 
 import junit.framework.TestCase;
 
+import org.androiddaisyreader.AudioCallbackListener;
 import org.androiddaisyreader.controller.AudioPlayerController;
 import org.androiddaisyreader.mock.MockAndroidAudioPlayer;
 
@@ -24,16 +25,30 @@ public class MockAndroidAudioPlayerStateTest extends TestCase {
 	private Audio overlapWithInitialSegment;
 	private Audio newAudioFilename;
 	private AudioPlayerController controller;
+	AudioListener audioCallbackListener;
 
+	private class AudioListener implements AudioCallbackListener {
+
+		int endOfAudioCalled = 0;
+		
+		public void endOfAudio() {
+			endOfAudioCalled++;
+		}
+	}
+	
 	@Override
 	protected void setUp() {
 		playerToTest = new MockAndroidAudioPlayer();
 		controller = new AudioPlayerController(playerToTest);
+		audioCallbackListener = new AudioListener();
+		playerToTest.addCallbackListener(audioCallbackListener);
+		
 		initialSegment = new Audio("initial", "file1.mp3", 0, 1234);
 		contiguousSegment = new Audio("contiguous", "file1.mp3", 1234, 7983);
 		gapAfterContiguousSegments = new Audio("gap", "file1.mp3", 15001, 26771);
 		overlapWithInitialSegment = new Audio("overlap", "file1.mp3", 900, 2086);
 		newAudioFilename = new Audio("newfile", "new.mp3", 0, 11589);
+		
 		controller.playFileSegment(initialSegment);
 	}
 
@@ -43,6 +58,8 @@ public class MockAndroidAudioPlayerStateTest extends TestCase {
 				playerToTest.getInternalPlayerState());
 		controller.playFileSegment(contiguousSegment);
 		assertAudioPlayerStateIs(AudioPlayerState.CONTINUE_PLAYING_EXISTING_FILE);
+		assertEquals("Expected 2 calls, one per audio segment", 
+				2, audioCallbackListener.endOfAudioCalled);
 	}
 
 	public void testGapBetweenSegmentsIsDetected() {
