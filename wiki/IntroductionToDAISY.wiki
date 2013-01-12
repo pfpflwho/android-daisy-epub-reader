@@ -1,9 +1,18 @@
-﻿#summary an introduction to DAISY files.
+﻿#summary an introduction to DAISY.
 #labels Phase-Requirements,Phase-QA,Phase-Support
 
 = Introduction =
+DAISY is an acronym: Digital Accessible Information SYstem. This mouthful represents several related things:
+   * A type of eBook typically used by people who have trouble reading other forms of books, particularly print books.
+   * The type actually includes a range of books which may include pre-recorded audio, text, images, and so on. And there are 2 current versions of DAISY books:
+      * version 2.02 which is the current version used globally by virtually every country, except the USA
+      * version 3 which is used predominantly in the USA. 
 
-If you're like me, you're relatively new to DAISY. Here are some links and references that might be useful.
+The DAISY 3 books in the USA seldom include pre-recorded audio so the phone would need to synthesise the audio from the text.
+
+Many DAISY books are restricted to people who have a registered, related impairment, for instance dyslexia or severe visual impairments, including full blindness _and_ where the individual is a resident of the particular country where the book is located. There are probably millions of DAISY books globally. 
+
+Thankfully there are some sample DAISY books available online, the SampleDAISYBooks wiki page has links to some sources of sample DAISY books.
 
 = Details =
 
