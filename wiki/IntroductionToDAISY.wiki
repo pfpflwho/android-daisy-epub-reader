@@ -12,7 +12,7 @@ The DAISY 3 books in the USA seldom include pre-recorded audio so the phone woul
 
 Many DAISY books are restricted to people who have a registered, related impairment, for instance dyslexia or severe visual impairments, including full blindness _and_ where the individual is a resident of the particular country where the book is located. There are probably millions of DAISY books globally. 
 
-Thankfully there are some sample DAISY books available online, the SampleDAISYBooks wiki page has links to some sources of sample DAISY books.
+Thankfully there are some sample DAISY books available online, the [SampleDAISYBooks] wiki page has links to some sources of sample DAISY books.
 
 = Details =
 
