@@ -2,6 +2,7 @@
 #labels Phase-Design
 
 = Introduction =
+We want the DaisyReader app to be able to read the contents of DAISY and other eBooks. We also want the app to communicate with the user by 'speaking', what's sometimes called a 'self-voicing' app. We may be able to rely on Android's Accessibility capabilities to 'speak'; for instance, the combination of designing our app carefully to provide the hints and information combined with Explore-By-Touch might be enough to provide a good user experience on recent versions of Android, such as ICS and Jelly Bean. We will try to find out...
 
 We are struggling to decide between relying on the Accessibility support provided in the recent versions of Android (e.g. ICS and Jelly Bean) or writing explicit code to 'voice' the app. We want DaisyReader to be useful on older versions of Android, including 2.x versions. Android's Accessibility support is unlikely to provide the support we need on Android 2.x
 
