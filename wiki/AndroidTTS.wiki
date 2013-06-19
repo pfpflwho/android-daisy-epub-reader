@@ -1,0 +1,35 @@
+#summary AndroidTTS is important for a self-voicing app.
+#labels Phase-Design
+
+= Introduction =
+
+We are struggling to decide between relying on the Accessibility support provided in the recent versions of Android (e.g. ICS and Jelly Bean) or writing explicit code to 'voice' the app. We want DaisyReader to be useful on older versions of Android, including 2.x versions. Android's Accessibility support is unlikely to provide the support we need on Android 2.x
+
+== International and multi-language support ==
+DaisyReader needs to support many human languages, some of these languages are not currently available as audio (TTS). 
+
+There seem to be a couple of potential solutions to investigate:
+  * Can we use pre-recorded audio for languages that are unsupported?
+  * Can we extend the TTS engine somehow?
+
+Pre-recorded speech can be read from the android device by using a combination of `addSpeech(...)` and `speak(...)`
+
+The following don't format automatically as URLs as they include spaces in the URL. So you need to copy and paste them to reach the documentation.
+`http://developer.android.com/reference/android/speech/tts/TextToSpeech.html#addSpeech(java.lang.String, java.lang.String)`
+
+`http://developer.android.com/reference/android/speech/tts/TextToSpeech.html#speak(java.lang.String, int, java.util.HashMap<java.lang.String, java.lang.String>)`
+
+Someone was investigating possible ways to extend the TTS engine, see the following link:
+http://stackoverflow.com/questions/9272241/extending-android-tts-engine
+
+Also, the user interface of the app may be in one language and the book in another. Older versions of Android apparently enabled app developers to have several TTS instances, one per language, however ICS apparently doesn't support this behaviour (see Volker's comment in http://stackoverflow.com/questions/9450365/android-not-acknowledging-tts-engine )
+
+== The user experience of using TTS in ICS ==
+TTS support in ICS also appears to have some adverse behaviours in terms of the user-experience with loading TTS data e.g. see http://stackoverflow.com/questions/9450365/android-not-acknowledging-tts-engine 
+
+== How well does TTS work for longer pieces of text? ==
+http://stackoverflow.com/questions/15018794/trouble-in-reading-the-text-in-tts
+
+== Can the rate of speech be varied? ==
+see `setSpeechRate`
+http://stackoverflow.com/questions/10690077/texttospeech-tts
