@@ -34,3 +34,6 @@ http://stackoverflow.com/questions/15018794/trouble-in-reading-the-text-in-tts
 == Can the rate of speech be varied? ==
 see `setSpeechRate`
 http://stackoverflow.com/questions/10690077/texttospeech-tts
+
+== Miscellaneous Limitations in Android TTS ==
+Apparently the fall-back doesn't work when pre-recorded audio is missing. See http://stackoverflow.com/questions/9143439/texttospeech-fall-back-to-back-end-service-when-pre-recorded-wav-file-missing 
