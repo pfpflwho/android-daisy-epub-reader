@@ -17,3 +17,4 @@ http://ux.stackexchange.com/questions/19071/what-are-the-design-guidelines-to-ma
    * Reduce the contract between background and foreground colours http://accessites.org/site/2006/11/designing-for-dyslexics-part-2-of-3/
    * Other settings and options to consider adding to DaisyReader apps http://accessites.org/site/2006/11/designing-for-dyslexics-part-3-of-3/
 
+And finally for now, a broad question on the topic http://ux.stackexchange.com/questions/36477/dyslexia-friendly-colors-for-wider-audience
