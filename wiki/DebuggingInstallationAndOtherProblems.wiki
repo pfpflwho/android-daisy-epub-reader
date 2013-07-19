@@ -1,4 +1,5 @@
 #summary Some advice and tips on debugging installation or runtime problems.
+#labels Phase-Support,Phase-Deploy,Phase-QA
 
 = Introduction =
 
@@ -12,6 +13,25 @@ A common cause that prevents an app from installing is because an different vers
    * Try uninstalling the existing copy. From the Settings menu, select Applications, then Manage Applications. You should see the existing application in the list of applications. Click on the appropriate item then select the Uninstall button & complete the uninstallation. Now try to install the new one again. I *think* this is the most likely cause of the problem. 
 
 Discussion: The way I create the development versions means this problem sometimes happens if I use different machines when creating the program. The problem is caused by the 'debug' signing key which is unique to each computer. It shouldn't happen once I finally make formal 'signed' releases where the signing key comes from Google.
+
+== working with adb commands from the Android SDK ==
+If you are use `adb install` to install software from the command line we get more information about the cause of the problem. For instance  here's an example where the install fails because the Android device has another version of the same application that was signed with a key from another development computer.
+
+{{{
+adb install -r ~/temp/EbookReader_Sprint2.apk 
+* daemon not running. starting it now on port 5037 *
+* daemon started successfully *
+4356 KB/s (1430037 bytes in 0.320s)
+	pkg: /data/local/tmp/EbookReader_Sprint2.apk
+Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]
+}}}
+
+The key is `Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]` 
+
+To deinstall using `adb uninstall` we need to know the package name to deinstall the existing app on the phone.
+   * `adb shell pm list packages` lists all the installed packages. 
+   * `adb uninstall org.androiddaisyreader.apps`
+
 
 = Obtaining more information about problems =
 Android devices have a log file on the device. The phone and most applications, including DaisyReader, etc. write messages to this log. The messages in the log often contain important clues about problems.
