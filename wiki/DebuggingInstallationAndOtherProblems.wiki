@@ -32,7 +32,13 @@ To deinstall using `adb uninstall` we need to know the package name to deinstall
    * `adb shell pm list packages` lists all the installed packages. 
    * `adb uninstall org.androiddaisyreader.apps`
 
-
+Now we can install the new version of the app, for instance:
+{{{
+ adb install -r ~/temp/EbookReader_Sprint2.apk 
+3199 KB/s (1430037 bytes in 0.436s)
+	pkg: /data/local/tmp/EbookReader_Sprint2.apk
+Success
+}}}
 = Obtaining more information about problems =
 Android devices have a log file on the device. The phone and most applications, including DaisyReader, etc. write messages to this log. The messages in the log often contain important clues about problems.
 
