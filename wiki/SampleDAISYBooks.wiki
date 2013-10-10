@@ -18,6 +18,9 @@ http://www.nfb.org/nfb/braille_monitor.asp#Online%20Access is the Braille Monito
 http://www.htctu.net/demos/
 Here is a link to the first full-audio book they offer to save you time http://www.htctu.net/demos/daisy/AliceWonderland.zip
 
+http://demo.online-daisy.com/ 
+provides 4 sample DAISY 2.02 full-audio publications, They seem to be newspapers in Flemish. Here's one of the links http://demo.online-daisy.com/downloadDemo.action?publicationId=109103 
+
 http://www.guidedogswa.org/books/scriptures/
 I suggest you try the following book http://www.guidedogswa.org/books/scriptures/bible/niv/niv_nt-202.zip It's one of the smaller full-audio DAISY 2.02 books, but downloading about 270 mega-bytes may still be time-consuming or impractical depending on the cost, speed and quality of your internet connection.
 
