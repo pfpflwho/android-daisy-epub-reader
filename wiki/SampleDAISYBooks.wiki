@@ -61,11 +61,16 @@ There are many things that make the instructions hard to document adequately, to
 In the meantime we will work to reduce the number of steps required, by adding support for zipped books directly into the software.
 
 == Sample DAISY 3 books ==
-Please note, the current version of our software does not support any DAISY 3 books. However I've included this section in case it helps you find books for other DAISY players.
+The new version of our software supports full audio DAISY 3 books. These are rare, at least we haven't found many online.
 
 Sample DAISY 3 books are available from
 
 http://www.gh-accessibility.com/store/download.php Search for Chimpanzees to find the first of several links to sample books. The first link is reproduced here to save time
 http://www.gh-accessibility.com/store/files/Chimpanzees_DAISY_3.0.zip
 
-http://www.munseys.com seems to have about 30,000 free books in DAISY format. However these books are full text books in DAISY 3 format, and therefore not suitable for the current version of our software.
+We are about to add support to read aloud full-text books, where sites such as the following may be useful:
+
+http://www.munseys.com seems to have about 30,000 free books in DAISY format. These books are full text books in DAISY 3 format.
+
+=== Commercial sources of DAISY books ===
+http://www.readhowyouwant.com/braille/ provide books in various formats including DAISY 2.02 and DAISY 3 as far as I can tell. The books are relatively expensive e.g. $9.99
