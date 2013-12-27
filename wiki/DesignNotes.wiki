@@ -42,4 +42,12 @@ How about using a webview to display text and images for books that include pre-
 
 == For full text DAISY books ==
 We need to use TTS to 'read' the text anyway (assuming the user wants to listen to the audio) so we will probably need to segment the text content so we don't overrun / overload the TTS engine. Therefore we should be able to segment the full text so it doesn't exceed the viewable area on the current device's screen. The segmenting algorithm is likely to be relatively sophisticated to provide a pleasing user experience; however we can start simply and see how sophisticated we need to get to please the users.
-Julian Harty 03 Jan 2012
+
+= Coping with interruptions =
+We need to make sure the app copes appropriately with interruptions, including phone calls, being put into the background, etc.
+
+Here's a potentially useful example that detects the state of phone calls https://code.google.com/p/mynpr/source/browse/trunk/mynpr/src/com/webeclubbin/mynpr/StreamingMediaPlayer.java
+
+We also need to make sure the new app (and any of our apps) correctly retains the correct location in the book when the app leaves the foreground. 
+
+Julian Harty 27 Dec 2013
