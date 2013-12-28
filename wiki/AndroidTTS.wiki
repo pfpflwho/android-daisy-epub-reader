@@ -37,3 +37,12 @@ http://stackoverflow.com/questions/10690077/texttospeech-tts
 
 == Miscellaneous Limitations in Android TTS ==
 Apparently the fall-back doesn't work when pre-recorded audio is missing. See http://stackoverflow.com/questions/9143439/texttospeech-fall-back-to-back-end-service-when-pre-recorded-wav-file-missing 
+
+= Other projects that use Android TTS =
+Here are various projects I've found that also use Android TTS. There will be additional projects both on Google Code, and elsewhere on the web. Please add links to them in the comments and I can include relevant ones here.
+
+   * http://code.google.com/p/ttsaid/ Text to Speech (TTS) application to help visually impaired people (Android platform) Uses GPLv3 license to incompatible with this project in terms of the codebases.
+   * 
+
+I've listed the following seemingly dormant projects here to save me time researching them.
+   * http://code.google.com/p/mobile-for-visually-impaired (a single commit, no functionality currently)
